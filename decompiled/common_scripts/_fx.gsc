@@ -264,11 +264,11 @@ create_dynamicambience()
         common_scripts\utility::flag_wait( "createfx_started" );
 
     if ( isdefined( self.dambinfostruct ) )
-        level.player _meth_847A( self.dambinfostruct.unique_id );
+        level.player stopdynamicambience( self.dambinfostruct.unique_id );
 
     self.dambinfostruct = spawnstruct();
     self.dambinfostruct common_scripts\utility::assign_unique_id();
-    level.player _meth_8479( self.v["ambiencename"], self.v["origin"], self.v["dynamic_distance"], self.dambinfostruct.unique_id );
+    level.player playdynamicambience( self.v["ambiencename"], self.v["origin"], self.v["dynamic_distance"], self.dambinfostruct.unique_id );
     return;
 }
 

@@ -368,7 +368,7 @@ recordtogglescopestates()
             {
                 if ( var_5 == "variablereddot" )
                 {
-                    self.pers["toggleScopeStates"][var_2] = self gethybridscopestate( var_2 );
+                    self.pers["toggleScopeStates"][var_2] = self gethybridsightenabled( var_2 );
                     break;
                 }
             }
@@ -826,7 +826,7 @@ handlescavengerbagpickup( var_0 )
     {
         if ( maps\mp\gametypes\_class::isvalidoffhand( var_4 ) && var_1 maps\mp\_utility::_hasperk( "specialty_tacticalresupply" ) )
         {
-            var_1 _meth_84A0( var_4 );
+            var_1 batteryfullrecharge( var_4 );
             continue;
         }
 
@@ -2082,7 +2082,7 @@ manuallydetonateall( var_0 )
                 return;
             }
 
-            if ( isdefined( var_4.weaponname ) && !self _meth_84C0( var_4.weaponname ) )
+            if ( isdefined( var_4.weaponname ) && !self getdetonateenabled( var_4.weaponname ) )
             {
                 var_1 = 1;
                 continue;
@@ -2114,7 +2114,7 @@ waitanddetonate( var_0, var_1 )
     waittillenabled();
 
     if ( var_1 == 2 )
-        self _meth_8519();
+        self detonatebydoubletap();
     else
         self detonate();
 
@@ -3993,10 +3993,10 @@ watchweaponinspection()
                 continue;
         }
 
-        self _meth_855F();
+        self startweaponinspection();
         waitframe();
 
-        while ( self _meth_8560() )
+        while ( self isinspectingweapon() )
             waitframe();
     }
 }

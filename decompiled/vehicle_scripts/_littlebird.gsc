@@ -289,8 +289,8 @@ littlebird_emp_death( var_0, var_1 )
     thread littlebird_deathspin();
     var_6 = 1000;
     self vehicle_setspeed( var_6, 40, 1000 );
-    self neargoalnotifydist( var_3 );
-    self setgoalpos( var_4, 0 );
+    self setneargoalnotifydist( var_3 );
+    self setvehgoalpos( var_4, 0 );
     thread littlebird_emp_crash_movement( var_4, var_3, var_6 );
     common_scripts\utility::waittill_any( "goal", "near_goal" );
     self notify( "stop_crash_loop_sound" );

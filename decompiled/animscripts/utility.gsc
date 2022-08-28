@@ -2183,7 +2183,7 @@ follow_enemy_with_laser( var_0, var_1 )
     else
         return;
 
-    if ( var_0 _meth_843E( "tag_flash" ) == -1 )
+    if ( var_0 gettagindex( "tag_flash" ) == -1 )
     {
         var_0.laser_follower = undefined;
         return;

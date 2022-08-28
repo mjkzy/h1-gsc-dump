@@ -1062,7 +1062,7 @@ the_wounding()
     level.price.fixednode = 1;
     level.price.goalradius = 32;
     var_0 = getnode( "price_wait_more_behind_node", "targetname" );
-    level.price getgoalvolume( var_0 );
+    level.price setgoalnode( var_0 );
     thread confirm_price_at_goal();
     common_scripts\utility::flag_wait( "player_touches_wounding_clip" );
     var_1 = getentarray( "surprise_spawner", "targetname" );
@@ -1090,7 +1090,7 @@ fight_enemies_behind()
         maps\_anim::anim_single_solo( self, "behind_turn" );
 
     var_0 = getnode( "price_more_behind_node", "targetname" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 }
 
 surprisers_interval()

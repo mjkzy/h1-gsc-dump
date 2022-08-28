@@ -497,7 +497,7 @@ oil_spill_think()
         self.barrel waittill( "exploding" );
 
     if ( isdefined( level.breakables_sfx["oilspill"]["spark"] ) )
-        var_0 _meth_854D( level.breakables_sfx["oilspill"]["spark"] );
+        var_0 stopsound( level.breakables_sfx["oilspill"]["spark"] );
 
     self.extra delete();
     self hide();

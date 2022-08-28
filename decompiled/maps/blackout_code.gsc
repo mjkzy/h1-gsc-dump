@@ -280,7 +280,7 @@ chess_guys_investigate()
         return;
 
     var_0 = getnode( self.target, "targetname" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = var_0.radius;
 }
 
@@ -679,7 +679,7 @@ field_russian_think()
     if ( isdefined( self.script_noteworthy ) )
     {
         var_4 = getnode( self.script_noteworthy, "targetname" );
-        self getgoalvolume( var_4 );
+        self setgoalnode( var_4 );
         self.goalradius = 8;
         self.interval = 0;
         self waittill( "goal" );
@@ -702,10 +702,10 @@ field_russian_think()
         wait(var_7[self.script_noteworthy]);
         common_scripts\utility::flag_wait( "field_go" );
         self orientmode( "face default" );
-        self getgoalvolume( var_2 );
+        self setgoalnode( var_2 );
     }
     else
-        self getgoalvolume( var_2 );
+        self setgoalnode( var_2 );
 
     thread hill_head_tracking();
     self.fixednode = 1;
@@ -869,7 +869,7 @@ sas_main_think()
         if ( self != level.kamarov )
         {
             var_1 = getnode( var_4[self.animname], "targetname" );
-            self getgoalvolume( var_1 );
+            self setgoalnode( var_1 );
         }
         else if ( getdvarint( "use_old_kamarov_overlook" ) == 1 )
         {
@@ -1042,7 +1042,7 @@ sas_main_think()
                 common_scripts\utility::flag_wait( "kam_heads_to_rappel_spot" );
                 maps\_utility::disable_ai_color();
                 var_1 = getnode( "kam_power_node", "targetname" );
-                self getgoalvolume( var_1 );
+                self setgoalnode( var_1 );
                 self.goalradius = 16;
             }
             else
@@ -1406,7 +1406,7 @@ teleport_and_take_node_by_targetname( var_0 )
         var_3.taken = 1;
         self teleport( var_3.origin );
         self.goalradius = 32;
-        self getgoalvolume( var_3 );
+        self setgoalnode( var_3 );
         return;
     }
 }
@@ -1829,7 +1829,7 @@ swarm_hillside()
     self.goalradius = var_4.radius;
     self waittill( "goal" );
     var_5 = getnode( "power_plant_fight_node", "targetname" );
-    self getgoalvolume( var_5 );
+    self setgoalnode( var_5 );
     self.goalradius = 2048;
 
     for (;;)
@@ -2370,7 +2370,7 @@ price_pre_power_station_goal()
 {
     self endon( "death" );
     var_0 = getnode( "price_pre_power_station_goal", "targetname" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 
     if ( isdefined( var_0.radius ) )
         self.goalradius = var_0.radius;
@@ -2738,7 +2738,7 @@ vip_rescue_dialogue( var_0 )
     level.vip thread vip_can_still_fight();
     wait 5.1;
     var_1 = getnode( "price_rescue_node", "targetname" );
-    level.price getgoalvolume( var_1 );
+    level.price setgoalnode( var_1 );
     level.price maps\_utility::dialogue_queue( "have_the_package" );
     maps\_utility::radio_dialogue( "on_our_way" );
     level.price maps\_utility::cqb_walk( "off" );
@@ -2750,7 +2750,7 @@ vip_rescue_dialogue( var_0 )
     level.vip maps\_utility::delaythread( 3, maps\_utility::cqb_walk, "off" );
     level.gaz maps\_utility::set_force_color( "p" );
     var_2 = getnode( "vip_rescue_node", "targetname" );
-    level.vip getgoalvolume( var_2 );
+    level.vip setgoalnode( var_2 );
 }
 
 vip_can_still_fight()
@@ -3009,7 +3009,7 @@ advances_to_node( var_0 )
 
     var_0.already_advanced = 1;
     self.goalradius = 16;
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 }
 
 price_signals_on_arrival()
@@ -3103,7 +3103,7 @@ gaz_teleports_upstairs()
 {
     var_0 = getnode( "gaz_teleport_node", "targetname" );
     level.gaz teleport( var_0.origin );
-    level.gaz getgoalvolume( var_0 );
+    level.gaz setgoalnode( var_0 );
     level.gaz maps\_utility::cqb_walk( "on" );
 }
 
@@ -3116,7 +3116,7 @@ blackout_lights_go_out()
 {
     common_scripts\utility::flag_set( "lights_out" );
     var_0 = getnode( "power_node_switch", "targetname" );
-    level.gaz getgoalvolume( var_0 );
+    level.gaz setgoalnode( var_0 );
     level.gaz playsound( "scn_blackout_breaker_box" );
     wait 2.5;
     common_scripts\utility::flag_set( "turn_off_blackout_spotlights" );
@@ -3175,18 +3175,18 @@ gaz_opens_door_and_enters()
         var_0 maps\_anim::anim_single_solo( level.gaz, "open_blackout_door" );
 
     var_3 = getnode( "gaz_door_dead_node", "targetname" );
-    level.gaz getgoalvolume( var_3 );
+    level.gaz setgoalnode( var_3 );
     common_scripts\utility::flag_set( "gaz_opens_door" );
     common_scripts\utility::flag_wait( "price_and_gaz_attack_flashlight_guy" );
     var_3 = getnode( var_3.target, "targetname" );
-    level.gaz getgoalvolume( var_3 );
+    level.gaz setgoalnode( var_3 );
 }
 
 gaz_goes_to_cut_the_power()
 {
     setsaveddvar( "ai_friendlyFireBlockDuration", "0" );
     var_0 = getnode( "power_node", "targetname" );
-    level.gaz getgoalvolume( var_0 );
+    level.gaz setgoalnode( var_0 );
     level endon( "lights_out" );
     level.gaz.goalradius = 32;
     level.gaz waittill( "goal" );
@@ -3198,7 +3198,7 @@ gaz_goes_to_cut_the_power_h1()
 {
     setsaveddvar( "ai_friendlyFireBlockDuration", "0" );
     var_0 = getnode( "power_node", "targetname" );
-    level.gaz getgoalvolume( var_0 );
+    level.gaz setgoalnode( var_0 );
     var_1 = spawn( "script_origin", ( -1042.69, -3254.42, 361.123 ) );
     var_1.angles = ( 0.0, -45.133, 0.0 );
     var_2 = getent( "house_electric_box_animated", "targetname" );
@@ -3258,15 +3258,15 @@ price_opens_door_and_goes_in()
 price_attacks_door_guy()
 {
     var_0 = getnode( "price_door_attack_node", "targetname" );
-    level.price getgoalvolume( var_0 );
+    level.price setgoalnode( var_0 );
     thread last_signal_node( var_0 );
     common_scripts\utility::flag_wait( "price_and_gaz_attack_flashlight_guy" );
     var_0 = getnode( var_0.target, "targetname" );
-    level.price getgoalvolume( var_0 );
+    level.price setgoalnode( var_0 );
     common_scripts\utility::flag_wait( "blackout_flashlightguy_dead" );
     level.price.fixednode = 1;
     var_1 = getnode( "price_rescue_room_node", "targetname" );
-    level.price getgoalvolume( var_1 );
+    level.price setgoalnode( var_1 );
 }
 
 last_signal_node( var_0 )
@@ -3557,7 +3557,7 @@ bmp_killer_spawner_think()
     maps\_utility::stop_magic_bullet_shield();
     self.a.rockets = 1;
     var_1 = getnode( "cliff_remove_node", "targetname" );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self.goalradius = 32;
     self waittill( "goal" );
     self delete();
@@ -4375,7 +4375,7 @@ helicopter_searchlight_setup()
     self.spotlight linkto( self, "tag_barrel", ( 0.0, 0.0, -16.0 ), ( 0.0, 0.0, 0.0 ) );
     self.spotlight makeunusable();
     self.spotlight setmode( "manual" );
-    self.spotlight _meth_8159( 25 );
+    self.spotlight settoparc( 25 );
     self.spotlight.enabled = 0;
     var_0 = spawn( "script_origin", self gettagorigin( "tag_ground" ) );
     var_0 linkto( self, "tag_ground", ( 320.0, 0.0, -256.0 ), ( 0.0, 0.0, 0.0 ) );

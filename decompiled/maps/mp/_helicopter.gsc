@@ -433,7 +433,7 @@ heli_reset()
     self vehicle_setspeed( 60, 25 );
     self setyawspeed( 75, 45, 45 );
     self setmaxpitchroll( 30, 30 );
-    self neargoalnotifydist( 256 );
+    self setneargoalnotifydist( 256 );
     self setturningability( 0.9 );
 }
 
@@ -650,7 +650,7 @@ heli_leave()
     var_1 = level.heli_leavenodes[var_0];
     heli_reset();
     self vehicle_setspeed( 100, 45 );
-    self setgoalpos( var_1.origin, 1 );
+    self setvehgoalpos( var_1.origin, 1 );
     self waittillmatch( "goal" );
     self notify( "death" );
     level.chopper = undefined;
@@ -695,7 +695,7 @@ heli_fly( var_0 )
         if ( self.currentstate == "heavy smoke" || self.currentstate == "light smoke" )
         {
             self vehicle_setspeed( var_3, var_4 );
-            self setgoalpos( var_1, var_5 );
+            self setvehgoalpos( var_1, var_5 );
             self waittill( "near_goal" );
             self notify( "path start" );
         }
@@ -705,7 +705,7 @@ heli_fly( var_0 )
                 var_5 = 1;
 
             self vehicle_setspeed( var_3, var_4 );
-            self setgoalpos( var_1, var_5 );
+            self setvehgoalpos( var_1, var_5 );
 
             if ( !isdefined( var_2.script_delay ) )
             {
@@ -962,7 +962,7 @@ attack_primary()
                     else if ( isdefined( self.targetlost ) && self.targetlost && isdefined( self.turret_last_pos ) )
                         self setturrettargetvec( self.turret_last_pos );
                     else
-                        self clearturrettargetent();
+                        self clearturrettarget();
 
                     if ( gettime() != self.lastrocketfiretime )
                     {

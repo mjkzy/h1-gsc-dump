@@ -407,7 +407,7 @@ watchfordestructiblevehicles()
 
     foreach ( var_2 in var_0 )
     {
-        var_3 = var_2 _meth_8438();
+        var_3 = var_2 getscriptabletypeforentity();
 
         if ( issubstr( var_3, "destpv_" ) )
             var_2 thread destructiblevehiclewatch();

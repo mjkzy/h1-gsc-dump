@@ -701,7 +701,7 @@ bot_oldschool_pickup_get_desired_weapon_pickup_action( var_0 )
         if ( maps\mp\gametypes\_class::isvalidoffhand( var_0 ) )
         {
             var_3 = 0;
-            var_4 = self getoffhandsecondaryclass();
+            var_4 = self gettacticalweapon();
 
             if ( var_4 != "none" )
                 var_3 = self getweaponammoclip( var_4 );

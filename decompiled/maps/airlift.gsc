@@ -433,23 +433,23 @@ h1_airlift_rumblesystem_cobracrash()
 
 h1_airlift_introdepthoffield()
 {
-    level.player _meth_84A5();
-    level.player _meth_84A7( 3.0, 1500, 9.0, 9.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 3.0, 1500, 9.0, 9.0 );
     thread h1_airlift_reloadm19();
     wait 110.0;
-    level.player _meth_84A7( 2.4, 800, 0.1, 0.1 );
+    level.player setphysicaldepthoffield( 2.4, 800, 0.1, 0.1 );
     wait 15.0;
     common_scripts\utility::flag_wait( "start_tank_crush" );
     wait 0.7;
-    level.player _meth_84A7( 1.4, 300, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 1.4, 300, 1.0, 1.0 );
     thread vfx_tank_water_splashes();
     wait 10.5;
-    level.player _meth_84A7( 2.4, 2000, 0.25, 0.25 );
+    level.player setphysicaldepthoffield( 2.4, 2000, 0.25, 0.25 );
     wait 8.5;
     wait 12.0;
-    level.player _meth_84A7( 3.0, 3000, 0.1, 0.1 );
+    level.player setphysicaldepthoffield( 3.0, 3000, 0.1, 0.1 );
     wait 10.0;
-    level.player _meth_84A7( 3.0, 1500, 0.1, 0.1 );
+    level.player setphysicaldepthoffield( 3.0, 1500, 0.1, 0.1 );
 }
 
 h1_airlift_reloadm19()
@@ -468,9 +468,9 @@ h1_airlift_reloadm19()
             var_2 -= 360;
 
         if ( var_2 >= 18 )
-            level.player _meth_84A7( 6.0, 26, 5.0, 4.0 );
+            level.player setphysicaldepthoffield( 6.0, 26, 5.0, 4.0 );
         else if ( var_2 <= 12 )
-            level.player _meth_84A7( 3.0, 1500, 6.0, 5.0 );
+            level.player setphysicaldepthoffield( 3.0, 1500, 6.0, 5.0 );
 
         wait(var_0);
     }
@@ -478,37 +478,37 @@ h1_airlift_reloadm19()
     level.player thread maps\_utility::play_sound_on_entity( "weap_mark19_reload" );
     wait 0.5;
     setsaveddvar( "r_mbEnable", 2 );
-    level.player _meth_84A7( 4.0, 21, 8.0, 8.0 );
+    level.player setphysicaldepthoffield( 4.0, 21, 8.0, 8.0 );
     wait 0.4;
-    level.player _meth_84A7( 3.4, 30, 2.3, 2.3 );
+    level.player setphysicaldepthoffield( 3.4, 30, 2.3, 2.3 );
     wait 0.65;
-    level.player _meth_84A7( 3.4, 28, 1.5, 1.5 );
+    level.player setphysicaldepthoffield( 3.4, 28, 1.5, 1.5 );
     wait 1.65;
-    level.player _meth_84A7( 4.0, 19, 2.3, 2.3 );
+    level.player setphysicaldepthoffield( 4.0, 19, 2.3, 2.3 );
     wait 0.85;
-    level.player _meth_84A7( 3.4, 25, 2.5, 2.5 );
+    level.player setphysicaldepthoffield( 3.4, 25, 2.5, 2.5 );
     wait 0.5;
-    level.player _meth_84A7( 4.5, 13, 2.5, 2.5 );
+    level.player setphysicaldepthoffield( 4.5, 13, 2.5, 2.5 );
     wait 0.5;
-    level.player _meth_84A7( 6.0, 37, 2.7, 2.7 );
+    level.player setphysicaldepthoffield( 6.0, 37, 2.7, 2.7 );
     wait 0.5;
-    level.player _meth_84A7( 12.0, 18, 2.5, 2.5 );
+    level.player setphysicaldepthoffield( 12.0, 18, 2.5, 2.5 );
     wait 0.85;
     setsaveddvar( "r_mbEnable", 0 );
-    level.player _meth_84A7( 3.0, 1500, 6.0, 3.0 );
+    level.player setphysicaldepthoffield( 3.0, 1500, 6.0, 3.0 );
     wait 1.0;
 }
 
 h1_airlift_smoketowndepthoffield()
 {
-    level.player _meth_84A5();
-    level.player _meth_84A7( 3.0, 1500, 9.0, 9.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 3.0, 1500, 9.0, 9.0 );
     common_scripts\utility::flag_wait( "seaknightLandingInSmoketown" );
-    level.player _meth_84A7( 3.0, 250, 0.1, 0.1 );
+    level.player setphysicaldepthoffield( 3.0, 250, 0.1, 0.1 );
     common_scripts\utility::flag_wait( "seaknight_landed_smoketown" );
-    level.player _meth_84A7( 6.0, 500, 0.5, 0.5 );
+    level.player setphysicaldepthoffield( 6.0, 500, 0.5, 0.5 );
     wait 2.0;
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
 }
 
 h1_airlift_rumblelogic( var_0, var_1 )
@@ -981,7 +981,7 @@ plaza_at4_sequence()
     wait 1;
     var_2 notify( "stop_idle" );
     var_7 = getnode( "node_at4_guy_next", "targetname" );
-    var_1 getgoalvolume( var_7 );
+    var_1 setgoalnode( var_7 );
 
     if ( isdefined( var_1.magic_bullet_shield ) )
         var_1 maps\_utility::stop_magic_bullet_shield();
@@ -1270,7 +1270,7 @@ smoketown_land()
 
     foreach ( var_3 in var_1 )
     {
-        var_3 _meth_8565( 1 );
+        var_3 setisignoringgrenades( 1 );
 
         if ( var_3.name != "Lt. Vasquez" )
             level.friendliesnames_ch46 = common_scripts\utility::array_add( level.friendliesnames_ch46, var_3.name );
@@ -1299,7 +1299,7 @@ smoketown_land()
     common_scripts\utility::flag_wait( "player_constrction_approach" );
 
     foreach ( var_3 in var_1 )
-        var_3 _meth_8565( 0 );
+        var_3 setisignoringgrenades( 0 );
 
     soundscripts\_snd::snd_message( "aud_add_smoketown_operation_mix" );
     common_scripts\utility::flag_wait( "player_constrction_dialogue_spoken" );
@@ -1310,7 +1310,7 @@ smoketown_land()
     common_scripts\utility::flag_wait( "player_middle_construction" );
     level.vasquez maps\_utility::disable_ai_color();
     var_9 = getnode( "vasquez_construction", "targetname" );
-    level.vasquez getgoalvolume( var_9 );
+    level.vasquez setgoalnode( var_9 );
     common_scripts\utility::flag_wait( "player_stairs_construction" );
     var_5 = getaiarray( "axis" );
     thread maps\_utility::ai_delete_when_out_of_sight( var_5, 256 );
@@ -1393,7 +1393,7 @@ at4_detach()
     var_2 = spawn( "script_model", var_0 );
     var_2 setmodel( "weapon_at4" );
     var_2.angles = var_1;
-    var_2 _meth_8477( ( -743.0, -3615.0, 148.0 ) );
+    var_2 overridelightingorigin( ( -743.0, -3615.0, 148.0 ) );
     common_scripts\utility::flag_wait( "at4_sequence_over" );
     common_scripts\utility::flag_wait( "player_smoketown_junkyard" );
 
@@ -1649,8 +1649,8 @@ aa_cobraflight_init()
 
 h1_depthoffield_cobraflight()
 {
-    level.player _meth_84A5();
-    level.player _meth_84A7( 3.0, 1500, 1.0, 1.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 3.0, 1500, 1.0, 1.0 );
     common_scripts\utility::flag_wait( "cobra_hit" );
     wait 0.15;
     var_0 = 0.5;
@@ -1659,27 +1659,27 @@ h1_depthoffield_cobraflight()
     for ( var_2 = ( 0.0, 0.0, 0.0 ); var_1 <= 48.5; var_1 += var_0 )
     {
         if ( var_1 > 17.0 && var_1 < 20.0 || var_1 > 27.0 && var_1 < 33.0 )
-            level.player _meth_84A7( 3.0, 1000, 0.5, 0.5 );
+            level.player setphysicaldepthoffield( 3.0, 1000, 0.5, 0.5 );
         else
         {
             if ( isdefined( level.wingman.origin ) )
                 var_2 = level.wingman.origin;
 
             var_3 = maps\_utility::round_float( distance( level.player.origin, var_2 ), 0 );
-            level.player _meth_84A7( 3.0, var_3, 1.0, 1.0 );
+            level.player setphysicaldepthoffield( 3.0, var_3, 1.0, 1.0 );
         }
 
         wait(var_0);
     }
 
-    level.player _meth_84A7( 3.0, 1000, 0.25, 0.25 );
+    level.player setphysicaldepthoffield( 3.0, 1000, 0.25, 0.25 );
     wait 4.0;
-    level.player _meth_84A7( 3.0, 250, 0.1, 0.1 );
+    level.player setphysicaldepthoffield( 3.0, 250, 0.1, 0.1 );
     level.seaknight waittill( "landed" );
     wait 2.0;
-    level.player _meth_84A7( 6.0, 500, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 6.0, 500, 1.0, 1.0 );
     wait 1.75;
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
 }
 
 music_cobraflight()
@@ -2323,17 +2323,17 @@ cobra_streetfight()
 h1_grabbingpilot_dofsystem()
 {
     level.player thread maps\_utility::play_sound_on_entity( "airlift_pickup_pilot_backpack" );
-    level.player _meth_84A7( 2.0, 42, 9.0, 9.0 );
-    level.player _meth_84A5();
-    level.player _meth_84A7( 2.0, 42, 4.0, 4.0 );
+    level.player setphysicaldepthoffield( 2.0, 42, 9.0, 9.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 2.0, 42, 4.0, 4.0 );
     wait 0.85;
-    level.player _meth_84A7( 2.5, 21.0, 1.6, 1.6 );
+    level.player setphysicaldepthoffield( 2.5, 21.0, 1.6, 1.6 );
     wait 0.5;
-    level.player _meth_84A7( 3.0, 9.75, 1.7, 1.7 );
+    level.player setphysicaldepthoffield( 3.0, 9.75, 1.7, 1.7 );
     setsaveddvar( "r_mbEnable", 2 );
     wait 0.5;
     wait 0.15;
-    level.player _meth_84A7( 2.0, 2325, 1.2, 1.2 );
+    level.player setphysicaldepthoffield( 2.0, 2325, 1.2, 1.2 );
     wait 3.0;
     var_0 = 0.1;
     var_1 = 0.0;
@@ -2341,7 +2341,7 @@ h1_grabbingpilot_dofsystem()
     while ( var_1 >= 0 )
     {
         var_2 = maps\_utility::round_float( distance( level.player.origin, level.seaknight.origin ), 0 );
-        level.player _meth_84A7( 2.0, var_2, 1.0, 1.0 );
+        level.player setphysicaldepthoffield( 2.0, var_2, 1.0, 1.0 );
         wait(var_0);
         var_1 += var_0;
 
@@ -2350,18 +2350,18 @@ h1_grabbingpilot_dofsystem()
     }
 
     wait 1.0;
-    level.player _meth_84A7( 2.5, 19, 1.7, 1.7 );
+    level.player setphysicaldepthoffield( 2.5, 19, 1.7, 1.7 );
     wait 1.15;
-    level.player _meth_84A7( 3.5, 13.5, 2.5, 2.5 );
+    level.player setphysicaldepthoffield( 3.5, 13.5, 2.5, 2.5 );
     wait 0.65;
     setsaveddvar( "r_mbEnable", 0 );
-    level.player _meth_84A7( 3.5, 11, 3.0, 3.0 );
+    level.player setphysicaldepthoffield( 3.5, 11, 3.0, 3.0 );
     wait 0.5;
     common_scripts\utility::flag_set( "pilot_name_reappear" );
-    level.player _meth_84A7( 3.5, 65, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 3.5, 65, 1.0, 1.0 );
     wait 1.5;
     setsaveddvar( "r_mbEnable", 2 );
-    level.player _meth_84A7( 3.5, 120, 2.5, 2.5 );
+    level.player setphysicaldepthoffield( 3.5, 120, 2.5, 2.5 );
     wait 0.7;
     wait 1.0;
     setsaveddvar( "r_mbEnable", 0 );
@@ -2378,40 +2378,40 @@ h1_grabbingpilot_dofsystem()
         var_5 = angleclamp180( var_5 );
 
         if ( var_5 > -140 && var_5 < -120 )
-            level.player _meth_84A7( 2.5, 53, 2.5, 2.5 );
+            level.player setphysicaldepthoffield( 2.5, 53, 2.5, 2.5 );
         else if ( var_5 < -145 || var_5 > 0 )
-            level.player _meth_84A7( 2.5, 1500, 2.0, 2.0 );
+            level.player setphysicaldepthoffield( 2.5, 1500, 2.0, 2.0 );
 
         wait(var_0);
     }
 
-    level.player _meth_84A7( 2.5, 1500, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 2.5, 1500, 1.0, 1.0 );
     wait 1.0;
     level.player lerpviewangleclamp( 0.5, 0, 0, 0, 0, 0, 0 );
     common_scripts\utility::flag_wait( "nuke_explodes" );
     setsaveddvar( "r_mbEnable", 2 );
-    level.player _meth_84A7( 2.5, 1500, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 2.5, 1500, 1.0, 1.0 );
     wait 6.5;
 
     if ( isdefined( level.crewchief ) )
         level.crewchief common_scripts\utility::hide_friendname_until_flag_or_notify( "none" );
 
-    level.player _meth_84A7( 3.0, 200, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 3.0, 200, 2.0, 2.0 );
     wait 1.65;
-    level.player _meth_84A7( 3.5, 150, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 3.5, 150, 2.0, 2.0 );
     wait 1.35;
-    level.player _meth_84A7( 4.0, 30, 4.0, 4.0 );
+    level.player setphysicaldepthoffield( 4.0, 30, 4.0, 4.0 );
     wait 0.85;
-    level.player _meth_84A7( 4.0, 35, 0.8, 0.8 );
+    level.player setphysicaldepthoffield( 4.0, 35, 0.8, 0.8 );
     wait 2.5;
-    level.player _meth_84A7( 3.5, 250, 4.0, 4.0 );
+    level.player setphysicaldepthoffield( 3.5, 250, 4.0, 4.0 );
     wait 0.5;
-    level.player _meth_84A7( 3.5, 15, 4.0, 4.0 );
+    level.player setphysicaldepthoffield( 3.5, 15, 4.0, 4.0 );
     wait 0.65;
-    level.player _meth_84A7( 3.0, 1000, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 3.0, 1000, 2.0, 2.0 );
     wait 1.0;
     wait 7.5;
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
     setsaveddvar( "r_mbEnable", 0 );
 }
 
@@ -2793,7 +2793,7 @@ nuke_flight()
     level.seaknight maps\_utility::vehicle_liftoff();
     level.seaknight maps\_utility::vehicle_resumepath();
     level.seaknight setmaxpitchroll( 25, 50 );
-    level.seaknight setairresitance( 1 );
+    level.seaknight setairresistance( 1 );
     level.seaknight setacceleration( 5 );
     level.seaknight setjitterparams( ( 0.0, 0.0, 20.0 ), 0.5, 1.5 );
     common_scripts\utility::flag_set( "seaknight_leaving_cobrastreets" );
@@ -2875,7 +2875,7 @@ nuke()
     wait 7;
     var_1 = getent( "nuke_crash", "targetname" );
     level.seaknight maps\_utility::vehicle_detachfrompath();
-    level.seaknight setgoalpos( var_1.origin, 0 );
+    level.seaknight setvehgoalpos( var_1.origin, 0 );
     wait 6.5;
     wait 1.5;
     level.player thread common_scripts\utility::play_sound_in_space( "airlift_ch46_nuke_crash" );
@@ -3527,7 +3527,7 @@ vehicle_turret_think()
         }
 
         if ( var_2 )
-            self clearturrettargetent();
+            self clearturrettarget();
     }
 }
 
@@ -3759,7 +3759,7 @@ vehicle_seaknight_fake_load_think( var_0 )
 {
     maps\_utility::disable_ai_color();
     self pushplayer( 1 );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     maps\jake_tools::setgoalradius( var_0.radius );
     self waittill( "goal" );
 

@@ -422,7 +422,7 @@ start_minigun()
     var_1 = getnode( "fallback_price", "targetname" );
     level.price = getent( "price", "targetname" );
     level.price teleport( var_1.origin );
-    level.price getgoalvolume( var_1 );
+    level.price setgoalnode( var_1 );
     thread moveredshirts( "fallback_redshirt1", "fallback_redshirt2" );
     thread southern_hill_mortars_killtimer();
     thread minigun_primary_attack();
@@ -448,7 +448,7 @@ start_helidrop()
     var_1 = getnode( "fallback_price", "targetname" );
     level.price = getent( "price", "targetname" );
     level.price teleport( var_1.origin );
-    level.price getgoalvolume( var_1 );
+    level.price setgoalnode( var_1 );
     thread moveredshirts( "fallback_redshirt1", "fallback_redshirt2" );
     thread southern_hill_mortars_killtimer();
     thread minigun_primary_attack();
@@ -601,9 +601,9 @@ moveredshirts( var_0, var_1 )
     var_4 = getnode( var_0, "targetname" );
     var_5 = getnode( var_1, "targetname" );
     var_2 teleport( var_4.origin );
-    var_2 getgoalvolume( var_4 );
+    var_2 setgoalnode( var_4 );
     var_3 teleport( var_5.origin );
-    var_3 getgoalvolume( var_5 );
+    var_3 setgoalnode( var_5 );
 }
 
 intro()
@@ -919,7 +919,7 @@ southern_hill_vanguard_nav()
         }
     }
 
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = 2048;
     thread southern_hill_vanguard_aim();
 }
@@ -1266,7 +1266,7 @@ saw_gunner_friendly()
         return;
 
     var_1 = getnode( "fallback_sasGunner", "targetname" );
-    level.sasgunner getgoalvolume( var_1 );
+    level.sasgunner setgoalnode( var_1 );
     level.sasgunner thread hero();
     level.sasgunner.ignoresuppression = 1;
     common_scripts\utility::flag_wait( "objective_minigun_baglimit_done" );
@@ -1414,14 +1414,14 @@ minigun_fallback()
     wait 2;
     maps\_utility::radio_dialogue_queue( "twofallingback" );
     var_0 allowedstances( "stand", "crouch", "prone" );
-    var_0 getgoalvolume( var_2 );
+    var_0 setgoalnode( var_2 );
     wait(randomfloatrange( 0.7, 1.2 ));
     maps\_utility::radio_dialogue_queue( "threeonthemove" );
     var_1 allowedstances( "stand", "crouch", "prone" );
-    var_1 getgoalvolume( var_3 );
+    var_1 setgoalnode( var_3 );
     var_4 = getnode( "fallback_price", "targetname" );
     level.price allowedstances( "stand", "crouch", "prone" );
-    level.price common_scripts\utility::delaycall( randomfloatrange( 0.5, 1.25 ), ::getgoalvolume, var_4 );
+    level.price common_scripts\utility::delaycall( randomfloatrange( 0.5, 1.25 ), ::setgoalnode, var_4 );
     maps\_utility::radio_dialogue_queue( "easternroadlocked" );
     level.price.baseaccuracy = 1;
     level.price.ignoresuppression = 1;
@@ -1752,18 +1752,18 @@ helidrop()
     common_scripts\utility::flag_set( "detonators_activate" );
     maps\_utility::radio_dialogue_queue( "nextdefensiveline" );
     var_1 = getnode( "clacker_fallback_price", "targetname" );
-    level.price getgoalvolume( var_1 );
+    level.price setgoalnode( var_1 );
     level.price thread hero_scripted_travel();
     var_2 = getent( "redshirt1", "targetname" );
     var_3 = getnode( "clacker_fallback_redshirt1", "targetname" );
-    var_2 getgoalvolume( var_3 );
+    var_2 setgoalnode( var_3 );
     var_2 thread hero_scripted_travel();
     var_4 = getent( "redshirt2", "targetname" );
     var_5 = getnode( "clacker_fallback_redshirt2", "targetname" );
-    var_4 getgoalvolume( var_5 );
+    var_4 setgoalnode( var_5 );
     var_4 thread hero_scripted_travel();
     var_6 = getnode( "clacker_fallback_sasGunner", "targetname" );
-    level.sasgunner getgoalvolume( var_6 );
+    level.sasgunner setgoalnode( var_6 );
     level.sasgunner thread hero_scripted_travel();
     thread minigun_fallback_shouting_cancel();
     thread minigun_fallback_shouting();
@@ -1811,7 +1811,7 @@ hunt_player( var_0 )
     while ( self.goalradius > 640 )
     {
         if ( level.player istouching( var_1 ) )
-            self getgoalvolume( var_2 );
+            self setgoalnode( var_2 );
         else
             self setgoalpos( level.player.origin );
 
@@ -1890,7 +1890,7 @@ helidrop_clacker_divert( var_0 )
     var_3 = distance( var_1.origin, self.origin );
 
     if ( level.divertclackerrange < var_2 && var_3 < var_2 )
-        self getgoalvolume( var_1 );
+        self setgoalnode( var_1 );
 
     common_scripts\utility::flag_wait( "fall_back_to_barn" );
 
@@ -2567,13 +2567,13 @@ field_fallback()
     var_4 = getnode( "field_fallback_price", "targetname" );
     var_5 = getnode( "field_fallback_sasGunner", "targetname" );
     common_scripts\utility::flag_wait( "fall_back_to_barn" );
-    var_0 getgoalvolume( var_2 );
+    var_0 setgoalnode( var_2 );
     wait 2;
-    var_1 getgoalvolume( var_3 );
+    var_1 setgoalnode( var_3 );
     wait 2;
-    level.price getgoalvolume( var_4 );
+    level.price setgoalnode( var_4 );
     wait 5;
-    level.sasgunner getgoalvolume( var_5 );
+    level.sasgunner setgoalnode( var_5 );
 }
 
 barn_fallback()
@@ -2585,13 +2585,13 @@ barn_fallback()
     var_4 = getnode( "barn_fallback_price", "targetname" );
     var_5 = getnode( "barn_fallback_sasGunner", "targetname" );
     common_scripts\utility::flag_wait( "got_the_javelin" );
-    var_0 getgoalvolume( var_1 );
+    var_0 setgoalnode( var_1 );
     wait 1;
-    var_2 getgoalvolume( var_3 );
+    var_2 setgoalnode( var_3 );
     wait 2;
-    level.price getgoalvolume( var_4 );
+    level.price setgoalnode( var_4 );
     wait 3;
-    level.sasgunner getgoalvolume( var_5 );
+    level.sasgunner setgoalnode( var_5 );
 }
 
 escape_fallback()
@@ -2606,10 +2606,10 @@ escape_fallback()
     common_scripts\utility::flag_wait( "arm_delaying_action" );
     var_0 waittill( "trigger" );
     common_scripts\utility::flag_set( "lz_reached" );
-    var_3 getgoalvolume( var_4 );
-    level.price getgoalvolume( var_5 );
-    level.sasgunner getgoalvolume( var_6 );
-    var_1 getgoalvolume( var_2 );
+    var_3 setgoalnode( var_4 );
+    level.price setgoalnode( var_5 );
+    level.sasgunner setgoalnode( var_6 );
+    var_1 setgoalnode( var_2 );
 }
 
 final_battle()
@@ -3353,7 +3353,7 @@ followscriptedpath( var_0, var_1, var_2 )
     for ( var_4 = 0; var_4 < var_3.size; var_4++ )
     {
         var_0 = var_3[var_4];
-        self getgoalvolume( var_0 );
+        self setgoalnode( var_0 );
 
         if ( isdefined( var_0.radius ) )
             self.goalradius = var_0.radius;
@@ -3474,7 +3474,7 @@ encroach_nav( var_0, var_1 )
 
         for ( var_6 = 0; var_6 < var_2.size; var_6++ )
         {
-            self getgoalvolume( var_2[var_6] );
+            self setgoalnode( var_2[var_6] );
             self waittill( "goal" );
             wait(randomfloatrange( level.encroachminwait, level.encroachmaxwait ));
         }
@@ -3698,7 +3698,7 @@ ai_flank_route( var_0 )
 
     for (;;)
     {
-        self getgoalvolume( var_0 );
+        self setgoalnode( var_0 );
 
         if ( isdefined( var_0.radius ) )
             self.goalradius = var_0.radius;
@@ -4199,7 +4199,7 @@ friendly_player_tracking_nav()
 
         if ( level.player istouching( var_0 ) )
         {
-            self getgoalvolume( var_1 );
+            self setgoalnode( var_1 );
             continue;
         }
 

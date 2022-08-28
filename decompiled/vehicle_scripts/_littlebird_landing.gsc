@@ -271,7 +271,7 @@ vehicle_land_beneath_node( var_0, var_1, var_2 )
     if ( !isdefined( var_0 ) )
         var_0 = 2;
 
-    self neargoalnotifydist( var_0 );
+    self setneargoalnotifydist( var_0 );
     self sethoverparams( 0, 0, 0 );
     self cleargoalyaw();
     self settargetyaw( common_scripts\utility::flat_angle( var_1.angles )[1] );

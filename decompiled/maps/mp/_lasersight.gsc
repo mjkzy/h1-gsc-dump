@@ -40,10 +40,10 @@ lasersight_think()
                 self laseroff();
                 self.laser_on = 0;
 
-                while ( !self _meth_84D8() && self isthrowinggrenade() )
+                while ( !self isusingoffhand() && self isthrowinggrenade() )
                     wait 0.05;
 
-                while ( self _meth_84D8() && self isthrowinggrenade() )
+                while ( self isusingoffhand() && self isthrowinggrenade() )
                     wait 0.05;
 
                 while ( self isthrowinggrenade() )

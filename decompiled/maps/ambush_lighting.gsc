@@ -35,7 +35,7 @@ handle_aarea_takeover_lighting_init()
     common_scripts\utility::flag_wait( "aa_takeover" );
     maps\_utility::set_vision_set( "ambush_start", 0 );
     maps\_utility::vision_set_fog_changes( "ambush_start", 0 );
-    level.player _meth_848C( "clut_ambush_start", 1.0 );
+    level.player setclutforplayer( "clut_ambush_start", 1.0 );
     level.player maps\_utility::set_light_set_player( "ambush_start" );
 }
 
@@ -145,7 +145,7 @@ setup_daytime_lights()
 {
     maps\_utility::set_vision_set( "ambush", 0 );
     maps\_utility::vision_set_fog_changes( "ambush", 0 );
-    level.player _meth_848C( "clut_ambush_chase01", 1.0 );
+    level.player setclutforplayer( "clut_ambush_chase01", 1.0 );
     level.player maps\_utility::set_light_set_player( "ambush" );
     var_0 = getent( "dawn_skydome", "targetname" );
     var_1 = getent( "day_skydome", "targetname" );

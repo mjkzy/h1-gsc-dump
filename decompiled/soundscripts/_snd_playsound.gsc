@@ -144,7 +144,7 @@ sndx_play_alias_thread( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, 
     {
         var_15 = "tag_origin";
 
-        if ( isdefined( var_13.model ) || var_13.model != "" || var_13 _meth_843E( var_15 ) < 0 )
+        if ( isdefined( var_13.model ) || var_13.model != "" || var_13 gettagindex( var_15 ) < 0 )
             var_15 = "";
 
         var_5 linkto( var_13, var_15, var_10, ( 0.0, 0.0, 0.0 ) );

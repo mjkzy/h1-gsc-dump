@@ -29,7 +29,7 @@ set_level_lighting_values()
 {
     maps\_utility::vision_set_fog_changes( "launchfacility_b", 0 );
     level.player maps\_utility::set_light_set_player( "launchfacility_b" );
-    level.player _meth_848C( "clut_launchfacility_b", 0.0 );
+    level.player setclutforplayer( "clut_launchfacility_b", 0.0 );
 }
 
 setup_spinning_ents()

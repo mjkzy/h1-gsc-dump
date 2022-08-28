@@ -603,7 +603,7 @@ attack_troops()
             thread maps\_utility::draw_line_until_notify( level.abrams.origin + ( 0.0, 0.0, 32.0 ), var_4, 1, 0, 0, self, "stop_drawing_line" );
 
         common_scripts\utility::waittill_notify_or_timeout( "turret_rotate_stopped", 3.0 );
-        self clearturrettargetent();
+        self clearturrettarget();
 
         if ( getdvar( "bog_debug_tank" ) == "1" )
         {
@@ -622,7 +622,7 @@ tank_turret_forward()
     self notify( "stop_attacking_troops" );
     self setturrettargetent( self.forwardent );
     common_scripts\utility::waittill_notify_or_timeout( "turret_rotate_stopped", 4.0 );
-    self clearturrettargetent();
+    self clearturrettarget();
 }
 
 ambush_ahead_dialog()
@@ -769,7 +769,7 @@ shoot_exploder( var_0 )
     level.abrams waittill( "target_aquired" );
     level.abrams setturrettargetvec( var_0.origin );
     level.abrams common_scripts\utility::waittill_notify_or_timeout( "turret_rotate_stopped", 3.0 );
-    level.abrams clearturrettargetent();
+    level.abrams clearturrettarget();
     level.abrams.readytofire = 1;
     common_scripts\utility::flag_wait( "allowTankFire" );
     level.abrams.readytofire = undefined;
@@ -975,7 +975,7 @@ alley_dumpster_sequence()
     var_1 common_scripts\utility::trigger_off();
     wait 0.05;
     var_2 = getnode( "vasquez_dumpster_node", "targetname" );
-    level.price getgoalvolume( var_2 );
+    level.price setgoalnode( var_2 );
     level.price.force_crouch = 1;
     wait 0.05;
     level.price thread wait_to_reach_dumpster_node();
@@ -1062,8 +1062,8 @@ alley_dumpster_sequence()
     var_8 notify( "stop_updating_clip" );
     var_9 disconnectpaths();
     var_6 allowedstances( "crouch", "stand", "prone" );
-    level.price getgoalvolume( getnode( "dumpster_push_afternode_dumpsterguy", "targetname" ) );
-    var_6 getgoalvolume( getnode( "dumpster_push_afternode_vasquez", "targetname" ) );
+    level.price setgoalnode( getnode( "dumpster_push_afternode_dumpsterguy", "targetname" ) );
+    var_6 setgoalnode( getnode( "dumpster_push_afternode_vasquez", "targetname" ) );
     level.price maps\_utility::enable_ai_color();
     var_6 maps\_utility::enable_ai_color();
     remove_alley_seperation_clip();
@@ -1411,7 +1411,7 @@ lastsequence()
     common_scripts\utility::flag_wait( "tank_in_final_position" );
     common_scripts\utility::flag_wait( "tank_turret_aimed_at_t72" );
     level.player playradiosound( level.scr_sound["tank_commander"]["takeshot"] );
-    level.abrams clearturrettargetent();
+    level.abrams clearturrettarget();
     level.abrams setvehweapon( "m1a1_turret_blank" );
     wait 0.05;
     level.t72 notify( "exploding" );
@@ -1503,7 +1503,7 @@ t72_explosion_explode()
     level.t72 = var_1;
     var_1 = undefined;
     soundscripts\_snd::snd_message( "start_t72_hit_mix" );
-    level.t72 _meth_8468( "mtl_h1_t72_tread", "mtl_h1_t72_tread_static" );
+    level.t72 overridematerial( "mtl_h1_t72_tread", "mtl_h1_t72_tread_static" );
     level.t72 thread common_scripts\utility::play_sound_in_space( "bog_scn_tankturret_brew" );
     level.t72 thread t72_explosionfx();
     level.t72 useanimtree( level.scr_animtree["tank_explosion"] );
@@ -1563,7 +1563,7 @@ abrams_moveto_t72_clearturret()
     wait 0.05;
     level.abrams setturrettargetent( level.abrams.forwardent );
     level.abrams common_scripts\utility::waittill_notify_or_timeout( "turret_rotate_stopped", 4.0 );
-    level.abrams clearturrettargetent();
+    level.abrams clearturrettarget();
 }
 
 abrams_aimat_t72()
@@ -1593,7 +1593,7 @@ enemies_fall_back_thread( var_0 )
 {
     self.goalradius = var_0.radius;
     self.health = 1;
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 }
 
 friendlies_become_awesome()
@@ -1828,7 +1828,7 @@ advancealleyfriendliestoend( var_0, var_1, var_2 )
     var_3 maps\_utility::set_force_color( "b" );
     var_3.goalradius = 16;
     var_6 = getnode( "door_blocker_node", "targetname" );
-    var_3 getgoalvolume( var_6 );
+    var_3 setgoalnode( var_6 );
     var_3 thread doorblocker_anim_on_trigger( var_6 );
     var_3 thread doorblocker_reach_door();
     var_3.script_noteworthy = "doorblocker";
@@ -1840,7 +1840,7 @@ advancealleyfriendliestoend( var_0, var_1, var_2 )
     thread doorblocker_slow_trigger();
     level.price maps\_utility::set_force_color( "o" );
     level.price.goalradius = 16;
-    level.price getgoalvolume( getnode( "price_last_node1", "targetname" ) );
+    level.price setgoalnode( getnode( "price_last_node1", "targetname" ) );
     level.price waittill( "goal" );
 
     if ( isdefined( var_4 ) )
@@ -1848,7 +1848,7 @@ advancealleyfriendliestoend( var_0, var_1, var_2 )
     else
         wait 4.0;
 
-    level.price getgoalvolume( getnode( "price_last_node2", "targetname" ) );
+    level.price setgoalnode( getnode( "price_last_node2", "targetname" ) );
     level.price waittill( "goal" );
     common_scripts\utility::flag_set( "price_at_spotter" );
 }
@@ -1941,7 +1941,7 @@ t72_in_final_position_preh1()
     var_0 = getent( "exploder_300_target", "targetname" );
     level.t72 setturrettargetent( var_0 );
     level.t72 common_scripts\utility::waittill_notify_or_timeout( "turret_rotate_stopped", 4.0 );
-    level.t72 clearturrettargetent();
+    level.t72 clearturrettarget();
     level.t72 fireweapon();
     level.t72 maps\bog_b_anim::shoot_t72_anim();
     common_scripts\_exploder::exploder( 300 );
@@ -1949,7 +1949,7 @@ t72_in_final_position_preh1()
     var_1 = getent( "t72_aim_at_final_building_location", "targetname" );
     level.t72 setturrettargetent( var_1 );
     level.t72 common_scripts\utility::waittill_notify_or_timeout( "turret_rotate_stopped", 4.0 );
-    level.t72 clearturrettargetent();
+    level.t72 clearturrettarget();
 
     if ( getdvar( "bog_debug_tank" ) == "1" )
     {
@@ -1987,7 +1987,7 @@ t72_in_final_position()
     var_1 = getent( "exploder_300_target", "targetname" );
     level.t72 setturrettargetent( var_1 );
     level.t72 common_scripts\utility::waittill_notify_or_timeout( "turret_rotate_stopped", 4.0 );
-    level.t72 clearturrettargetent();
+    level.t72 clearturrettarget();
     wait 1;
     level.t72 fireweapon();
     level.t72 maps\bog_b_anim::shoot_t72_anim();
@@ -2272,7 +2272,7 @@ tank_advancement_alley()
     wait 0.05;
     level.abrams setturrettargetent( level.abrams.forwardent );
     level.abrams common_scripts\utility::waittill_notify_or_timeout( "turret_rotate_stopped", 4.0 );
-    level.abrams clearturrettargetent();
+    level.abrams clearturrettarget();
     common_scripts\utility::flag_set( "abrams_start_moving_after_city_fight" );
     thread truck_tank_collide_think( "truck2", "tank_crush_truck2" );
     level.abrams resumespeed( 3 );
@@ -2561,9 +2561,9 @@ swap_crush_material( var_0 )
     var_2 = getnotetracktimes( var_0, "crush_material" );
     var_1 *= var_2[0];
     wait(var_1);
-    self _meth_8468( "mtl_h1_pickup_ext_a", "mtl_h1_pickup_ext_a_crushed" );
-    self _meth_8468( "mtl_h1_pickup_ext_b", "mtl_h1_pickup_ext_b_crushed" );
-    self _meth_8468( "mtl_h1_pickup_int_elements", "mtl_h1_pickup_int_elements_crushed" );
+    self overridematerial( "mtl_h1_pickup_ext_a", "mtl_h1_pickup_ext_a_crushed" );
+    self overridematerial( "mtl_h1_pickup_ext_b", "mtl_h1_pickup_ext_b_crushed" );
+    self overridematerial( "mtl_h1_pickup_int_elements", "mtl_h1_pickup_int_elements_crushed" );
 }
 
 rotate_crushed_truck_clip( var_0 )

@@ -22,7 +22,7 @@ set_level_lighting_values()
 {
     maps\_utility::vision_set_fog_changes( "village_defend", 0 );
     level.player maps\_utility::set_light_set_player( "village_defend" );
-    level.player _meth_848C( "clut_village_defend", 0.0 );
+    level.player setclutforplayer( "clut_village_defend", 0.0 );
 }
 
 setup_church_lighting()
@@ -31,7 +31,7 @@ setup_church_lighting()
     var_1 = getentarray( "village_defend_church_models", "script_noteworthy" );
 
     foreach ( var_3 in var_1 )
-        var_3 _meth_8477( var_0.origin );
+        var_3 overridelightingorigin( var_0.origin );
 }
 
 handle_player_on_chopper_cinematic()

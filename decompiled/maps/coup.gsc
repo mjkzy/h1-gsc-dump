@@ -454,29 +454,29 @@ h1_couplerpviewangles_carridelogic()
 
 coupintro_depthoffield()
 {
-    level.player _meth_84A7( 6.0, 110, 9.0, 9.0 );
-    level.player _meth_84A5();
+    level.player setphysicaldepthoffield( 6.0, 110, 9.0, 9.0 );
+    level.player enablephysicaldepthoffieldscripting();
     setsaveddvar( "r_mbenable", 2 );
     wait 15.5;
     thread h1_couplerpviewangles( "pushed_inside" );
-    level.player _meth_84A7( 6.0, 110, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 6.0, 110, 1.0, 1.0 );
     wait 4.0;
     wait 0.65;
-    level.player _meth_84A7( 3.0, 4, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 3.0, 4, 2.0, 2.0 );
     wait 0.85;
-    level.player _meth_84A7( 6.0, 110, 3.0, 3.0 );
+    level.player setphysicaldepthoffield( 6.0, 110, 3.0, 3.0 );
     wait 1.35;
-    level.player _meth_84A7( 4.0, 70, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 4.0, 70, 1.0, 1.0 );
     wait 1.0;
-    level.player _meth_84A7( 1.0, 110, 8.0, 8.0 );
+    level.player setphysicaldepthoffield( 1.0, 110, 8.0, 8.0 );
     wait 1.65;
-    level.player _meth_84A7( 5.0, 80, 1.5, 1.5 );
+    level.player setphysicaldepthoffield( 5.0, 80, 1.5, 1.5 );
     h1_couplerpviewangles( "viktor_stare" );
     wait 2.0;
     setsaveddvar( "r_mbenable", 0 );
-    level.player _meth_84A7( 5.2, 40, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 5.2, 40, 1.0, 1.0 );
     wait 3.35;
-    level.player _meth_84A7( 5.5, 110, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 5.5, 110, 1.0, 1.0 );
     h1_couplerpviewangles( "pre_car_ride" );
     wait 2.0;
     h1_drive_depthoffieldforcestart();
@@ -919,8 +919,8 @@ execdrive( var_0 )
 
 h1_drive_depthoffieldforcestart()
 {
-    level.player _meth_84A7( 14.0, 50, 1.0, 1.0 );
-    level.player _meth_84A5();
+    level.player setphysicaldepthoffield( 14.0, 50, 1.0, 1.0 );
+    level.player enablephysicaldepthoffieldscripting();
 }
 
 execcarexit()
@@ -1058,38 +1058,38 @@ execcarexit()
 
 h1_grabbedfromcar_depthoffield()
 {
-    level.player _meth_84A7( 10.0, 110, 9.0, 9.0 );
-    level.player _meth_84A5();
-    level.player _meth_84A7( 10.0, 110, 0.5, 0.5 );
+    level.player setphysicaldepthoffield( 10.0, 110, 9.0, 9.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 10.0, 110, 0.5, 0.5 );
     wait 3.15;
-    level.player _meth_84A7( 2.5, 250, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 2.5, 250, 2.0, 2.0 );
     wait 1.0;
-    level.player _meth_84A7( 2.5, 70, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 2.5, 70, 1.0, 1.0 );
     wait 1.5;
-    level.player _meth_84A7( 3.5, 15, 0.8, 0.8 );
+    level.player setphysicaldepthoffield( 3.5, 15, 0.8, 0.8 );
     wait 1.3;
-    level.player _meth_84A7( 3.0, 70, 1.5, 1.5 );
+    level.player setphysicaldepthoffield( 3.0, 70, 1.5, 1.5 );
     wait 1.35;
-    level.player _meth_84A7( 3.2, 50, 1.5, 1.5 );
+    level.player setphysicaldepthoffield( 3.2, 50, 1.5, 1.5 );
     wait 0.85;
-    level.player _meth_84A7( 1.0, 3000, 3.0, 3.0 );
+    level.player setphysicaldepthoffield( 1.0, 3000, 3.0, 3.0 );
     wait 0.6;
-    level.player _meth_84A7( 2.5, 120, 1.5, 1.5 );
+    level.player setphysicaldepthoffield( 2.5, 120, 1.5, 1.5 );
     wait 1.5;
-    level.player _meth_84A7( 3.0, 60, 1.5, 1.5 );
+    level.player setphysicaldepthoffield( 3.0, 60, 1.5, 1.5 );
     common_scripts\_exploder::exploder( "0221" );
     wait 0.65;
-    level.player _meth_84A7( 3.2, 50, 1.5, 1.5 );
+    level.player setphysicaldepthoffield( 3.2, 50, 1.5, 1.5 );
     wait 0.85;
-    level.player _meth_84A7( 4.0, 28, 4.0, 4.0 );
+    level.player setphysicaldepthoffield( 4.0, 28, 4.0, 4.0 );
     thread h1_kickinface_fadeout();
     wait 0.35;
     level.oldnearclip2 = getdvar( "r_znear" );
     setsaveddvar( "r_znear", 0.01 );
-    level.player _meth_84A7( 4.5, 10, 4.0, 4.0 );
+    level.player setphysicaldepthoffield( 4.5, 10, 4.0, 4.0 );
     wait 0.35;
     wait 2.0;
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
 
     if ( isdefined( level.oldnearclip2 ) )
     {
@@ -1122,12 +1122,12 @@ h1_draggingcorridors_depthoffield()
 {
     setsaveddvar( "r_mbenable", 2 );
     setomnvar( "ui_consciousness_init", 1 );
-    level.player _meth_84A7( 10.0, 110, 9.0, 9.0 );
-    level.player _meth_84A5();
+    level.player setphysicaldepthoffield( 10.0, 110, 9.0, 9.0 );
+    level.player enablephysicaldepthoffieldscripting();
     wait 19.0;
     thread h1_couplerpviewangles( "corridors_zak" );
     wait 5.0;
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
 }
 
 first_frame_delay_anim( var_0, var_1, var_2 )
@@ -1154,7 +1154,7 @@ execending()
     level.alasad.tracksuit_ignore = 1;
     var_2 = level.zakhaev;
     var_3 = var_2.origin + ( 0.0, 0.0, 50.0 );
-    var_2 _meth_8477( var_3 );
+    var_2 overridelightingorigin( var_3 );
     var_4 = maps\coup_code::scripted_spawn2( "ending_leftguard", "targetname", 1 );
     var_4.animname = "human";
     var_5 = maps\coup_code::scripted_spawn2( "ending_rightguard", "targetname", 1 );
@@ -1194,52 +1194,52 @@ execending()
 
 h1_ending_dof()
 {
-    level.player _meth_84A5();
-    level.player _meth_84A7( 4.0, 50, 9.0, 9.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 4.0, 50, 9.0, 9.0 );
     wait 2.1666;
-    level.player _meth_84A7( 12, 14, 9.0, 9.0 );
+    level.player setphysicaldepthoffield( 12, 14, 9.0, 9.0 );
     wait 0.6666;
     wait 2.5;
-    level.player _meth_84A7( 8.0, 50, 4.0, 4.0 );
+    level.player setphysicaldepthoffield( 8.0, 50, 4.0, 4.0 );
     wait 0.8334;
     wait 1.8334;
-    level.player _meth_84A7( 1.4, 600, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 1.4, 600, 2.0, 2.0 );
     wait 1.6666;
     wait 2.0;
-    level.player _meth_84A7( 1.4, 180, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 1.4, 180, 2.0, 2.0 );
     wait 1.0;
-    level.player _meth_84A7( 1.4, 76, 0.8, 0.8 );
+    level.player setphysicaldepthoffield( 1.4, 76, 0.8, 0.8 );
     thread h1_couplerpviewangles( "turned_post" );
     wait 1.6666;
     wait 1.0;
-    level.player _meth_84A7( 5.0, 30, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 5.0, 30, 2.0, 2.0 );
     wait 2.3334;
     wait 1.0;
-    level.player _meth_84A7( 0.7, 200, 3.0, 1.0 );
+    level.player setphysicaldepthoffield( 0.7, 200, 3.0, 1.0 );
     thread h1_couplerpviewangles( "gun_exchange" );
     wait 1.5;
     wait 0.8334;
-    level.player _meth_84A7( 0.55, 256, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 0.55, 256, 2.0, 2.0 );
     wait 1.8334;
     wait 3.0;
-    level.player _meth_84A7( 0.7, 200, 3.0, 3.0 );
+    level.player setphysicaldepthoffield( 0.7, 200, 3.0, 3.0 );
     wait 1.5;
     wait 3.3334;
-    level.player _meth_84A7( 5.0, 136, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 5.0, 136, 1.0, 1.0 );
     thread h1_couplerpviewangles( "alasad_shoot" );
     wait 1.0;
-    level.player _meth_84A7( 4.5, 69, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 4.5, 69, 1.0, 1.0 );
     wait 1.5;
-    level.player _meth_84A7( 4.0, 52, 6.0, 6.0 );
+    level.player setphysicaldepthoffield( 4.0, 52, 6.0, 6.0 );
     wait 0.65;
-    level.player _meth_84A7( 5.0, 8.1, 3.5, 3.5 );
+    level.player setphysicaldepthoffield( 5.0, 8.1, 3.5, 3.5 );
     wait 0.85;
-    level.player _meth_84A7( 5.2, 12, 5.0, 5.0 );
+    level.player setphysicaldepthoffield( 5.2, 12, 5.0, 5.0 );
     wait 0.35;
-    level.player _meth_84A7( 5.5, 10, 3.0, 3.0 );
+    level.player setphysicaldepthoffield( 5.5, 10, 3.0, 3.0 );
     wait 0.85;
     wait 1.0;
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
     setsaveddvar( "r_mbenable", 0 );
 }
 
@@ -1854,7 +1854,7 @@ drive_firingsquad()
         var_1[var_4] maps\_utility::ai_ignore_everything();
         var_1[var_4].animname = "human";
         var_5 = getnode( var_1[var_4].target, "targetname" );
-        var_1[var_4] getgoalvolume( var_5 );
+        var_1[var_4] setgoalnode( var_5 );
         var_1[var_4].ignoreweaponintracksuitmode = 1;
     }
 

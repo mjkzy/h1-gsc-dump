@@ -831,7 +831,7 @@ rope()
         var_5 = getanimlength( level.scr_anim[var_3.animname]["training_rope"] );
         var_6 = var_5 - 1.7;
         thread maps\_utility::flag_set_delayed( "start_timer", var_6 );
-        level.player _meth_855E( var_3, "tag_player", 1, 0.3, 0, 0.1, 40, 40, 55, 55, 1 );
+        level.player playerlinktodeltablendviewangle( var_3, "tag_player", 1, 0.3, 0, 0.1, 40, 40, 55, 55, 1 );
         wait 0.35;
         var_3 show();
         var_4 waittill( "training_rope" );
@@ -1369,7 +1369,7 @@ initactionchain( var_0 )
 
 actionchainthink( var_0 )
 {
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self waittill( "goal" );
     var_1 = var_0;
     var_2 = undefined;
@@ -1387,7 +1387,7 @@ actionchainthink( var_0 )
         while ( var_1 != var_2 )
         {
             var_1 = getnode( var_1.target, "targetname" );
-            self getgoalvolume( var_1 );
+            self setgoalnode( var_1 );
             self waittill( "goal" );
         }
 
@@ -1405,7 +1405,7 @@ actionchainthink( var_0 )
     while ( isdefined( var_1.target ) )
     {
         var_1 = getnode( var_1.target, "targetname" );
-        self getgoalvolume( var_1 );
+        self setgoalnode( var_1 );
         self waittill( "goal" );
     }
 }
@@ -2680,7 +2680,7 @@ move_mac()
 {
     self waittill( "trigger" );
     level.mac maps\_utility::set_generic_run_anim( "jog" );
-    level.mac getgoalvolume( getnode( self.target, "targetname" ) );
+    level.mac setgoalnode( getnode( self.target, "targetname" ) );
 }
 
 loop_obstacle()
@@ -2692,7 +2692,7 @@ loop_obstacle()
     }
 
     level.mac maps\_utility::set_generic_run_anim( "walk", 1 );
-    level.mac getgoalvolume( getnode( "mac_start_node", "targetname" ) );
+    level.mac setgoalnode( getnode( "mac_start_node", "targetname" ) );
     level.mac waittill( "goal" );
 }
 
@@ -2741,7 +2741,7 @@ obstacletrainingcoursethink( var_0, var_1 )
     if ( isdefined( var_1 ) )
         wait(var_1);
 
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self waittill( "goal" );
     common_scripts\utility::flag_wait( "start_course" );
     var_2["prone"] = ::set_allowed_stances_prone;
@@ -2754,7 +2754,7 @@ obstacletrainingcoursethink( var_0, var_1 )
     while ( isdefined( var_0.target ) )
     {
         var_0 = getnode( var_0.target, "targetname" );
-        self getgoalvolume( var_0 );
+        self setgoalnode( var_0 );
         self waittill( "goal" );
 
         if ( !isdefined( var_0.script_noteworthy ) )
@@ -2893,7 +2893,7 @@ walk_to( var_0 )
     maps\_utility::set_generic_run_anim( "patrol_unarmed_walk" );
     self.animplaybackrate = 1.25;
     self.goalradius = 16;
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self waittill( "goal" );
     self.animplaybackrate = 1;
 }
@@ -2903,7 +2903,7 @@ jog_to( var_0 )
     level.newcastle setlookatentity();
     maps\_utility::set_generic_run_anim( "RunNoGun_1" );
     self.goalradius = 16;
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self waittill( "goal" );
     level.newcastle setlookatentity( level.player, 1 );
 }

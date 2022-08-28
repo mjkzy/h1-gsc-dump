@@ -32,6 +32,6 @@ set_level_lighting_values()
     maps\_utility::set_vision_set( "killhouse_interior", 0.0 );
     maps\_utility::vision_set_fog_changes( "killhouse_interior", 0 );
     level.player maps\_utility::set_light_set_player( "killhouse_interior" );
-    level.player _meth_848C( "clut_killhouse", 0.0 );
+    level.player setclutforplayer( "clut_killhouse", 0.0 );
     setsaveddvar( "fx_cast_shadow", 0 );
 }

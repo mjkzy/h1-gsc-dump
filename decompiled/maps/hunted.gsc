@@ -863,7 +863,7 @@ dirt_path_charlie()
     thread maps\_anim::anim_single_queue( self, "hunted_wave_chat_snd" );
     var_0 maps\_anim::anim_single_solo( self, "hunted_wave_chat" );
     var_1 = getnode( "charlie_tunnel", "targetname" );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self.goalradius = 0;
     self waittill( "goal" );
     maps\_utility::clear_run_anim();
@@ -911,7 +911,7 @@ dirt_path_steve()
     common_scripts\utility::flag_wait( "trucks_warning" );
     self.disablearrivals = 0;
     var_0 = getnode( "steve_tunnel", "targetname" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = 0;
     self pushplayer( 0 );
 }
@@ -2050,7 +2050,7 @@ field_axis()
     common_scripts\utility::flag_wait( "basement_door_open" );
     self clearenemy();
     self.baseaccuracy = 1;
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 }
 
 field_basement()
@@ -4151,7 +4151,7 @@ start_teleport( var_0 )
     if ( isdefined( var_0.radius ) )
         self.goalradius = var_0.radius;
 
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 }
 
 scripted_sightconetrace( var_0, var_1 )
@@ -4528,7 +4528,7 @@ setthreatbiasgroup_on_notify( var_0, var_1 )
 
 set_goalnode( var_0 )
 {
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 
     if ( isdefined( var_0.radius ) )
         self.goalradius = var_0.radius;
@@ -4691,7 +4691,7 @@ follow_path_hunted( var_0, var_1 )
         if ( isdefined( var_2.height ) && var_2.height != 0 )
             self.goalheight = var_2.height;
 
-        self getgoalvolume( var_2 );
+        self setgoalnode( var_2 );
 
         if ( isdefined( var_1 ) && !var_1 )
             self.disablearrivals = 1;
@@ -5006,7 +5006,7 @@ spawn_dead_body()
     var_1.angles = self.angles;
     var_1.animname = "dead_guy";
     var_1 maps\_utility::assign_animtree();
-    var_1 _meth_855D();
+    var_1 disablerootmotion();
     var_1 character\character_sp_pilot_zack_woodland::main();
 
     if ( !isdefined( self.script_trace ) )

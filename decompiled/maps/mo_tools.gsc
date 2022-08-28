@@ -162,7 +162,7 @@ door_breach( var_0, var_1, var_2, var_3 )
         var_0 maps\_anim::anim_reach_solo( var_1, var_3 );
     else
     {
-        var_1 getgoalvolume( var_0 );
+        var_1 setgoalnode( var_0 );
         var_1 waittill( "goal" );
     }
 

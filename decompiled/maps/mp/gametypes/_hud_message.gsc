@@ -76,7 +76,7 @@ hintmessage( var_0 )
 
 initnotifymessage()
 {
-    if ( level.splitscreen || self issplitscreenplayerprimary() )
+    if ( level.splitscreen || self issplitscreenplayer() )
     {
         var_0 = 1.5;
         var_1 = 1.85;
@@ -323,7 +323,7 @@ shownotifymessage( var_0 )
     {
         self.notifyicon maps\mp\gametypes\_hud_util::setparent( var_4 );
 
-        if ( level.splitscreen || self issplitscreenplayerprimary() )
+        if ( level.splitscreen || self issplitscreenplayer() )
             self.notifyicon setshader( var_0.iconname, 30, 30 );
         else
             self.notifyicon setshader( var_0.iconname, 60, 60 );
@@ -415,7 +415,7 @@ killstreaksplashnotify( var_0, var_1, var_2, var_3, var_4 )
 
         if ( var_5 >= 0 )
         {
-            self _meth_8561( &"killstreak_splash", 3, var_5, var_1, var_4 );
+            self luinotifyevent( &"killstreak_splash", 3, var_5, var_1, var_4 );
             self _meth_8579( &"killstreak_splash", 3, var_5, var_1, var_4 );
             insertluasplash( level.lua_splash_type_killstreak, var_5 );
         }
@@ -476,7 +476,7 @@ challengesplashnotify( var_0, var_1, var_2 )
             if ( var_5 != "" )
             {
                 var_6 = int( var_5 );
-                self _meth_8561( &"challenge_splash", 3, var_6, var_3, var_4 );
+                self luinotifyevent( &"challenge_splash", 3, var_6, var_3, var_4 );
                 self _meth_8579( &"challenge_splash", 3, var_6, var_3, var_4 );
                 insertluasplash( level.lua_splash_type_challenge, var_6 );
             }
@@ -503,7 +503,7 @@ medalsplashnotify( var_0 )
 
         if ( var_1 >= 0 )
         {
-            self _meth_8561( &"medal_splash", 1, var_1 );
+            self luinotifyevent( &"medal_splash", 1, var_1 );
             self _meth_8579( &"medal_splash", 1, var_1 );
             insertluasplash( level.lua_splash_type_medal, var_1 );
             return;
@@ -526,13 +526,13 @@ splashnotify( var_0, var_1, var_2 )
         {
             if ( isdefined( var_1 ) )
             {
-                self _meth_8561( &"generic_splash_number", 2, var_3, var_1 );
-                self _meth_8562( &"generic_splash_number", 2, var_3, var_1 );
+                self luinotifyevent( &"generic_splash_number", 2, var_3, var_1 );
+                self luinotifyeventtospectators( &"generic_splash_number", 2, var_3, var_1 );
             }
             else
             {
-                self _meth_8561( &"generic_splash", 1, var_3 );
-                self _meth_8562( &"generic_splash", 1, var_3 );
+                self luinotifyevent( &"generic_splash", 1, var_3 );
+                self luinotifyeventtospectators( &"generic_splash", 1, var_3 );
             }
 
             insertluasplash( level.lua_splash_type_generic, var_3 );
@@ -577,7 +577,7 @@ rankupsplashnotify( var_0, var_1, var_2 )
 
         if ( var_3 >= 0 )
         {
-            self _meth_8561( &"rankup_splash", 3, var_3, var_1, var_2 );
+            self luinotifyevent( &"rankup_splash", 3, var_3, var_1, var_2 );
             self _meth_8579( &"rankup_splash", 3, var_3, var_1, var_2 );
             insertluasplash( level.lua_splash_type_rankup, var_3 );
         }
@@ -882,7 +882,7 @@ lowermessagethink()
     var_2 = level.lowertextfontsize;
     var_3 = 1.25;
 
-    if ( level.splitscreen || self issplitscreenplayerprimary() && !isai( self ) )
+    if ( level.splitscreen || self issplitscreenplayer() && !isai( self ) )
     {
         var_2 = level.lowertextfontsize * 1.4;
         var_3 *= 1.5;
@@ -1037,7 +1037,7 @@ teamoutcomenotify( var_0, var_1, var_2, var_3 )
 
         var_0 = "allies";
     }
-    else if ( self _meth_842D() )
+    else if ( self ismlgspectator() )
         self setclientomnvar( "ui_round_end_title", game["round_end"]["spectator"] );
     else if ( isdefined( self.pers["team"] ) && var_0 == var_4 )
     {

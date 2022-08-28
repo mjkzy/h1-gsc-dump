@@ -794,7 +794,7 @@ playerkilled_internal( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, v
 
         if ( isdefined( self.killcamstream ) )
         {
-            while ( maps\mp\gametypes\_killcam::killcamvalid( var_2, var_36 ) && isplayer( self ) && isplayer( var_1 ) && !self _meth_8420( self.killcamstream.cust, self.killcamstream.weapons ) && gettime() < var_51 )
+            while ( maps\mp\gametypes\_killcam::killcamvalid( var_2, var_36 ) && isplayer( self ) && isplayer( var_1 ) && !self hasloadedcustomizationplayerview( self.killcamstream.cust, self.killcamstream.weapons ) && gettime() < var_51 )
                 waitframe();
         }
 
@@ -967,7 +967,7 @@ victimmodifydamageforcollats( var_0, var_1, var_2, var_3 )
         return var_0;
 
     var_4 = var_1.collatsdata.nextcollatsmultiplier;
-    var_5 = var_1 _meth_8501( var_3, var_2 );
+    var_5 = var_1 getweapondamagelocationmultiplier( var_3, var_2 );
     var_6 = int( var_0 / var_5 + 1 );
     var_7 = int( var_6 / var_4 + 1 );
     var_8 = int( var_7 * var_5 );
@@ -1346,7 +1346,7 @@ streamfinalkillcam()
     var_11 = var_10 + var_9;
     var_12 = maps\mp\gametypes\_killcam::killcamtime( var_5, var_6, var_11, 0, getkillcambuffertime(), var_7, 1 );
     var_13 = var_12 + var_11 + var_8 / 1000;
-    self _meth_852B( 1 );
+    self onlystreamactiveweapon( 1 );
     thread maps\mp\gametypes\_killcam::prekillcamnotify( level.finalkillcam_attacker[var_0], level.finalkillcam_attacker[var_0], var_13, "none" );
 }
 
@@ -1366,7 +1366,7 @@ streamcheck( var_0 )
             if ( var_2.killcamstream.weapons.size > 0 )
                 var_3[0] = var_2.killcamstream.weapons[0];
 
-            while ( isplayer( var_2 ) && isplayer( var_0 ) && !var_2 _meth_8420( var_2.killcamstream.cust, var_3 ) )
+            while ( isplayer( var_2 ) && isplayer( var_0 ) && !var_2 hasloadedcustomizationplayerview( var_2.killcamstream.cust, var_3 ) )
                 waitframe();
         }
     }
@@ -1379,7 +1379,7 @@ resetonlystreamactive()
     foreach ( var_1 in level.players )
     {
         if ( !isai( var_1 ) )
-            var_1 _meth_852B( 0 );
+            var_1 onlystreamactiveweapon( 0 );
     }
 }
 
@@ -1884,7 +1884,7 @@ callback_playerdamage_internal( var_0, var_1, var_2, var_3, var_4, var_5, var_6,
 
     if ( var_6 == "destructible_toy" && isdefined( var_0 ) )
     {
-        var_19 = var_0 _meth_8438();
+        var_19 = var_0 getscriptabletypeforentity();
 
         if ( issubstr( var_19, "destpv_" ) )
             var_6 = "destructible_car";
@@ -2323,7 +2323,7 @@ finishplayerdamagewrapper( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_
 {
     var_11 = 0;
 
-    if ( maps\mp\_utility::isusingremote() && var_2 >= self.health && !( var_3 & level.idflags_stun ) && !isdefined( self.inliveplayerkillstreak ) && !self _meth_851F() )
+    if ( maps\mp\_utility::isusingremote() && var_2 >= self.health && !( var_3 & level.idflags_stun ) && !isdefined( self.inliveplayerkillstreak ) && !self isgod() )
         var_11 = 1;
 
     if ( isdefined( level.ishorde ) && level.ishorde )
@@ -2372,7 +2372,7 @@ finishplayerdamage_impactfxwrapper( var_0, var_1, var_2, var_3, var_4, var_5, va
     if ( !isdefined( self ) || !isdefined( var_0 ) )
         return;
 
-    self _meth_8532( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
+    self finishplayerdamage_impactfx( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
 }
 
 callback_playerlaststand( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8 )
@@ -2510,7 +2510,7 @@ handlelaststandweaponsmwr( var_0 )
     self givemaxammo( var_0 );
     self switchtoweapon( var_0 );
     common_scripts\utility::_disableusability();
-    self _meth_84BB();
+    self disableoffhandsecondaryweapons();
 
     if ( var_2 )
         self setweaponammoclip( "h1_fraggrenade_mp", 1 );
@@ -3373,7 +3373,7 @@ setentitydamagecallback( var_0, var_1, var_2, var_3, var_4 )
     self setcandamage( 1 );
 
     if ( isdefined( self.classname ) && self.classname != "script_vehicle" )
-        self _meth_8491( 1 );
+        self setdamagecallbackon( 1 );
 
     self.health = 999999;
     self.maxhealth = var_0;

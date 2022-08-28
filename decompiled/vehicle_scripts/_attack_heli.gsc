@@ -335,14 +335,14 @@ kill_heli_logic( var_0, var_1 )
 
     if ( !var_0.circling )
     {
-        var_0 neargoalnotifydist( 100 );
+        var_0 setneargoalnotifydist( 100 );
 
         if ( !isdefined( var_0.dontwaitforpathend ) )
             var_0 waittill( "reached_dynamic_path_end" );
     }
     else
     {
-        var_0 neargoalnotifydist( 500 );
+        var_0 setneargoalnotifydist( 500 );
         var_0 waittill( "near_goal" );
     }
 
@@ -373,7 +373,7 @@ heli_circling_think( var_0, var_1 )
     for (;;)
     {
         var_3 vehicle_setspeed( var_1, var_1 / 4, var_1 / 4 );
-        var_3 neargoalnotifydist( 100 );
+        var_3 setneargoalnotifydist( 100 );
         var_4 = maps\_utility::get_closest_player_healthy( var_3.origin );
         var_5 = var_4.origin;
         var_3 setlookatent( var_4 );
@@ -384,7 +384,7 @@ heli_circling_think( var_0, var_1 )
             var_7 = common_scripts\utility::getstructarray( var_6.target, "targetname" );
 
         var_8 = var_7[randomint( var_7.size )];
-        var_3 setgoalpos( var_8.origin, 1 );
+        var_3 setvehgoalpos( var_8.origin, 1 );
         var_3 waittill( "near_goal" );
 
         if ( !isdefined( var_4.is_controlling_uav ) )
@@ -411,7 +411,7 @@ heli_goal_think( var_0 )
     {
         wait 0.05;
         var_2 vehicle_setspeed( var_0, var_0 / 2, var_0 / 10 );
-        var_2 neargoalnotifydist( 100 );
+        var_2 setneargoalnotifydist( 100 );
         var_6 = maps\_utility::get_closest_player_healthy( var_2.origin );
         var_7 = var_6.origin;
 
@@ -421,7 +421,7 @@ heli_goal_think( var_0 )
             var_3 = common_scripts\utility::getclosest( var_7, var_8 );
         }
 
-        var_2 setgoalpos( var_3.origin, 1 );
+        var_2 setvehgoalpos( var_3.origin, 1 );
         var_2.moving = 1;
         var_6 = maps\_utility::get_closest_player_healthy( var_2.origin );
 

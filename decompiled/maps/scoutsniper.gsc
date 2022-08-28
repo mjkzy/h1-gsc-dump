@@ -422,7 +422,7 @@ intro_cqb_into_shack()
     self pushplayer( 1 );
     maps\_utility::enable_cqbwalk();
     var_0 = getnode( "price_intro_holdup2", "targetname" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = level.macmillan_exposed_cqb_radius;
     self waittill( "goal" );
     level thread maps\_utility::function_stack( maps\_utility::radio_dialogue, "scoutsniper_mcm_deadahead" );
@@ -598,7 +598,7 @@ intro_sneakup_tableguys()
     var_0 = getnode( "price_intro_tableguys_node3", "targetname" );
     self.ref_node.origin = var_0.origin;
     self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = level.macmillan_exposed_cqb_radius;
     self waittill( "goal" );
     level thread maps\_utility::function_stack( maps\_utility::radio_dialogue, "scoutsniper_mcm_4tangos" );
@@ -1444,7 +1444,7 @@ church_open_door()
     self.disableexits = 0;
     self.disablearrivals = 0;
     self.animname = "generic";
-    self _meth_8565( 1 );
+    self setisignoringgrenades( 1 );
 
     if ( common_scripts\utility::flag( "church_and_intro_killed" ) )
     {
@@ -1498,7 +1498,7 @@ church_walkthrough()
     self.ref_node.origin = var_0.origin;
     self.ref_node.angles = var_0.angles + ( 0.0, -90.0, 0.0 );
     self.ref_node maps\_anim::anim_generic_reach_and_arrive( self, "exposed_2_alert_cornerR" );
-    self _meth_8565( 0 );
+    self setisignoringgrenades( 0 );
     self.moveplaybackrate = 1.0;
 
     if ( !common_scripts\utility::flag( "graveyard_get_down" ) && !common_scripts\utility::flag( "graveyard_hear_that" ) )
@@ -1719,7 +1719,7 @@ h1_macmillan_heli_sequence()
         if ( !common_scripts\utility::flag( "graveyard_price_entered" ) )
         {
             var_0 = getnode( "macmillan_heli_prone_node", "targetname" );
-            level.price getgoalvolume( var_0 );
+            level.price setgoalnode( var_0 );
             level.price waittill( "goal" );
         }
 
@@ -2455,7 +2455,7 @@ field_enemy_think2()
         field_enemy_wait_to_run();
 
     var_0 = getnode( "field_endup_node", "targetname" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = 64;
     maps\_utility::clear_run_anim();
     maps\scoutsniper_code::waitontruegoal( var_0 );
@@ -2736,7 +2736,7 @@ pond_moveup()
     var_0 = getnode( "pond_price_moveup_node", "targetname" );
     self.ref_node.origin = var_0.origin;
     self.ref_node.angles = var_0.angles;
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = level.macmillan_exposed_cqb_radius;
     self waittill( "goal" );
     wait 1;
@@ -2793,13 +2793,13 @@ pond_betterview()
     self.ref_node.origin = var_0.origin;
     self.ref_node.angles = var_0.angles + ( 0.0, 90.0, 0.0 );
     self.disablearrivals = 0;
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = 100;
     wait 1;
     self allowedstances( "crouch" );
     self waittill( "goal" );
     self allowedstances( "crouch", "stand" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = level.macmillan_exposed_cqb_radius;
     self waittill( "goal" );
     common_scripts\utility::waittill_any_timeout( 1.0, "cover_arrival_finished" );
@@ -4473,7 +4473,7 @@ end_moveup()
         maps\_utility::disable_cqbwalk();
         var_4 delete();
         var_0 = getnode( "end_node_end", "targetname" );
-        self getgoalvolume( var_0 );
+        self setgoalnode( var_0 );
         self.goalradius = 16;
         wait 3;
     }

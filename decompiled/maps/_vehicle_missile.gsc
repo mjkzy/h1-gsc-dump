@@ -69,7 +69,7 @@ turret_think()
         self setturrettargetvec( var_2 );
         level thread turret_rotate_timeout( self, 5.0 );
         self waittill( "turret_rotate_stopped" );
-        self clearturrettargetent();
+        self clearturrettarget();
 
         if ( distance( self.origin, var_1.origin ) > self.attackradius )
             continue;

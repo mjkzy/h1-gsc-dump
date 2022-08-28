@@ -605,14 +605,14 @@ body_sense_wakeup_start()
 h1_aftermathwakeupseq_dof()
 {
     wait 1.35;
-    level.player _meth_84A7( 2.4, 140, 9.0, 9.0 );
+    level.player setphysicaldepthoffield( 2.4, 140, 9.0, 9.0 );
     setsaveddvar( "r_mbEnable", 2 );
-    level.player _meth_84A5();
-    level.player _meth_84A7( 2.4, 21, 1.0, 1.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 2.4, 21, 1.0, 1.0 );
     wait 8.5;
-    level.player _meth_84A7( 3.4, 14, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 3.4, 14, 2.0, 2.0 );
     wait 2.3;
-    level.player _meth_84A7( 4.4, 11.5, 3.0, 3.0 );
+    level.player setphysicaldepthoffield( 4.4, 11.5, 3.0, 3.0 );
     wait 1.5;
     wait 1.5;
     setsaveddvar( "r_mbEnable", 0 );

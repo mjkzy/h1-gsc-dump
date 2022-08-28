@@ -11,7 +11,7 @@ main()
     setup_lighting_triggers();
     thread play_flickering_light();
     var_0 = getent( "lightshadow", "targetname" );
-    var_0 _meth_8494( "force_off" );
+    var_0 setlightshadowstate( "force_off" );
     var_0 office_light_force_on();
     setsaveddvar( "fx_cast_shadow", 0 );
 }
@@ -60,7 +60,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::set_vision_set( "armada", var_1 );
             maps\_utility::vision_set_fog_changes( "armada", var_1 );
             level.player maps\_utility::set_light_set_player( "armada" );
-            level.player _meth_848C( "clut_armada", var_1 );
+            level.player setclutforplayer( "clut_armada", var_1 );
             break;
         case "armada_ride":
             if ( !isdefined( var_1 ) )
@@ -69,7 +69,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::set_vision_set( "armada_ride", var_1 );
             maps\_utility::vision_set_fog_changes( "armada_ride", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_ride" );
-            level.player _meth_848C( "clut_armada", var_1 );
+            level.player setclutforplayer( "clut_armada", var_1 );
             break;
         case "armada_interior_HQ":
             if ( !isdefined( var_1 ) )
@@ -78,7 +78,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::set_vision_set( "armada_hq", var_1 );
             maps\_utility::vision_set_fog_changes( "armada_hq", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_interior_HQ" );
-            level.player _meth_848C( "clut_armada", var_1 );
+            level.player setclutforplayer( "clut_armada", var_1 );
             break;
         case "armada_interior_TVStation":
             if ( !isdefined( var_1 ) )
@@ -87,7 +87,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::set_vision_set( "armada_tvs", var_1 );
             maps\_utility::vision_set_fog_changes( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_interior_TVStation" );
-            level.player _meth_848C( "clut_armada", var_1 );
+            level.player setclutforplayer( "clut_armada", var_1 );
             break;
         case "armada_TVStation_Hall":
             if ( !isdefined( var_1 ) )
@@ -96,7 +96,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::set_vision_set( "armada_tvs", var_1 );
             maps\_utility::vision_set_fog_changes( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Hall" );
-            level.player _meth_848C( "clut_armada", var_1 );
+            level.player setclutforplayer( "clut_armada", var_1 );
             break;
         case "armada_TVStation_Kitchen":
             if ( !isdefined( var_1 ) )
@@ -105,7 +105,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::set_vision_set( "armada_tvs", var_1 );
             maps\_utility::vision_set_fog_changes( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Kitchen" );
-            level.player _meth_848C( "clut_armada", var_1 );
+            level.player setclutforplayer( "clut_armada", var_1 );
             break;
         case "armada_TVStation_Roof01":
             if ( !isdefined( var_1 ) )
@@ -114,7 +114,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::set_vision_set( "armada_tvs", var_1 );
             maps\_utility::vision_set_fog_changes( "armada", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Roof01" );
-            level.player _meth_848C( "clut_armada", var_1 );
+            level.player setclutforplayer( "clut_armada", var_1 );
             break;
         case "armada_TVStation_Stairwell":
             if ( !isdefined( var_1 ) )
@@ -123,7 +123,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::set_vision_set( "armada_tvs", var_1 );
             maps\_utility::vision_set_fog_changes( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Stairwell" );
-            level.player _meth_848C( "clut_armada", var_1 );
+            level.player setclutforplayer( "clut_armada", var_1 );
             break;
         case "armada_TVStation_Roof02":
             if ( !isdefined( var_1 ) )
@@ -132,7 +132,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::set_vision_set( "armada", var_1 );
             maps\_utility::vision_set_fog_changes( "armada", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_Roof02" );
-            level.player _meth_848C( "clut_armada", var_1 );
+            level.player setclutforplayer( "clut_armada", var_1 );
             break;
         case "armada_TVStation_End":
             if ( !isdefined( var_1 ) )
@@ -141,7 +141,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::set_vision_set( "armada_tvs", var_1 );
             maps\_utility::vision_set_fog_changes( "armada_tvs", var_1 );
             level.player maps\_utility::set_light_set_player( "armada_TVStation_End" );
-            level.player _meth_848C( "clut_armada", var_1 );
+            level.player setclutforplayer( "clut_armada", var_1 );
             break;
         default:
             if ( !isdefined( var_1 ) )
@@ -150,7 +150,7 @@ apply_lighting_pass_armada( var_0, var_1 )
             maps\_utility::set_vision_set( "armada", var_1 );
             maps\_utility::vision_set_fog_changes( "armada", var_1 );
             level.player maps\_utility::set_light_set_player( "armada" );
-            level.player _meth_848C( "clut_armada", var_1 );
+            level.player setclutforplayer( "clut_armada", var_1 );
             break;
     }
 
@@ -201,6 +201,6 @@ office_light_trigger( var_0, var_1 )
     for (;;)
     {
         self waittill( "trigger" );
-        var_0 _meth_8494( var_1 );
+        var_0 setlightshadowstate( var_1 );
     }
 }

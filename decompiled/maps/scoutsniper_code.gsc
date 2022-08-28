@@ -557,7 +557,7 @@ fly_path( var_0 )
     if ( !isdefined( var_0 ) )
         var_0 = common_scripts\utility::getstruct( self.target, "targetname" );
 
-    self neargoalnotifydist( 512 );
+    self setneargoalnotifydist( 512 );
 
     if ( !isdefined( var_0.speed ) )
         fly_path_set_speed( 30, 1 );
@@ -578,9 +578,9 @@ fly_to( var_0 )
     fly_path_set_speed( var_0.speed );
 
     if ( isdefined( var_0.radius ) )
-        self neargoalnotifydist( var_0.radius );
+        self setneargoalnotifydist( var_0.radius );
     else
-        self neargoalnotifydist( 512 );
+        self setneargoalnotifydist( 512 );
 
     var_1 = 0;
 
@@ -604,7 +604,7 @@ fly_to( var_0 )
     else
         self cleartargetyaw();
 
-    self setgoalpos( var_0.origin + ( 0, 0, self.originheightoffset ), var_1 );
+    self setvehgoalpos( var_0.origin + ( 0, 0, self.originheightoffset ), var_1 );
     common_scripts\utility::waittill_any( "near_goal", "goal" );
     var_0 notify( "trigger", self );
     common_scripts\utility::flag_waitopen( "helicopter_unloading" );
@@ -2426,7 +2426,7 @@ dash_sniper_alert( var_0 )
 {
     var_1 = getnode( "dash_sniper_node", "targetname" );
     thread maps\_stealth_behavior::enemy_announce_huh();
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self.goalradius = 32;
 }
 
@@ -2434,7 +2434,7 @@ dash_sniper_attack( var_0 )
 {
     var_1 = getnode( "dash_sniper_node", "targetname" );
     thread maps\_stealth_behavior::enemy_announce_spotted( var_0.origin );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self.goalradius = 32;
 }
 

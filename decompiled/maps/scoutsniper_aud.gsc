@@ -298,7 +298,7 @@ aud_start_graveyard_heli_scripted_sequence( var_0 )
     soundscripts\_audio_mix_manager::mm_clear_submix( "graveyard_hind_mix" );
     var_1 scalevolume( 0, 2 );
     wait 2;
-    var_1 _meth_854D( "scn_scoutsniper_graveyard_hind_passby" );
+    var_1 stopsound( "scn_scoutsniper_graveyard_hind_passby" );
     var_2 stoprumble( "heli_loop" );
 }
 
@@ -310,7 +310,7 @@ aud_start_school_heli_scripted_sequence( var_0 )
     wait 2;
     soundscripts\_audio_mix_manager::mm_clear_submix( "school_heli_mix" );
     wait 2;
-    self _meth_854D( "scn_scoutsniper_school_int_heli_flyby" );
+    self stopsound( "scn_scoutsniper_school_int_heli_flyby" );
 }
 
 monitor_end_node_reached()

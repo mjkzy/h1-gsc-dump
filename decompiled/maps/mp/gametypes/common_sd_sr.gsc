@@ -172,7 +172,7 @@ bombs()
         var_9.bombdefusetrig = getent( var_1[0].target, "targetname" );
         var_9.bombdefusetrig.origin += ( 0.0, 0.0, -10000.0 );
         var_9.bombdefusetrig.label = var_9.label;
-        var_9.bombdefusetrig _meth_852A( 1 );
+        var_9.bombdefusetrig usetriggertouchcheckstance( 1 );
     }
 
     for ( var_7 = 0; var_7 < level.bombzones.size; var_7++ )

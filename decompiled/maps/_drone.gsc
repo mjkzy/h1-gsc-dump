@@ -189,7 +189,7 @@ drone_thermal_draw_disable( var_0 )
     wait(var_0);
 
     if ( isdefined( self ) )
-        self motionblurhqenable();
+        self thermaldrawdisable();
 }
 #using_animtree("generic_human");
 

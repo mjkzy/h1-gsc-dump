@@ -800,7 +800,7 @@ teleport_human_shield( var_0 )
     self forceteleport( var_0.origin, var_0.angles );
     self setgoalpos( self.origin );
     maps\jake_tools::setgoalradius( var_0.radius );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 }
 
 humanshield()
@@ -825,7 +825,7 @@ humanshield()
     var_1 = 0.5;
     level.player thread maps\_utility::play_sound_on_entity( "scn_slomo_in_front" );
     maps\_utility::set_vision_set( "airplane_slomo", 2 );
-    level.player _meth_848C( "clut_airplane_slomo", 2.0 );
+    level.player setclutforplayer( "clut_airplane_slomo", 2.0 );
     level.player lightsetforplayer( "airplane_slomo" );
     level.eplayerview maps\_utility::lerp_player_view_to_tag( "tag_player", var_1, 1, 35, 35, 45, 45 );
     wait(var_1);
@@ -875,7 +875,7 @@ humanshield()
     level.player setmovespeedscale( level.playerspeed );
     level.player thread maps\_utility::play_sound_on_entity( "scn_slomo_out_front" );
     maps\_utility::set_vision_set( "airplane", 2 );
-    level.player _meth_848C( "clut_airplane_top", 2.0 );
+    level.player setclutforplayer( "clut_airplane_top", 2.0 );
     level.player lightsetforplayer( "airplane" );
     level notify( "stop_player_heartbeat" );
 }
@@ -1404,7 +1404,7 @@ plane_explodes()
     if ( !maps\_utility::arcademode() )
     {
         wait 4.0;
-        level.player _meth_84ED( &"AIRPLANE_CAMPAIGN_COMPLETED" );
+        level.player luiopenmenu( &"AIRPLANE_CAMPAIGN_COMPLETED" );
         level.player waittill( "menuresponse" );
     }
 
@@ -1448,7 +1448,7 @@ friendly_blows_door()
     level.grigsby allowedstances( "crouch", "stand", "prone" );
     level.grigsby.goalradius = 32;
     var_1 = getnode( "node_door_cover", "targetname" );
-    level.grigsby getgoalvolume( var_1 );
+    level.grigsby setgoalnode( var_1 );
     level.grigsby common_scripts\utility::waittill_notify_or_timeout( "goal", 3 );
     wait 1;
     common_scripts\_exploder::exploder( 100 );
@@ -2423,7 +2423,7 @@ hallways_heroes_solo( var_0, var_1, var_2, var_3 )
 
     while ( isdefined( var_5 ) )
     {
-        self getgoalvolume( var_5 );
+        self setgoalnode( var_5 );
 
         if ( var_5.radius )
             self.goalradius = var_5.radius;

@@ -396,7 +396,7 @@ playfacialanim( var_0, var_1, var_2 )
             return;
         }
 
-        if ( self _meth_84EA() )
+        if ( self hasblendshapes() )
             var_1 += "_blend";
 
         if ( !isdefined( anim.facial[var_1] ) )
@@ -436,10 +436,10 @@ end_facial_on_death( var_0 )
 
 get_eye_relative_dir()
 {
-    if ( self _meth_843E( "jnt_eyelid_TL" ) == -1 || self _meth_843E( "tag_eye" ) == -1 )
+    if ( self gettagindex( "jnt_eyelid_TL" ) == -1 || self gettagindex( "tag_eye" ) == -1 )
         return;
 
-    if ( self _meth_843E( "jnt_eyelid_TR" ) == -1 )
+    if ( self gettagindex( "jnt_eyelid_TR" ) == -1 )
         return;
 
     var_0 = self gettagangles( "tag_eye" );

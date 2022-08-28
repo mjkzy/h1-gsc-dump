@@ -161,7 +161,7 @@ ai_nodebeforecolor_think()
     }
 
     wait 0.05;
-    var_1 getgoalvolume( var_0 );
+    var_1 setgoalnode( var_0 );
 
     if ( isdefined( var_0.radius ) )
         var_1.goalradius = var_0.radius;

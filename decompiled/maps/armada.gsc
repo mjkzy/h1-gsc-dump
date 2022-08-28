@@ -646,13 +646,13 @@ armada_shadowlightbyzone()
     {
         if ( common_scripts\utility::flag( "in_tv_station_lighting_zone_1" ) )
         {
-            var_0 _meth_8494( "force_fully_on" );
+            var_0 setlightshadowstate( "force_fully_on" );
 
             while ( common_scripts\utility::flag( "in_tv_station_lighting_zone_1" ) )
                 wait 0.5;
         }
         else if ( common_scripts\utility::flag( "in_tv_station_lighting_zone_2" ) )
-            var_0 _meth_8494( "normal" );
+            var_0 setlightshadowstate( "normal" );
 
         wait 0.5;
     }
@@ -992,7 +992,7 @@ ride_start()
     level.player_heli.script_disablevehicleaudio = 1;
     level.player_heli thread maps\_utility::play_sound_on_entity( "scn_armanda_intro" );
     level.player disableoffhandweapons( 1 );
-    level.player _meth_84BB( 1 );
+    level.player disableoffhandsecondaryweapons( 1 );
     level.player_heli thread maps\armada_anim::player_heli_ropeanimoverride();
     level.player_heli thread loadplayer( 3, 1.0 );
     level.player_heli thread helicopter_residual_dust();
@@ -1029,14 +1029,14 @@ heli_ride_h1_dof()
     wait 17.0;
     wait 8.0;
     wait 5.0;
-    level.player _meth_84A5();
-    level.player _meth_84A7( 6.4, 1500, 0.5, 0.5 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 6.4, 1500, 0.5, 0.5 );
     wait 0.3;
     setsaveddvar( "r_mbEnable", 2 );
     wait 1.05;
     setsaveddvar( "r_mbEnable", 0 );
     wait 4.15;
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
 }
 
 return_fire_flag()
@@ -1116,7 +1116,7 @@ on_ground()
     level.player giveweapon( "claymore" );
     setsaveddvar( "sm_sunSampleSizeNear", 0.25 );
     level.player enableoffhandweapons( 1 );
-    level.player _meth_84BC( 1 );
+    level.player enableoffhandsecondaryweapons( 1 );
     level.player enableweaponswitch();
 }
 
@@ -1218,7 +1218,7 @@ helicopters_fly_away( var_0 )
     self cleargoalyaw();
     self clearlookatent();
     self cleartargetyaw();
-    self setgoalpos( self.exitpoint, 1 );
+    self setvehgoalpos( self.exitpoint, 1 );
     self waittill( "goal" );
     level.helis = common_scripts\utility::array_remove( level.helis, self );
     self delete();
@@ -1584,7 +1584,7 @@ dialog_on_a_loop()
 
 room_clear( var_0, var_1 )
 {
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self waittill( "goal" );
     self.dontavoidplayer = 1;
     self pushplayer( 1 );
@@ -1597,7 +1597,7 @@ room_clear( var_0, var_1 )
 
     wait 2;
     var_2 = getnode( var_0.target, "targetname" );
-    self getgoalvolume( var_2 );
+    self setgoalnode( var_2 );
     self waittill( "goal" );
     level waittill( "rally_up" );
     wait(randomfloatrange( 0.2, 1.5 ));
@@ -1627,7 +1627,7 @@ walk_to( var_0 )
     self.disablearrivals = 1;
     self.disableexits = 1;
     self.goalradius = 32;
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self waittill( "goal" );
     maps\_anim::anim_generic( self, "patrol_stop" );
     self setgoalpos( self.origin );
@@ -2043,13 +2043,13 @@ helis_move2()
         if ( isdefined( var_2[var_4].radius ) )
             var_3 = var_2[var_4].radius;
 
-        self neargoalnotifydist( 400 );
+        self setneargoalnotifydist( 400 );
         var_5 = 0;
 
         if ( isdefined( var_2[var_4].script_stopnode ) )
             var_5 = var_2[var_4].script_stopnode;
 
-        self setgoalpos( var_2[var_4].origin, var_5 );
+        self setvehgoalpos( var_2[var_4].origin, var_5 );
         self waittill( "near_goal" );
     }
 }
@@ -2209,9 +2209,9 @@ override_lighting_lobby()
     var_1 = getnode( "door_shadow_pos", "targetname" );
     var_2 = getnode( "door_shadow_pos2", "targetname" );
     var_3 = getent( "trigger_inside_lobby", "targetname" );
-    var_0 _meth_8477( var_1.origin );
+    var_0 overridelightingorigin( var_1.origin );
     var_3 waittill( "trigger" );
-    var_0 _meth_8477( var_2.origin );
+    var_0 overridelightingorigin( var_2.origin );
 }
 
 tv_station_reset_friendlyfire()
@@ -2229,9 +2229,9 @@ server_blinking_lights()
         if ( distancesquared( self.origin, level.player.origin ) < 1000000 )
         {
             var_0 = randomfloatrange( 0.07, 0.15 );
-            self _meth_8468( "mtl_lab_server_rack_modular", "mtl_lab_server_rack_modular_off" );
+            self overridematerial( "mtl_lab_server_rack_modular", "mtl_lab_server_rack_modular_off" );
             wait(var_0);
-            self _meth_8469();
+            self overridematerialreset();
             wait(var_0);
         }
 
@@ -2268,7 +2268,7 @@ bright_tv()
 
             if ( var_0 < var_3 )
             {
-                var_2 _meth_8468( "cinematic_3d", "cinematic_3d_" + var_1 + "_armada" );
+                var_2 overridematerial( "cinematic_3d", "cinematic_3d_" + var_1 + "_armada" );
                 break;
             }
 

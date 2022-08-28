@@ -73,7 +73,7 @@ codecallback_entitydamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_
     if ( isdefined( self.damagecallback ) )
         self [[ self.damagecallback ]]( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11 );
     else
-        self _meth_8492( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11 );
+        self finishentitydamage( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11 );
 }
 
 codecallback_codeendgame()

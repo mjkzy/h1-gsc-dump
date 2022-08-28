@@ -164,7 +164,7 @@ bridge_runners()
 
     var_0 endon( "death" );
     var_1 = getnode( var_0.target, "targetname" );
-    var_0 getgoalvolume( var_1 );
+    var_0 setgoalnode( var_1 );
     var_0.interval = 0;
     var_0.ignoresuppression = 1;
     var_0.goalradius = 64;
@@ -180,7 +180,7 @@ bridge_runners()
     common_scripts\utility::flag_set( "bridge_runners_flee" );
     maps\_utility::waitspread( 1, 5 );
     var_1 = getnode( "early_bridge_node", "targetname" );
-    var_0 getgoalvolume( var_1 );
+    var_0 setgoalnode( var_1 );
 }
 
 bridge_truck_drives( var_0 )
@@ -238,7 +238,7 @@ bad_infantry_think()
     if ( isalive( level.goodtank ) )
         self setentitytarget( level.goodtank );
 
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = 384;
     thread bad_infantry_reaches_goal_and_deletes();
     self waittill( "death" );
@@ -361,7 +361,7 @@ helicopter_drops_off_guys()
     var_2 = maps\_vehicle::spawn_vehicle_from_targetname( "heli" );
     var_2.health = 10000000;
     var_2 vehicle_setspeed( 150, 35, 35 );
-    var_2 neargoalnotifydist( 500 );
+    var_2 setneargoalnotifydist( 500 );
 
     for (;;)
     {
@@ -370,24 +370,24 @@ helicopter_drops_off_guys()
 
         var_1 = getent( var_1.target, "targetname" );
         var_2 setgoalyaw( var_1.angles[1] );
-        var_2 setgoalpos( var_1.origin, 1 );
+        var_2 setvehgoalpos( var_1.origin, 1 );
 
         while ( distance( var_2.origin, var_1.origin ) >= 500 )
             wait 0.05;
     }
 
-    var_2 neargoalnotifydist( 50 );
+    var_2 setneargoalnotifydist( 50 );
     var_2 waittill( "near_goal" );
     var_2 notify( "unload" );
     wait 8;
     thread heli_guys_run_in();
     var_2 vehicle_setspeed( 50, 15, 15 );
-    var_2 neargoalnotifydist( 500 );
+    var_2 setneargoalnotifydist( 500 );
     var_1 = getent( "heli_retreat_path", "targetname" );
 
     for (;;)
     {
-        var_2 setgoalpos( var_1.origin, 1 );
+        var_2 setvehgoalpos( var_1.origin, 1 );
 
         while ( distance( var_2.origin, var_1.origin ) >= 500 )
             wait 0.05;
@@ -525,7 +525,7 @@ street_guys_run_for_it()
 {
     self endon( "death" );
     var_0 = getnode( self.target, "targetname" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = 32;
     self.ignoresuppression = 1;
     self setthreatbiasgroup( "street_guys" );
@@ -540,7 +540,7 @@ street_guys_run_for_it()
             break;
 
         var_0 = getnode( var_0.target, "targetname" );
-        self getgoalvolume( var_0 );
+        self setgoalnode( var_0 );
     }
 
     if ( !self cansee( level.player ) )
@@ -552,15 +552,15 @@ ai_enters_apartment( var_0 )
     level.apartment_reach++;
     var_1 = getnode( "right_house_node", "targetname" );
     maps\_utility::waitspread( 0.01, 2.5 );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self.ignoresuppression = 1;
     self.goalradius = 32;
     self waittill( "goal" );
     var_1 = getnode( var_1.target, "targetname" );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self waittill( "goal" );
     var_1 = getnode( var_0, "targetname" );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self waittill( "goal" );
     self.ignoresuppression = 0;
     level.apartment_reach--;
@@ -659,7 +659,7 @@ melee_sequence()
 
     common_scripts\utility::flag_set( "melee_sequence_begins" );
     maps\_utility::autosave_by_name( "melee_sequence" );
-    var_8 getgoalvolume( var_7 );
+    var_8 setgoalnode( var_7 );
     var_8.dontshootstraight = 1;
     var_8.goalradius = 4;
     var_6 waittill( "trigger", var_10 );
@@ -673,7 +673,7 @@ melee_sequence()
 
             if ( isdefined( var_8 ) )
             {
-                var_8 _meth_854D( level.scr_sound["paulsen"]["melee"] );
+                var_8 stopsound( level.scr_sound["paulsen"]["melee"] );
                 var_8 playsound( "bog_scn_melee_struggle_end" );
             }
 
@@ -690,7 +690,7 @@ melee_sequence()
 
         if ( isdefined( var_8 ) )
         {
-            var_8 _meth_854D( level.scr_sound["paulsen"]["melee"] );
+            var_8 stopsound( level.scr_sound["paulsen"]["melee"] );
             var_8 playsound( "bog_scn_melee_struggle_end" );
         }
 
@@ -1037,7 +1037,7 @@ alley_roof_guy()
             continue;
 
         var_2.roof_occupied = 1;
-        self getgoalvolume( var_2 );
+        self setgoalnode( var_2 );
         self.goalradius = 64;
         return;
     }
@@ -1694,7 +1694,7 @@ wait_then_go()
     self.goalradius = 32;
     wait 0.5;
     var_0 = getnode( self.target, "targetname" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 }
 
 die_shortly()
@@ -3006,17 +3006,17 @@ second_floor_door_breach_guys( var_0 )
     var_7.goalradius = 64;
     var_6 maps\_anim::anim_single_solo( var_6, "clear" );
     var_3 = getnode( "second_floor_clear_node", "targetname" );
-    var_7 getgoalvolume( var_3 );
+    var_7 setgoalnode( var_3 );
     var_7.goalradius = 32;
     var_3 = getnode( "second_floor_wait_node", "targetname" );
-    var_6 getgoalvolume( var_3 );
+    var_6 setgoalnode( var_3 );
     var_7 waittill( "goal" );
     var_7.threatbias = 0;
     var_7 maps\_anim::anim_single_solo( var_7, "clear" );
     var_7 maps\_anim::anim_single_solo( var_7, "three_coming_out" );
     wait 1;
     var_7 maps\_utility::scrub();
-    var_7 getgoalvolume( var_13 );
+    var_7 setgoalnode( var_13 );
     var_7.goalradius = 32;
 
     if ( !var_0 )
@@ -3024,7 +3024,7 @@ second_floor_door_breach_guys( var_0 )
 
     var_6 maps\_anim::anim_single_solo( var_6, "clear" );
     var_6 maps\_utility::scrub();
-    var_6 getgoalvolume( var_14 );
+    var_6 setgoalnode( var_14 );
     var_6.goalradius = 32;
 
     if ( var_0 )
@@ -3046,7 +3046,7 @@ door_breach_guy_leaves( var_0 )
 {
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     maps\_utility::add_wait( maps\_utility::waittill_player_lookat );
     maps\_utility::add_wait( common_scripts\utility::flag_wait, "player_enters_laundrymat" );
     maps\_utility::do_wait_any();

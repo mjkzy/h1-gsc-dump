@@ -77,7 +77,7 @@ nightvision_check( var_0 )
 
 nightvision_on()
 {
-    level.player _meth_848D( "disabled", 0 );
+    level.player setclutoverrideenableforplayer( "disabled", 0 );
     self.nightvision_started = 1;
     maps\_utility::ent_flag_set( "nightvision_on" );
     self.nightvision_enabled = 1;
@@ -145,10 +145,10 @@ loopreflectoreffect()
 
     for (;;)
     {
-        if ( self _meth_843E( "tag_reflector_arm_le" ) != -1 )
+        if ( self gettagindex( "tag_reflector_arm_le" ) != -1 )
             playfxontag( level.nightvision_reflector_effect, self, "tag_reflector_arm_le" );
 
-        if ( self _meth_843E( "tag_reflector_arm_ri" ) != -1 )
+        if ( self gettagindex( "tag_reflector_arm_ri" ) != -1 )
             playfxontag( level.nightvision_reflector_effect, self, "tag_reflector_arm_ri" );
 
         wait 0.1;
@@ -177,7 +177,7 @@ nightvision_off()
     maps\_utility::ent_flag_clear( "nightvision_on" );
     self.nightvision_enabled = undefined;
     level.player lightsetoverridedisableforplayer();
-    level.player _meth_848E( 0 );
+    level.player setclutoverridedisableforplayer( 0 );
     var_0 = 0;
 
     for ( var_1 = 0; var_1 < level.players.size; var_1++ )

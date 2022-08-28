@@ -452,7 +452,7 @@ update_handsrope_lighting_origin()
     for (;;)
     {
         var_0 = level.car.origin + ( 0.0, 0.0, 36.0 );
-        level.handsrope _meth_8477( var_0 );
+        level.handsrope overridelightingorigin( var_0 );
         wait 0.05;
     }
 }

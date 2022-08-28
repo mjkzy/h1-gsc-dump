@@ -731,17 +731,17 @@ player_cut_grigs_loose()
 
 h1_cutgriggsloose_dof()
 {
-    level.player _meth_84A7( 16, 28, 9.0, 9.0 );
-    level.player _meth_84A5();
-    level.player _meth_84A7( 4.4, 15, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 16, 28, 9.0, 9.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 4.4, 15, 1.0, 1.0 );
     wait 1.35;
-    level.player _meth_84A7( 4.4, 14, 3.0, 3.0 );
+    level.player setphysicaldepthoffield( 4.4, 14, 3.0, 3.0 );
     wait 0.5;
-    level.player _meth_84A7( 3.4, 28, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 3.4, 28, 2.0, 2.0 );
     wait 1.0;
-    level.player _meth_84A7( 16, 200, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 16, 200, 2.0, 2.0 );
     wait 1.35;
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
 }
 
 rescued_start()

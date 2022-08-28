@@ -363,7 +363,7 @@ friendly_run_into_chopper( var_0 )
     thread maps\_utility::ignoreallenemies( 1 );
     self setcandamage( 0 );
     self.goalradius = 32;
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self waittill( "goal" );
 
     if ( isdefined( self.magic_bullet_shield ) )
@@ -560,7 +560,7 @@ hijack_driver_flee()
     self.edriver maps\_anim::anim_single_queue( self.edriver, "runaway" );
     var_0 = getnode( self.edriver.target, "targetname" );
     self.edriver stopanimscripted();
-    self.edriver getgoalvolume( var_0 );
+    self.edriver setgoalnode( var_0 );
 }
 
 do_hijack_others( var_0 )

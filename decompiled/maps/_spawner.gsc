@@ -1827,7 +1827,7 @@ set_goal_volume()
         if ( isdefined( var_1 ) )
         {
             var_4 = var_1;
-            self getgoalvolume( var_4 );
+            self setgoalnode( var_4 );
         }
         else if ( isdefined( var_2 ) )
         {
@@ -2419,7 +2419,7 @@ fallback_ai( var_0, var_1 )
     self notify( "stop_going_to_node" );
     self stopuseturret();
     self.ignoresuppression = 1;
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
 
     if ( node_has_radius( var_1 ) )
         self.goalradius = var_1.radius;
@@ -2632,7 +2632,7 @@ fallback()
 {
     var_0 = getnode( self.target, "targetname" );
     self.coverpoint = var_0;
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 
     if ( isdefined( self.script_seekgoal ) )
         thread arrive( var_0 );
@@ -2654,7 +2654,7 @@ fallback()
         {
             var_0 = getnode( var_0.target, "targetname" );
             self.coverpoint = var_0;
-            self getgoalvolume( var_0 );
+            self setgoalnode( var_0 );
             thread fallback_goal();
 
             if ( node_has_radius( var_0 ) )
@@ -2927,7 +2927,7 @@ friendly_mg42_think( var_0, var_1 )
     self.oldradius = self.goalradius;
     self.goalradius = 28;
     thread nofour();
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self.ignoresuppression = 1;
     self waittill( "goal" );
     self.goalradius = self.oldradius;
@@ -2996,7 +2996,7 @@ friendly_mg42_doneusingturret()
     var_1 = getnode( var_0.target, "targetname" );
     var_2 = self.goalradius;
     self.goalradius = 8;
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     wait 2;
     self.goalradius = 384;
     return;
@@ -3010,7 +3010,7 @@ friendly_mg42_doneusingturret()
             var_1 = getnode( var_1.target, "targetname" );
 
         if ( isdefined( var_1 ) )
-            self getgoalvolume( var_1 );
+            self setgoalnode( var_1 );
     }
 
     self.goalradius = var_2;
@@ -3070,7 +3070,7 @@ panzer_target( var_0, var_1, var_2, var_3, var_4 )
         var_0.panzer_pos = var_2;
 
     var_0 setgoalpos( var_0.origin );
-    var_0 getgoalvolume( var_1 );
+    var_0 setgoalnode( var_1 );
     var_0.goalradius = 12;
     var_0 waittill( "goal" );
     var_0.goalradius = 28;
@@ -3484,7 +3484,7 @@ flood_and_secure_spawn_goal()
     var_0 = getnode( self.target, "targetname" );
 
     if ( isdefined( var_0 ) )
-        self getgoalvolume( var_0 );
+        self setgoalnode( var_0 );
     else
     {
         var_0 = getent( self.target, "targetname" );
@@ -3515,7 +3515,7 @@ flood_and_secure_spawn_goal()
         else
             break;
 
-        self getgoalvolume( var_0 );
+        self setgoalnode( var_0 );
 
         if ( node_has_radius( var_0 ) )
             self.goalradius = var_0.radius;
@@ -3540,7 +3540,7 @@ flood_and_secure_spawn_goal()
 
         if ( isdefined( var_2 ) && ( var_2.code_classname == "misc_mgturret" || var_2.code_classname == "misc_turret" ) )
         {
-            self getgoalvolume( var_0 );
+            self setgoalnode( var_0 );
             self.goalradius = 4;
             self waittill( "goal" );
 
@@ -4095,7 +4095,7 @@ move_when_enemy_hides( var_0 )
 
 claim_a_node( var_0, var_1 )
 {
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.claimed_node = var_0;
     var_0.claimed = 1;
 

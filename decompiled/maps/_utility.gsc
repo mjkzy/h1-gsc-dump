@@ -5612,7 +5612,7 @@ update_weapon_tag_visibility( var_0 )
         foreach ( var_4 in var_2 )
             self attach( var_4["worldModel"], var_4["attachTag"] );
 
-        self _meth_8500( var_0 );
+        self hideweapontags( var_0 );
     }
 }
 
@@ -5639,7 +5639,7 @@ attach_player_current_weapon_to_rig( var_0 )
     foreach ( var_6 in var_4 )
         var_0 attach( var_6["attachment"], var_6["attachTag"] );
 
-    var_0 _meth_8500( var_1 );
+    var_0 hideweapontags( var_1 );
 }
 
 place_weapon_on( var_0, var_1 )
@@ -6192,7 +6192,7 @@ set_goal_node( var_0 )
     self.last_set_goalnode = var_0;
     self.last_set_goalpos = undefined;
     self.last_set_goalent = undefined;
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 }
 
 set_goal_node_targetname( var_0 )
@@ -8368,7 +8368,7 @@ teleport_ai( var_0 )
 {
     self forceteleport( var_0.origin, var_0.angles );
     self setgoalpos( self.origin );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 }
 
 move_all_fx( var_0 )
@@ -11843,7 +11843,7 @@ attach_player_current_weapon_to_anim_tag( var_0 )
     foreach ( var_6 in var_4 )
         self attach( var_6["attachment"], var_6["attachTag"] );
 
-    self _meth_8500( var_1 );
+    self hideweapontags( var_1 );
 }
 
 playerallowalternatemelee( var_0, var_1 )
@@ -11854,9 +11854,9 @@ playerallowalternatemelee( var_0, var_1 )
 _allowalternatemelee( var_0 )
 {
     if ( var_0 )
-        self _meth_84E9();
+        self enablealternatemelee();
     else
-        self _meth_84E8();
+        self disablealternatemelee();
 }
 
 playerallowweaponpickup( var_0, var_1 )
@@ -11913,7 +11913,7 @@ pretend_to_be_dead()
         return;
 
     self.pretending_to_be_dead = 1;
-    self _meth_84E5( "disable" );
+    self setthreatdetection( "disable" );
     self disableaimassist();
     self.ignoreme = 1;
     self.ignoresonicaoe = 1;
@@ -12007,11 +12007,11 @@ is_h1_level()
 
 yaw_ent_by_linked( var_0 )
 {
-    self _meth_8563( 1 );
+    self enablequatinterpolationrotation( 1 );
 
     for (;;)
     {
-        self _meth_8425( ( 0.0, 360.0, 0.0 ), var_0 );
+        self rotatebylinked( ( 0.0, 360.0, 0.0 ), var_0 );
         wait(var_0);
     }
 }

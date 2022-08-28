@@ -817,7 +817,7 @@ ai_hostile_knife_kill_abort_think()
 {
     common_scripts\utility::flag_wait( "knife_sequence_starting" );
     common_scripts\utility::waittill_either( "death", "stealth_enemy_endon_alert" );
-    level.price _meth_854D( "scn_icbm_knife_melee" );
+    level.price stopsound( "scn_icbm_knife_melee" );
     level.price_knife unlink();
     level.price_knife delete();
     level.price stopanimscripted();

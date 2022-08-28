@@ -951,11 +951,11 @@ setupprop()
     var_0 = common_scripts\utility::random( level.proplist );
     self playerhide( 1 );
     self.propanchor = spawn( "script_model", self.origin );
-    self.propanchor _meth_8442( self );
+    self.propanchor linktosynchronizedparent( self );
     self.propanchor _meth_8581();
     self.propanchor setcontents( 0 );
     self.propent = spawn( "script_model", self.origin );
-    self.propent _meth_8442( self.propanchor );
+    self.propent linktosynchronizedparent( self.propanchor );
     self.propent _meth_8581();
     self.propent setcontents( 0 );
     self.prop = spawn( "script_model", self.propent.origin );
@@ -966,11 +966,11 @@ setupprop()
     self.prop.angles = self.angles;
     applyxyzoffset();
     applyanglesoffset();
-    self.prop _meth_8442( self.propent );
+    self.prop linktosynchronizedparent( self.propent );
     self.prop _meth_8581();
     self.prop.owner = self;
     self.prop.health = 10000;
-    self.prop _meth_8491( 1 );
+    self.prop setdamagecallbackon( 1 );
     self.prop.info = var_0;
     self.health = var_0.propsize;
     self.maxhealth = self.health;
@@ -991,11 +991,11 @@ setupmadprops()
     var_0 = common_scripts\utility::random( level.proplist );
     self playerhide( 1 );
     self.propanchor = spawn( "script_model", self.origin );
-    self.propanchor _meth_8442( self );
+    self.propanchor linktosynchronizedparent( self );
     self.propanchor _meth_8581();
     self.propanchor setcontents( 0 );
     self.propent = spawn( "script_model", self.origin );
-    self.propent _meth_8442( self.propanchor );
+    self.propent linktosynchronizedparent( self.propanchor );
     self.propent _meth_8581();
     self.propent setcontents( 0 );
     self.prop = spawn( "script_model", self.propent.origin );
@@ -1006,11 +1006,11 @@ setupmadprops()
     self.prop.angles = self.angles;
     applyxyzoffset();
     applyanglesoffset();
-    self.prop _meth_8442( self.propent );
+    self.prop linktosynchronizedparent( self.propent );
     self.prop _meth_8581();
     self.prop.owner = self;
     self.prop.health = 10000;
-    self.prop _meth_8491( 1 );
+    self.prop setdamagecallbackon( 1 );
     self.prop.info = var_0;
     self.health = var_0.propsize;
     self.maxhealth = self.health;
@@ -1175,7 +1175,7 @@ proplockwatch()
             if ( self.slopelocked && maps\mp\_utility::is_true( self.lock ) )
                 self.propent set_pitch_roll_for_ground_normal( self.prop );
 
-            self.propent _meth_8442( self.propanchor );
+            self.propent linktosynchronizedparent( self.propanchor );
             continue;
         }
 
@@ -1207,12 +1207,12 @@ proplockwatch()
 
                 applyxyzoffset();
                 applyanglesoffset();
-                self.prop _meth_8442( self.propent );
+                self.prop linktosynchronizedparent( self.propent );
 
                 if ( self.slopelocked && maps\mp\_utility::is_true( self.lock ) )
                     self.propent set_pitch_roll_for_ground_normal( self.prop );
 
-                self.propent _meth_8442( self.propanchor );
+                self.propent linktosynchronizedparent( self.propanchor );
                 var_3 = self.health / self.maxhealth;
                 self.maxhealth = int( self.prop.info.propsize );
                 self.health = int( self.prop.info.propsize * var_3 );
@@ -1255,7 +1255,7 @@ proplockwatch()
                     self.propent unlink();
                     self.propent.angles = ( self.angles[0], self.prop.angles[1], self.angles[2] );
                     self.propent.origin = self.propanchor.origin;
-                    self.propent _meth_8442( self.propanchor );
+                    self.propent linktosynchronizedparent( self.propanchor );
                 }
 
                 if ( common_scripts\utility::is_player_gamepad_enabled() )
@@ -1382,10 +1382,10 @@ unlockprop()
         self.propent unlink();
         self.propent.angles = ( self.angles[0], self.propent.angles[1], self.angles[2] );
         self.propent.origin = self.propanchor.origin;
-        self.propent _meth_8442( self.propanchor );
+        self.propent linktosynchronizedparent( self.propanchor );
     }
 
-    self.propanchor _meth_8442( self );
+    self.propanchor linktosynchronizedparent( self );
     self.lock = 0;
     self.lockpropkey.label = &"MP_PH_LOCK";
 }
@@ -1400,7 +1400,7 @@ lockprop()
     {
         self.propent unlink();
         self.propent set_pitch_roll_for_ground_normal( self.prop );
-        self.propent _meth_8442( self.propanchor );
+        self.propent linktosynchronizedparent( self.propanchor );
     }
 
     self.lock = 1;
@@ -1591,7 +1591,7 @@ returntoprop()
         self playerlinkto( self.propanchor );
     else
     {
-        self.propanchor _meth_8442( self );
+        self.propanchor linktosynchronizedparent( self );
         self.propanchor.origin = self.origin;
     }
 }

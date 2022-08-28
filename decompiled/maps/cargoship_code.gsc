@@ -816,7 +816,7 @@ escape_heroes_run_wait( var_0 )
         if ( var_6[var_4].script_noteworthy == self.script_noteworthy )
         {
             thread maps\_utility::enable_arrivals();
-            self getgoalvolume( var_3[var_4 + 1] );
+            self setgoalnode( var_3[var_4 + 1] );
             self.goalradius = 16;
             break;
         }
@@ -986,31 +986,31 @@ escape_shellshock_heartbeat()
 
 escape_shellshock_depthoffield()
 {
-    level.player _meth_84A5();
+    level.player enablephysicaldepthoffieldscripting();
     setsaveddvar( "r_mbEnable", 2 );
     wait 1.34;
-    level.player _meth_84A7( 0.7, 50, 4.0, 4.0 );
+    level.player setphysicaldepthoffield( 0.7, 50, 4.0, 4.0 );
     wait 2.5;
-    level.player _meth_84A7( 1.5, 56, 1.6, 1.6 );
+    level.player setphysicaldepthoffield( 1.5, 56, 1.6, 1.6 );
     wait 6.5;
-    level.player _meth_84A7( 1.0, 50, 1.6, 1.6 );
+    level.player setphysicaldepthoffield( 1.0, 50, 1.6, 1.6 );
     wait 2.5;
-    level.player _meth_84A7( 2.0, 24, 2.8, 2.8 );
+    level.player setphysicaldepthoffield( 2.0, 24, 2.8, 2.8 );
     wait 1.66;
-    level.player _meth_84A7( 1.0, 56, 4.0, 4.0 );
+    level.player setphysicaldepthoffield( 1.0, 56, 4.0, 4.0 );
     wait 1.16;
-    level.player _meth_84A7( 0.9, 74, 1.3, 1.3 );
+    level.player setphysicaldepthoffield( 0.9, 74, 1.3, 1.3 );
     wait 3.34;
     setsaveddvar( "r_mbEnable", 0 );
-    level.player _meth_84A7( 1.0, 70, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 1.0, 70, 2.0, 2.0 );
     wait 1.16;
-    level.player _meth_84A7( 3.0, 28, 3.5, 3.5 );
+    level.player setphysicaldepthoffield( 3.0, 28, 3.5, 3.5 );
     wait 1.16;
-    level.player _meth_84A7( 5.0, 10, 1.7, 1.7 );
+    level.player setphysicaldepthoffield( 5.0, 10, 1.7, 1.7 );
     wait 1.1;
-    level.player _meth_84A7( 4.0, 300, 3.0, 3.0 );
+    level.player setphysicaldepthoffield( 4.0, 300, 3.0, 3.0 );
     wait 4.0;
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
 }
 
 escape_shellshock()
@@ -1399,7 +1399,7 @@ patrol()
         if ( var_1 < var_0.size )
         {
             var_2 = var_0[var_1];
-            self getgoalvolume( var_2 );
+            self setgoalnode( var_2 );
 
             if ( isdefined( var_2.radius ) && var_2.radius > 0 )
                 self.goalradius = var_2.radius;
@@ -1551,8 +1551,8 @@ heli_flypath( var_0 )
             var_1 = 0;
 
         handle_heli_audio( var_0 );
-        level.heli.vehicle setgoalpos( var_0.origin + ( 0.0, 0.0, 150.0 ), var_1 );
-        level.heli.vehicle neargoalnotifydist( 150 );
+        level.heli.vehicle setvehgoalpos( var_0.origin + ( 0.0, 0.0, 150.0 ), var_1 );
+        level.heli.vehicle setneargoalnotifydist( 150 );
         level.heli.vehicle waittill( "near_goal" );
 
         if ( isdefined( var_0.target ) )
@@ -1596,8 +1596,8 @@ set_heli_tempest_goal( var_0 )
     if ( randomint( 2 ) )
         var_4 *= -1;
 
-    level.heli.vehicle setgoalpos( var_0 + ( var_3, var_4, level.heli.heightsea ), 1 );
-    level.heli.vehicle neargoalnotifydist( 50 );
+    level.heli.vehicle setvehgoalpos( var_0 + ( var_3, var_4, level.heli.heightsea ), 1 );
+    level.heli.vehicle setneargoalnotifydist( 50 );
 }
 
 handle_heli_audio( var_0 )
@@ -1656,8 +1656,8 @@ heli_circle_area_start( var_0 )
 
     for (;;)
     {
-        self.vehicle setgoalpos( var_1.origin, 1 );
-        self.vehicle neargoalnotifydist( 64 );
+        self.vehicle setvehgoalpos( var_1.origin, 1 );
+        self.vehicle setneargoalnotifydist( 64 );
         self.vehicle settargetyaw( var_1.angles[1] );
         self.vehicle waittill( "near_goal" );
         wait 5;
@@ -2171,7 +2171,7 @@ heli_searchlight_on()
     self.spotlight linkto( self, "tag_barrel", ( 0.0, 0.0, -16.0 ), ( 0.0, 0.0, 0.0 ) );
     self.spotlight makeunusable();
     self.spotlight setmode( "manual" );
-    self.spotlight _meth_8159( 5 );
+    self.spotlight settoparc( 5 );
     common_scripts\utility::flag_set( "heli_light_on" );
     self.spotlight thread h1_searchlight_light_manager();
     self.spotlight thread heli_searchlight_dlight();
@@ -2752,7 +2752,7 @@ hallways_heroes_solo( var_0, var_1, var_2, var_3 )
 
     while ( isdefined( var_4 ) )
     {
-        self getgoalvolume( var_4 );
+        self setgoalnode( var_4 );
 
         if ( isdefined( var_4.radius ) && var_4.radius > 0 )
             self.goalradius = var_4.radius;
@@ -3060,7 +3060,7 @@ jumptothink()
             common_scripts\utility::flag_wait( "heroes_ready" );
             level.heli maps\mo_fastrope::fastrope_heli_overtake_now();
             level.heli.vehicle vehicle_setspeed( 700, 700 );
-            level.heli.vehicle setgoalpos( common_scripts\utility::getstruct( "intro_ride_node", "targetname" ).origin + ( 0.0, 0.0, 920.0 ), 1 );
+            level.heli.vehicle setvehgoalpos( common_scripts\utility::getstruct( "intro_ride_node", "targetname" ).origin + ( 0.0, 0.0, 920.0 ), 1 );
             level.heli.vehicle settargetyaw( 220 );
             wait 5.5;
             maps\_utility::delaythread( 2.5, soundscripts\_snd::snd_message, "aud_stop_intro_mix" );
@@ -3079,7 +3079,7 @@ jumptothink()
             level.player maps\_utility::set_light_set_player( "cargoship_exterior" );
             level.heli maps\mo_fastrope::fastrope_heli_overtake_now();
             level.heli.vehicle vehicle_setspeed( 300, 300, 250 );
-            level.heli.vehicle setgoalpos( common_scripts\utility::getstruct( "heli_deck_landing_node", "targetname" ).origin + ( 0.0, 0.0, 146.0 ), 1 );
+            level.heli.vehicle setvehgoalpos( common_scripts\utility::getstruct( "heli_deck_landing_node", "targetname" ).origin + ( 0.0, 0.0, 146.0 ), 1 );
             var_1 = getnode( "quarters_price_2", "targetname" );
             level.heroes5["price"] thread jumptoactor( var_1.origin );
             var_1 = getnode( "quarters_alavi_2", "targetname" );
@@ -3733,7 +3733,7 @@ escape_heroes_run( var_0 )
 
         while ( isdefined( var_9 ) )
         {
-            self getgoalvolume( var_9 );
+            self setgoalnode( var_9 );
 
             if ( isdefined( var_9.radius ) && var_9.radius > 0 )
                 self.goalradius = var_9.radius;
@@ -4005,7 +4005,7 @@ escape_heroes()
 
     while ( isdefined( var_3 ) )
     {
-        self getgoalvolume( var_3 );
+        self setgoalnode( var_3 );
 
         if ( isdefined( var_3.radius ) && var_3.radius > 0 )
             self.goalradius = var_3.radius;
@@ -4676,7 +4676,7 @@ water_stuff_for_art1( var_0 )
     var_5 delete();
     var_5 = spawn( "script_model", var_6 );
     var_5 setmodel( var_1 );
-    var_5 _meth_8477( var_4 );
+    var_5 overridelightingorigin( var_4 );
     var_5.targetname = "sea_black";
 
     if ( var_3 )
@@ -4686,7 +4686,7 @@ water_stuff_for_art1( var_0 )
     var_5 delete();
     var_5 = spawn( "script_model", var_6 );
     var_5 setmodel( var_2 );
-    var_5 _meth_8477( var_4 );
+    var_5 overridelightingorigin( var_4 );
     var_5.targetname = "sea_foam";
 
     if ( var_3 )
@@ -5134,8 +5134,8 @@ deck_light_shadow_hack()
     for (;;)
     {
         common_scripts\utility::flag_wait( "deck_light_shadow" );
-        var_0 _meth_8494( "force_fully_on" );
+        var_0 setlightshadowstate( "force_fully_on" );
         common_scripts\utility::flag_waitopen( "deck_light_shadow" );
-        var_0 _meth_8494( "normal" );
+        var_0 setlightshadowstate( "normal" );
     }
 }

@@ -878,7 +878,7 @@ flee_heat_area( var_0 )
     level endon( "player_goes_back_to_heat_area" );
     self notify( "stop_moving_in" );
     self notify( "stop_going_to_node" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = 64;
     self endon( "death" );
     self waittill( "goal" );
@@ -2378,14 +2378,14 @@ h1_pricecarry_pickup_dof_initial()
         return;
 
     wait 0.35;
-    level.player _meth_84A5();
-    level.player _meth_84A7( 10, 18, 1.0, 1.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 10, 18, 1.0, 1.0 );
     wait 1.0;
-    level.player _meth_84A7( 6, 20, 2.5, 2.5 );
+    level.player setphysicaldepthoffield( 6, 20, 2.5, 2.5 );
     wait 0.85;
-    level.player _meth_84A7( 6, 15, 2.5, 2.5 );
+    level.player setphysicaldepthoffield( 6, 15, 2.5, 2.5 );
     wait 0.85;
-    level.player _meth_84A7( 10, 110, 1.5, 1.5 );
+    level.player setphysicaldepthoffield( 10, 110, 1.5, 1.5 );
 }
 
 h1_pricecarry_pickup_dof_generic()
@@ -2394,12 +2394,12 @@ h1_pricecarry_pickup_dof_generic()
         return;
 
     wait 0.35;
-    level.player _meth_84A5();
-    level.player _meth_84A7( 10, 18, 1.0, 1.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 10, 18, 1.0, 1.0 );
     wait 1.0;
-    level.player _meth_84A7( 6, 20, 2.5, 2.5 );
+    level.player setphysicaldepthoffield( 6, 20, 2.5, 2.5 );
     wait 1.0;
-    level.player _meth_84A7( 10, 110, 1.5, 1.5 );
+    level.player setphysicaldepthoffield( 10, 110, 1.5, 1.5 );
 }
 
 h1_pricecarry_putdown_dof_generic()
@@ -2407,11 +2407,11 @@ h1_pricecarry_putdown_dof_generic()
     if ( common_scripts\utility::flag( "faiground_battle_begins" ) )
         return;
 
-    level.player _meth_84A5();
+    level.player enablephysicaldepthoffieldscripting();
     wait 0.5;
-    level.player _meth_84A7( 16, 110, 1.5, 1.5 );
+    level.player setphysicaldepthoffield( 16, 110, 1.5, 1.5 );
     wait 1.0;
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
 }
 
 carryloopcondition()
@@ -3188,7 +3188,7 @@ apartment_hunter_think()
 {
     var_0 = getnode( "apartment_hunter_delete", "targetname" );
     self endon( "death" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = 32;
     self.interval = 0;
     self.ignoreall = 1;
@@ -3210,7 +3210,7 @@ fall_back_and_delete( var_0 )
     waittillframeend;
     self notify( "stop_moving_in" );
     var_1 = common_scripts\utility::random( var_0 );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self.goalradius = 64;
     self waittill( "goal" );
     self delete();
@@ -3521,7 +3521,7 @@ flee_guy_runs()
 
     wait 1.5;
     var_0 = getnode( self.script_linkto, "script_linkname" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = 64;
     self waittill( "goal" );
     self.ignoreall = 0;
@@ -5058,8 +5058,8 @@ kill_heli_logic()
     {
         var_9 = common_scripts\utility::getclosest( level.player.origin, var_8 );
         var_7 vehicle_setspeed( 40, 10, 10 );
-        var_7 neargoalnotifydist( 100 );
-        var_7 setgoalpos( var_9.origin, 1 );
+        var_7 setneargoalnotifydist( 100 );
+        var_7 setvehgoalpos( var_9.origin, 1 );
         var_7 waittill( "near_goal" );
 
         if ( common_scripts\utility::flag( "break_for_apartment" ) )

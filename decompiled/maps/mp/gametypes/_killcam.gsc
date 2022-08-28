@@ -22,7 +22,7 @@ prekillcamnotify( var_0, var_1, var_2, var_3 )
         {
             var_4 = ( gettime() - var_4 ) / 1000;
             var_5 = maps\mp\gametypes\_playerlogic::gatherclassweapons();
-            var_6 = var_1 _meth_841F( var_2 + var_4, var_3, var_5 );
+            var_6 = var_1 loadcustomizationplayerview( var_2 + var_4, var_3, var_5 );
             var_7 = spawnstruct();
             var_7.team = var_1.team;
             var_7.weapon = var_1.loadoutprimary;
@@ -30,8 +30,8 @@ prekillcamnotify( var_0, var_1, var_2, var_3 )
             var_8.cust = var_7;
             var_8.weapons = var_6;
             self.killcamstream = var_8;
-            self _meth_8420( var_7, var_6 );
-            self _meth_852C( var_3 );
+            self hasloadedcustomizationplayerview( var_7, var_6 );
+            self precachekillcamiconforweapon( var_3 );
         }
     }
 }
@@ -239,7 +239,7 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
     if ( isagent( var_13 ) )
         var_1 = var_14 getentitynumber();
 
-    self _meth_852B( 0 );
+    self onlystreamactiveweapon( 0 );
     self.forcespectatorclient = var_1;
     self.killcamentity = -1;
     var_28 = setkillcamerastyle( var_0, var_1, var_2, var_4, var_14, var_20 );

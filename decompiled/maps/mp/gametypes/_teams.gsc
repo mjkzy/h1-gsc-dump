@@ -404,7 +404,7 @@ playercostume( var_0, var_1, var_2 )
     if ( isdefined( var_0 ) )
         var_0 = maps\mp\_utility::getbaseweaponname( var_0 ) + "_mp";
 
-    self _meth_84B6( self.costume, var_0, var_1, var_2 );
+    self setcostumemodels( self.costume, var_0, var_1, var_2 );
     self.voice = "american";
     self setclothtype( "vestlight" );
     return 1;

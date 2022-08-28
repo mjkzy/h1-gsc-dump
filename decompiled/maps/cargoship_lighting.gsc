@@ -84,7 +84,7 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             maps\_utility::set_vision_set( "cargoship_intro", var_1 );
             maps\_utility::vision_set_fog_changes( "cargoship_intro", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_intro" );
-            level.player _meth_848C( "clut_cargoship", var_1 );
+            level.player setclutforplayer( "clut_cargoship", var_1 );
             break;
         case "cargoship_exterior":
             if ( !isdefined( var_1 ) )
@@ -93,7 +93,7 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             maps\_utility::set_vision_set( "cargoship_exterior", var_1 );
             maps\_utility::vision_set_fog_changes( "cargoship_exterior", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_exterior" );
-            level.player _meth_848C( "clut_cargoship", var_1 );
+            level.player setclutforplayer( "clut_cargoship", var_1 );
             break;
         case "cargoship_exterior_helitrans_vision":
             if ( !isdefined( var_1 ) )
@@ -101,7 +101,7 @@ apply_lighting_pass_cargoship( var_0, var_1 )
 
             maps\_utility::set_vision_set( "cargoship_introtransit", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_exterior" );
-            level.player _meth_848C( "clut_cargoship", var_1 );
+            level.player setclutforplayer( "clut_cargoship", var_1 );
             break;
         case "cargoship_interior":
             if ( !isdefined( var_1 ) )
@@ -110,7 +110,7 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             maps\_utility::set_vision_set( "cargoship_interior_upperdeck", var_1 );
             maps\_utility::vision_set_fog_changes( "cargoship_interior_upperdeck", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_interior_upperdeck" );
-            level.player _meth_848C( "clut_cargoship", var_1 );
+            level.player setclutforplayer( "clut_cargoship", var_1 );
             break;
         case "cargoship_interior_transition":
             if ( !isdefined( var_1 ) )
@@ -119,7 +119,7 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             maps\_utility::set_vision_set( "cargoship_interior_transition", var_1 );
             maps\_utility::vision_set_fog_changes( "cargoship_interior_transition", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_interior_transition" );
-            level.player _meth_848C( "clut_cargoship", var_1 );
+            level.player setclutforplayer( "clut_cargoship", var_1 );
             break;
         case "cargoship_explosion":
             if ( !isdefined( var_1 ) )
@@ -130,7 +130,7 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             maps\_utility::vision_set_fog_changes( "cargoship_interior_cargohold_alert", var_1 );
             maps\_utility::set_vision_set( "cargoship_interior_cargohold_alert_igc", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_interior_cargohold_alert" );
-            level.player _meth_848C( "clut_cargoship", var_1 );
+            level.player setclutforplayer( "clut_cargoship", var_1 );
             break;
         case "cargoship_escape":
             if ( !isdefined( var_1 ) )
@@ -139,7 +139,7 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             maps\_utility::set_vision_set( "cargoship_interior_cargohold_alert", var_1 );
             maps\_utility::vision_set_fog_changes( "cargoship_interior_cargohold_alert", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_interior_cargohold_alert" );
-            level.player _meth_848C( "clut_cargoship", var_1 );
+            level.player setclutforplayer( "clut_cargoship", var_1 );
             break;
         case "cargoship_exterior_outro":
             if ( !isdefined( var_1 ) )
@@ -148,7 +148,7 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             maps\_utility::set_vision_set( "cargoship_exterior_outro", var_1 );
             maps\_utility::fog_set_changes( "cargoship_exterior" );
             level.player maps\_utility::set_light_set_player( "cargoship_exterior_outro" );
-            level.player _meth_848C( "clut_cargoship", var_1 );
+            level.player setclutforplayer( "clut_cargoship", var_1 );
             break;
         case "cargoship_outro":
             if ( !isdefined( var_1 ) )
@@ -157,7 +157,7 @@ apply_lighting_pass_cargoship( var_0, var_1 )
             maps\_utility::set_vision_set( "cargoship_outro", var_1 );
             maps\_utility::vision_set_fog_changes( "cargoship_outro", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_outro" );
-            level.player _meth_848C( "clut_cargoship", var_1 );
+            level.player setclutforplayer( "clut_cargoship", var_1 );
             break;
         default:
             if ( !isdefined( var_1 ) )
@@ -165,7 +165,7 @@ apply_lighting_pass_cargoship( var_0, var_1 )
 
             maps\_utility::vision_set_fog_changes( "cargoship_exterior", var_1 );
             level.player maps\_utility::set_light_set_player( "cargoship_exterior" );
-            level.player _meth_848C( "clut_cargoship", var_1 );
+            level.player setclutforplayer( "clut_cargoship", var_1 );
             break;
     }
 
@@ -220,7 +220,7 @@ set_light_intensity( var_0, var_1 )
         var_2 setlightintensity( common_scripts\utility::ter_op( var_0, 0.0, var_2.old_light_intensity ) );
 
         if ( isdefined( var_1 ) )
-            var_2 _meth_8494( var_1 );
+            var_2 setlightshadowstate( var_1 );
     }
 }
 

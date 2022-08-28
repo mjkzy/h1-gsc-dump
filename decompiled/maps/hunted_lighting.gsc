@@ -625,14 +625,14 @@ apply_lighting_pass_hunted_outside( var_0 )
 
     maps\_utility::vision_set_fog_changes( "hunted", 2 );
     level.player maps\_utility::set_light_set_player( "hunted" );
-    level.player _meth_848C( "clut_hunted", var_0 );
+    level.player setclutforplayer( "clut_hunted", var_0 );
 }
 
 apply_lighting_pass_hunted_inside()
 {
     maps\_utility::vision_set_fog_changes( "hunted_barn_interior", 2 );
     level.player maps\_utility::set_light_set_player( "barn_interior" );
-    level.player _meth_848C( "clut_hunted", 5 );
+    level.player setclutforplayer( "clut_hunted", 5 );
     maps\_utility::set_vision_set( "hunted_barn_interior", 6 );
 }
 

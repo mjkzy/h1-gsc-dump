@@ -70,7 +70,7 @@ evasive_startmaneuvers( var_0, var_1 )
     if ( getdvar( "cobrapilot_debug" ) == "1" )
         var_0 evasive_drawpoints( var_1 );
 
-    var_0 neargoalnotifydist( 1500 );
+    var_0 setneargoalnotifydist( 1500 );
     var_0 vehicle_setspeed( 100, 30, 30 );
     var_2 = var_0.angles[1];
 
@@ -167,7 +167,7 @@ wingman_think( var_0 )
     var_12 = wingman_getgoalpos( var_1, var_2, var_3 );
     var_0 vehicle_setspeed( 30, 20, 20 );
     var_0 settargetyaw( level.playervehicle.angles[1] );
-    var_0 setgoalpos( var_12, 1 );
+    var_0 setvehgoalpos( var_12, 1 );
 
     for (;;)
     {
@@ -225,7 +225,7 @@ wingman_think( var_0 )
             if ( getdvar( "cobrapilot_debug" ) == "1" )
                 iprintln( "wingman speed: " + var_15 + " : " + var_18 );
 
-            var_0 setgoalpos( var_12, var_18 );
+            var_0 setvehgoalpos( var_12, var_18 );
         }
 
         wait(var_4);

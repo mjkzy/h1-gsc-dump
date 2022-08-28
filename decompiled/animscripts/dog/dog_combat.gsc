@@ -1166,7 +1166,7 @@ playerview_spawn( var_0 )
     var_1 setmodel( level.player_viewhand_model );
     var_1 useanimtree( #animtree );
     var_1 hide();
-    var_1 _meth_855D();
+    var_1 disablerootmotion();
     return var_1;
 }
 
@@ -1286,7 +1286,7 @@ savednotify( var_0 )
 player_gets_weapons_back()
 {
     self endon( "death" );
-    self _meth_847D();
+    self showviewmodel();
     self enableweapons();
 }
 
@@ -1318,7 +1318,7 @@ playerview_endsequence( var_0 )
         {
             animscripts\shared::donotetracks( "viewanim" );
             var_0 notify( "deathshield", 1000000, self.dog );
-            var_0 _meth_847D();
+            var_0 showviewmodel();
         }
 
         playerview_unlinkplayeranddelete( var_0 );
@@ -1359,7 +1359,7 @@ restoreplayercontrols( var_0 )
 playerview_show( var_0 )
 {
     self showonclient( var_0 );
-    var_0 _meth_847E();
+    var_0 hideviewmodel();
     var_0 disableweapons();
 }
 

@@ -94,7 +94,7 @@ register_sp_perks()
 
 level_complete( var_0 )
 {
-    var_1 = level.player _meth_84FB();
+    var_1 = level.player getsystemtimesp();
     setspmatchdata( "timestamp_end", var_1 );
     setspmatchdata( "career", "level_completion_timestamp", var_0, var_1 );
     setspmatchdata( "career", "levels_completed", var_0, 1 );

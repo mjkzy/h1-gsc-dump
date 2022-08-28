@@ -9,7 +9,7 @@ main()
 windmill_wheel_setup()
 {
     self.rotate_speed = 1.0;
-    self _meth_8563( 1 );
+    self enablequatinterpolationrotation( 1 );
     var_0 = getent( self.target, "targetname" );
 
     if ( !isdefined( var_0 ) )
@@ -35,7 +35,7 @@ windmill_wheel_think()
 
     for (;;)
     {
-        self _meth_8425( ( 30.0, 0.0, 0.0 ), self.rotate_speed );
+        self rotatebylinked( ( 30.0, 0.0, 0.0 ), self.rotate_speed );
         wait(self.rotate_speed);
     }
 }

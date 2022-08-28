@@ -146,7 +146,7 @@ playerupdatecamera()
 vl_lighting_setup()
 {
     var_0 = self;
-    var_0 _meth_84A5();
+    var_0 enablephysicaldepthoffieldscripting();
 }
 
 setavatarweaponroomdofdelayed( var_0 )
@@ -227,7 +227,7 @@ vl_dof_based_on_focus_weap_cac( var_0 )
 playervlsetphysicaldepthoffield( var_0, var_1 )
 {
     var_2 = level.camparams.dof_time;
-    self _meth_84A7( var_0, var_1, var_2, var_2 * 2 );
+    self setphysicaldepthoffield( var_0, var_1, var_2, var_2 * 2 );
     self notify( "playerVlSetPhysicalDepthOfField" );
 }
 

@@ -570,7 +570,7 @@ player_attach_to_barret_with_anim()
     wait 0.125;
     level.player_intro_model delete();
     setsaveddvar( "r_znear", var_0 );
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
 }
 
 player_attach_to_barret_with_script()
@@ -586,7 +586,7 @@ player_attach_to_barret_with_script()
 
 h1_playergrabbarrettlogic()
 {
-    level.player _meth_84A5();
+    level.player enablephysicaldepthoffieldscripting();
     var_0 = 0.05;
 
     for (;;)
@@ -601,20 +601,20 @@ h1_playergrabbarrettlogic()
         var_3 = angleclamp180( var_3 );
 
         if ( var_2 < 12 && var_3 > -85 )
-            level.player _meth_84A7( 2.9, 1000, 3.0, 3.0 );
+            level.player setphysicaldepthoffield( 2.9, 1000, 3.0, 3.0 );
         else if ( var_2 > 14 || var_3 < -87 )
-            level.player _meth_84A7( 3.4, 32, 2.5, 2.5 );
+            level.player setphysicaldepthoffield( 3.4, 32, 2.5, 2.5 );
 
         wait(var_0);
     }
 
-    level.player _meth_84A7( 4.4, 26, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 4.4, 26, 2.0, 2.0 );
     wait 0.85;
-    level.player _meth_84A7( 4.4, 24, 2.5, 2.5 );
+    level.player setphysicaldepthoffield( 4.4, 24, 2.5, 2.5 );
     wait 0.65;
-    level.player _meth_84A7( 4.9, 10, 0.5, 0.5 );
+    level.player setphysicaldepthoffield( 4.9, 10, 0.5, 0.5 );
     wait 1.65;
-    level.player _meth_84A7( 5.4, 1, 2.0, 2.0 );
+    level.player setphysicaldepthoffield( 5.4, 1, 2.0, 2.0 );
     wait 1.0;
 }
 
@@ -888,7 +888,7 @@ exchange_baddie_runs_to_car()
     if ( !isdefined( var_0 ) )
     {
         var_1 = getnode( self.script_linkto, "script_linkname" );
-        self getgoalvolume( var_1 );
+        self setgoalnode( var_1 );
         self.goalradius = 32;
         return;
     }
@@ -963,7 +963,7 @@ exchange_baddie_runs_to_cover()
     var_0 = getnode( self.script_linkto, "script_noteworthy" );
 
     if ( isdefined( var_0 ) )
-        self getgoalvolume( var_0 );
+        self setgoalnode( var_0 );
 }
 
 get_shared_linkto()
@@ -1027,7 +1027,7 @@ exchange_guy_patrol_path()
         else
             self.goalradius = 16;
 
-        self getgoalvolume( var_0 );
+        self setgoalnode( var_0 );
     }
 }
 
@@ -1043,7 +1043,7 @@ exchange_rider_gets_out()
 
     self.walkdist = 1000;
     self.fixednode = 1;
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.disableexits = 1;
     self.disablearrivals = 1;
     maps\_utility::set_generic_run_anim( "stealth_walk" );
@@ -1909,7 +1909,7 @@ exchange_block_view_on_attack()
     common_scripts\utility::flag_wait( "player_attacks_exchange" );
     self notify( "newpath" );
     var_0 = getent( "heli_block_org", "targetname" );
-    self setgoalpos( var_0.origin, 1 );
+    self setvehgoalpos( var_0.origin, 1 );
     var_1 = getent( "hotel_look_org", "targetname" );
     self setlookatent( var_1 );
     self waittill( "goal" );

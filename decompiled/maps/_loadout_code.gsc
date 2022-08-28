@@ -140,13 +140,13 @@ loadout( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
     if ( isdefined( var_3 ) )
     {
-        level.player setoffhandprimaryclass( var_3 );
+        level.player setlethalweapon( var_3 );
         level.player giveweapon( var_3 );
     }
 
     if ( isdefined( var_4 ) )
     {
-        level.player setoffhandsecondaryclass( var_4 );
+        level.player settacticalweapon( var_4 );
         level.player giveweapon( var_4 );
     }
 

@@ -39,9 +39,9 @@ onjoinedspectators()
         self waittill( "joined_spectators" );
         setspectatepermissions();
 
-        if ( !maps\mp\_utility::invirtuallobby() && ( self _meth_842D() || isdefined( self.pers["mlgSpectator"] ) && self.pers["mlgSpectator"] ) )
+        if ( !maps\mp\_utility::invirtuallobby() && ( self ismlgspectator() || isdefined( self.pers["mlgSpectator"] ) && self.pers["mlgSpectator"] ) )
         {
-            self _meth_84FD( 1 );
+            self setmlgspectator( 1 );
 
             if ( game["roundsPlayed"] > 0 )
                 self setclientomnvar( "ui_use_mlg_hud", 1 );
@@ -53,7 +53,7 @@ updatemlgicons()
 {
     self endon( "disconnect" );
 
-    if ( self _meth_842D() )
+    if ( self ismlgspectator() )
     {
         for (;;)
         {
@@ -63,10 +63,10 @@ updatemlgicons()
             if ( isdefined( var_1 ) )
             {
                 if ( isdefined( var_1.primary ) )
-                    self _meth_852C( var_1.primary );
+                    self precachekillcamiconforweapon( var_1.primary );
 
                 if ( isdefined( var_1.secondary ) )
-                    self _meth_852C( var_1.secondary );
+                    self precachekillcamiconforweapon( var_1.secondary );
             }
         }
     }
@@ -86,7 +86,7 @@ onspectatingclient()
         {
             self setcarddisplayslot( var_0, 6 );
 
-            if ( self _meth_842D() )
+            if ( self ismlgspectator() )
                 updatespectatedloadout( var_0 );
         }
     }
@@ -142,7 +142,7 @@ setspectatepermissions()
             var_3 = var_4;
     }
 
-    if ( self _meth_842D() && !maps\mp\_utility::invirtuallobby() )
+    if ( self ismlgspectator() && !maps\mp\_utility::invirtuallobby() )
         var_1 = 2;
 
     if ( isdefined( level.iszombiegame ) && level.iszombiegame )
@@ -233,7 +233,7 @@ setspectatepermissions()
 
     var_5 = self getxuid();
 
-    if ( !self _meth_842D() )
+    if ( !self ismlgspectator() )
     {
         switch ( var_2 )
         {

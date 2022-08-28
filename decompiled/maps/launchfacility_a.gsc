@@ -814,16 +814,16 @@ aa_gate_init()
     thread gate_sequence();
     var_0 = getent( "missile_model03", "targetname" );
     var_1 = getent( "missile_03_shadow_origin", "targetname" );
-    var_0 _meth_8477( var_1.origin );
+    var_0 overridelightingorigin( var_1.origin );
     var_2 = getent( "missile_model04", "targetname" );
     var_3 = getent( "missile_04_shadow_origin", "targetname" );
-    var_2 _meth_8477( var_3.origin );
+    var_2 overridelightingorigin( var_3.origin );
     var_4 = getent( "missile_model05", "targetname" );
     var_5 = getent( "missile_05_shadow_origin", "targetname" );
-    var_4 _meth_8477( var_5.origin );
+    var_4 overridelightingorigin( var_5.origin );
     var_6 = getent( "missile_model06", "targetname" );
     var_7 = getent( "missile_06_shadow_origin", "targetname" );
-    var_6 _meth_8477( var_7.origin );
+    var_6 overridelightingorigin( var_7.origin );
 }
 
 balcony_think()
@@ -1052,7 +1052,7 @@ friendly_blows_gate()
     thread maps\jake_tools::dialogue_execute( "launchfacility_a_marine2_gate_getback" );
     thread c4_detonation_beep();
     maps\jake_tools::setgoalradius( var_1.radius );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self waittill( "goal" );
     wait 0.5;
     maps\jake_tools::resetgoalradius();
@@ -1593,7 +1593,7 @@ friendly_vent_think( var_0, var_1, var_2, var_3 )
         }
         else
         {
-            self getgoalvolume( var_9 );
+            self setgoalnode( var_9 );
             self waittill( "goal" );
         }
 
@@ -1770,7 +1770,7 @@ friendly_vent_think_preh1( var_0, var_1, var_2 )
             get_to_node_no_matter_what( var_8, 30 );
         else
         {
-            self getgoalvolume( var_8 );
+            self setgoalnode( var_8 );
             self waittill( "goal" );
         }
 
@@ -1892,7 +1892,7 @@ friendly_vent_think_preh1( var_0, var_1, var_2 )
 get_to_node_no_matter_what( var_0, var_1 )
 {
     thread teleport_or_timeout( var_0, var_1 );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self waittill( "goal" );
     self.madeittogoal = 1;
 }
@@ -2181,7 +2181,7 @@ hind_go_to_vent()
     var_0 = getent( "hind_above_vent", "targetname" );
     self clearlookatent();
     self vehicle_setspeed( 200, 15, 15 );
-    self setgoalpos( var_0.origin, 1 );
+    self setvehgoalpos( var_0.origin, 1 );
 }
 
 hind_attack_think( var_0, var_1 )
@@ -2203,14 +2203,14 @@ hind_attack_think( var_0, var_1 )
 
     var_4 = getent( var_2.target, "targetname" );
     var_2 vehicle_setspeed( 120, 15, 15 );
-    var_2 neargoalnotifydist( 500 );
+    var_2 setneargoalnotifydist( 500 );
     var_5 = getent( var_4.target, "targetname" );
-    var_2 setgoalpos( var_5.origin, 0 );
+    var_2 setvehgoalpos( var_5.origin, 0 );
     var_2 waittill( "near_goal" );
     var_2 maps\_utility::vehicle_detachfrompath();
     var_2 thread hind_guns_think();
     var_6 = getent( var_5.script_linkto, "script_linkname" );
-    var_2 setgoalpos( var_6.origin, 1 );
+    var_2 setvehgoalpos( var_6.origin, 1 );
     var_2 waittill( "near_goal" );
     var_3 stoploopsound( "launch_a_vent_hind_low_engine" );
     var_2 setlookatent( level.player );
@@ -2243,7 +2243,7 @@ hind_attack_think( var_0, var_1 )
             var_2 vehicle_setspeed( 30, 15, 15 );
         }
 
-        var_2 setgoalpos( var_5.origin, 0 );
+        var_2 setvehgoalpos( var_5.origin, 0 );
         var_2 waittill( "near_goal" );
     }
 }
@@ -3758,7 +3758,7 @@ attach_saw( var_0 )
 
     if ( self == level.price || self == level.grigsby || var_0 == "chopperTeam" )
     {
-        if ( self _meth_843E( "TAG_STOWED_BACK" ) >= 0 )
+        if ( self gettagindex( "TAG_STOWED_BACK" ) >= 0 )
         {
             var_1 = spawn( "script_model", self.origin );
             var_1 setmodel( "weapon_saw_rescue" );

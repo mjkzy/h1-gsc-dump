@@ -21,12 +21,12 @@ minigun_player_use()
     level.player allowcrouch( 1 );
     level.player allowstand( 0 );
     level.player disableweapons();
-    level.player _meth_84A5();
-    level.player _meth_84A7( 12.0, 500, 1.0, 1.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 12.0, 500, 1.0, 1.0 );
     level.eplayerview = maps\_utility::spawn_anim_model( "minigun_player", level.minigun_node.origin, level.minigun_node.angles );
     level.eplayerview hide();
     level.minigun_node maps\_anim::anim_first_frame_solo( level.eplayerview, "use_minigun" );
-    level.player _meth_855E( level.eplayerview, "tag_player", 1, 0.7, 0, 0.4, 0, 0, 0, 0, 1 );
+    level.player playerlinktodeltablendviewangle( level.eplayerview, "tag_player", 1, 0.7, 0, 0.4, 0, 0, 0, 0, 1 );
     level.minigun_previous_fov = getturretfov();
     level.player lerpfov( 55, 0.5 );
     wait 0.3;
@@ -37,7 +37,7 @@ minigun_player_use()
     level.eplayerview hide();
     level.player unlink();
     level.minigun_eye_height = level.player getplayerviewheight();
-    level.player _meth_84C7( 0 );
+    level.player setgravityoverride( 0 );
     self _meth_856C();
 }
 
@@ -56,7 +56,7 @@ minigun_player_drop()
     waitframe();
     self _meth_856D();
     self waittill( "turret_returned_to_default" );
-    level.player _meth_84C8();
+    level.player resetgravityoverride();
     maps\_anim::anim_first_frame_solo( self, "drop" );
     thread maps\_anim::anim_single_solo( self, "drop" );
     level.eplayerview unlink();
@@ -69,7 +69,7 @@ minigun_player_drop()
     var_11 = playerphysicstrace( var_9, var_10 );
     level.eplayerview moveto( var_11, 0.5, 0.2, 0.2 );
     level.player lerpfov( level.minigun_previous_fov, 0.5 );
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
     wait 0.5;
     level.player unlink();
     level.eplayerview delete();
@@ -925,7 +925,7 @@ seaknight_sas_load()
     self.ignoreall = 1;
     wait(randomfloatrange( 1.5, 3.2 ));
     var_0 = getnode( "seaknight_fakeramp_startpoint", "targetname" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self waittill( "goal" );
     self.nododgemove = 1;
 
@@ -933,7 +933,7 @@ seaknight_sas_load()
         self.goalradius = var_0.radius;
 
     var_1 = getnode( "seaknight_fakeramp_end", "targetname" );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self waittill( "goal" );
     level.sasseaknightboarded--;
 

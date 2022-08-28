@@ -67,7 +67,7 @@ spawn_dead_body( var_0 )
     var_2 maps\_utility::assign_animtree();
 
     if ( maps\_utility::is_h1_level() )
-        var_2 _meth_855D();
+        var_2 disablerootmotion();
 
     if ( !h1_ragdollspecialcase( self ) )
         var_0 que_body( var_2 );

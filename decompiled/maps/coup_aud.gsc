@@ -336,7 +336,7 @@ aud_stop_engine( var_0, var_1 )
 {
     self scalevolume( 0, var_1 );
     wait(var_1);
-    self _meth_854D( "scn_coup_car_move_engine_" + var_0 );
+    self stopsound( "scn_coup_car_move_engine_" + var_0 );
     self scalevolume( 1, 1 );
 }
 

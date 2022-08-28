@@ -503,7 +503,7 @@ assasination_think( var_0 )
         var_0.executioners[var_1] notify( "stop_idle" );
         var_0.executioners[var_1] stopanimscripted();
         var_0.executioners[var_1].goalradius = 16;
-        var_0.executioners[var_1] getgoalvolume( var_0.executioners[var_1].animnode );
+        var_0.executioners[var_1] setgoalnode( var_0.executioners[var_1].animnode );
         var_0.executioners[var_1].old_baseaccuracy = var_0.executioners[var_1].baseaccuracy;
         var_0.executioners[var_1].baseaccuracy = 1000;
     }
@@ -1030,8 +1030,8 @@ chopper_air_support_call_chopper( var_0 )
     level.chopper sethoverparams( 250, 60, 35 );
     var_6 = vectortoangles( var_0 - level.choppersupporthoverlocations[var_1] );
     level.chopper setgoalyaw( var_6[1] );
-    level.chopper setgoalpos( level.choppersupporthoverlocations[var_1], 1 );
-    level.chopper neargoalnotifydist( 4000 );
+    level.chopper setvehgoalpos( level.choppersupporthoverlocations[var_1], 1 );
+    level.chopper setneargoalnotifydist( 4000 );
     level.chopper waittill( "near_goal" );
     level notify( "airsupport_inbound" );
     soundscripts\_snd::snd_message( "start_air_support_mix" );
@@ -1158,7 +1158,7 @@ chopper_air_support_end( var_0 )
 
     level.chopper clearlookatent();
     level.chopper settargetyaw( var_1[1] );
-    level.chopper setgoalpos( var_0 );
+    level.chopper setvehgoalpos( var_0 );
     level.chopper waittill( "goal" );
     level.chopper.pilot delete();
     level.chopper.gunner delete();
@@ -1710,7 +1710,7 @@ trigger_upstairs_guys()
             continue;
 
         var_2[var_3].goalradius = var_1.radius;
-        var_2[var_3] getgoalvolume( var_1 );
+        var_2[var_3] setgoalnode( var_1 );
     }
 }
 

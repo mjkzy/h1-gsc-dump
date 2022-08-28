@@ -31,8 +31,8 @@ vl_init()
 onspawnplayer()
 {
     thread vlobby_player();
-    self _meth_84AF( 1 );
-    self _meth_84FD( 0 );
+    self setdemigod( 1 );
+    self setmlgspectator( 0 );
     thread monitor_member_timeouts();
 }
 
@@ -175,7 +175,7 @@ vlobby_player()
     var_0 thread playermonitordisconnect();
     var_0 thread playerhandletasksafternextsnapshot( var_8 );
     maps\mp\_utility::updatesessionstate( "spectator" );
-    var_0 _meth_84CF( "mp_no_foley", 1 );
+    var_0 clientaddsoundsubmix( "mp_no_foley", 1 );
     var_0 playerchangecameramode( "game_lobby" );
     var_0 thread playermonitorluinotifies();
     var_0 thread playermonitorswitchtofiringrange();
@@ -348,7 +348,7 @@ playerwaittillloadoutstreamed()
 
     while ( var_14.size > 0 )
     {
-        var_15 = self _meth_8508( var_14 );
+        var_15 = self loadweapons( var_14 );
 
         if ( var_15 == 1 )
             break;
@@ -370,9 +370,9 @@ playermonitorswitchtofiringrange()
             if ( var_1 == 1 && !level.in_firingrange )
             {
                 var_0 playerwaittillloadoutstreamed();
-                var_0 _meth_847D();
+                var_0 showviewmodel();
                 maps\mp\_vl_firingrange::enter_firingrange( var_0 );
-                var_0 _meth_84D0( "mp_no_foley", 1 );
+                var_0 clientclearsoundsubmix( "mp_no_foley", 1 );
                 setdvar( "r_dof_physical_bokehEnable", 0 );
                 setdvar( "r_dof_physical_enable", 0 );
                 setdvar( "r_uiblurdstmode", 0 );
@@ -380,7 +380,7 @@ playermonitorswitchtofiringrange()
             }
             else if ( var_1 == 0 && level.in_firingrange )
             {
-                var_0 _meth_847E();
+                var_0 hideviewmodel();
                 var_0 maps\mp\_vl_firingrange::firingrangecleanup();
                 var_0 disable_player_controls();
                 resetplayeravatar();
@@ -390,7 +390,7 @@ playermonitorswitchtofiringrange()
 
                 var_0 notify( "enter_lobby" );
                 enter_vlobby( var_0 );
-                var_0 _meth_84CF( "mp_no_foley", 1 );
+                var_0 clientaddsoundsubmix( "mp_no_foley", 1 );
                 setdvar( "r_dof_physical_enable", 1 );
                 setdvar( "r_dof_physical_bokehEnable", 1 );
                 setdvar( "r_uiblurdstmode", 3 );
@@ -420,7 +420,7 @@ enter_vlobby( var_0 )
     var_0 playersetlobbyfovscale();
     var_0 _meth_857A( 0 );
     var_0 stopshellshock();
-    var_0 _meth_84A5();
+    var_0 enablephysicaldepthoffieldscripting();
 
     if ( isdefined( level.vlavatars ) && isdefined( level.vl_focus ) && isdefined( level.vlavatars[level.vl_focus] ) )
         var_0 prep_for_controls( level.vlavatars[level.vl_focus], level.vlavatars[level.vl_focus].angles );
@@ -616,7 +616,7 @@ player_get_right_stick( var_0 )
         return var_0.unnormalizedleftstickangle;
     else
     {
-        var_1 = self _meth_8449();
+        var_1 = self getunnormalizedcameramovement();
         return var_1[var_0.index];
     }
 }
@@ -641,7 +641,7 @@ player_update_right_stick( var_0 )
     }
     else
     {
-        var_2 = self _meth_8449();
+        var_2 = self getunnormalizedcameramovement();
         var_1 = var_2[var_0.index];
     }
 
@@ -941,13 +941,13 @@ isweaponloaded( var_0, var_1, var_2 )
     if ( isdefined( var_0 ) )
     {
         if ( var_2 )
-            var_3 = var_0 _meth_8508( var_1 );
+            var_3 = var_0 loadweapons( var_1 );
         else
         {
-            var_3 = var_0 _meth_8528( var_1 );
+            var_3 = var_0 worldweaponsloaded( var_1 );
 
             if ( !var_3 )
-                var_0 _meth_8508( var_1 );
+                var_0 loadweapons( var_1 );
         }
     }
 

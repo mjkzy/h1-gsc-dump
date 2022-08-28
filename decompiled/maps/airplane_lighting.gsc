@@ -26,7 +26,7 @@ set_level_lighting_values()
 {
     maps\_utility::vision_set_fog_changes( "airplane", 0 );
     level.player maps\_utility::set_light_set_player( "airplane" );
-    level.player _meth_848C( "airplane", 0.0 );
+    level.player setclutforplayer( "airplane", 0.0 );
 }
 
 toggle_breach_lightset_triggers()
@@ -92,7 +92,7 @@ override_scriptmodel_lightorigins()
         foreach ( var_5 in var_3 )
         {
             if ( isdefined( var_5 ) )
-                var_5 _meth_8477( var_0.origin );
+                var_5 overridelightingorigin( var_0.origin );
         }
     }
 }
@@ -104,6 +104,6 @@ set_new_lighting_origin()
         var_0 = getent( self.target, "targetname" );
 
         if ( isdefined( var_0 ) )
-            self _meth_8477( var_0.origin );
+            self overridelightingorigin( var_0.origin );
     }
 }

@@ -833,9 +833,9 @@ matchzonestotriggers( var_0, var_1 )
         var_4.gameobject maps\mp\gametypes\_gameobjects::set3dicon( "mlg", undefined );
         var_4.gameobject maps\mp\gametypes\_gameobjects::setmodelvisibility( 0 );
         var_4.trig.useobj = var_4.gameobject;
-        var_4.gameobject.objpoints["allies"] _meth_8518( var_4.trig );
-        var_4.gameobject.objpoints["axis"] _meth_8518( var_4.trig );
-        var_4.gameobject.objpoints["mlg"] _meth_8518( var_4.trig );
+        var_4.gameobject.objpoints["allies"] sethidetrigger( var_4.trig );
+        var_4.gameobject.objpoints["axis"] sethidetrigger( var_4.trig );
+        var_4.gameobject.objpoints["mlg"] sethidetrigger( var_4.trig );
         var_4 setupnearbyspawns();
         var_4 namedborderhidden();
     }

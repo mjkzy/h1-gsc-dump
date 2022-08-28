@@ -396,7 +396,7 @@ enemy_tank_encroach_mvmt()
 {
     self endon( "death" );
     var_0 = getnode( "tank_suicide_bomb_dest", "targetname" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = level.tankencroachinitradius;
     self.pathenemyfightdist = 96;
     self.pathenemylookahead = 512;
@@ -645,7 +645,7 @@ cobra_flightplan( var_0 )
         if ( isdefined( var_12.radius ) )
             var_7 = var_12.radius;
 
-        self neargoalnotifydist( var_7 );
+        self setneargoalnotifydist( var_7 );
 
         if ( isdefined( var_12.script_engagedelay ) )
             var_11 = var_12.script_engagedelay;
@@ -682,7 +682,7 @@ cobra_flightplan( var_0 )
             var_13 = var_4[var_10].script_stopnode;
 
         maps\bog_a_aud::handle_cobra_waypoint_audio( var_12 );
-        self setgoalpos( var_4[var_10].origin, var_13 );
+        self setvehgoalpos( var_4[var_10].origin, var_13 );
         self waittill( "near_goal" );
 
         if ( var_13 )
@@ -1225,7 +1225,7 @@ schoolcircle_nav( var_0, var_1 )
 {
     self endon( "death" );
     wait 2.5;
-    self getgoalvolume( var_0[var_1] );
+    self setgoalnode( var_0[var_1] );
     self.goalradius = 32;
     self.dontavoidplayer = 1;
     self allowedstances( "stand" );

@@ -157,7 +157,7 @@ start_teleport( var_0 )
 {
     self forceteleport( var_0.origin, var_0.angles );
     self setgoalpos( self.origin );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 }
 
 waittill_player_in_range( var_0, var_1 )
@@ -214,7 +214,7 @@ set_goalvolume( var_0, var_1 )
 
     var_2 = getnode( var_1.target, "targetname" );
     self.goalvolume = var_1;
-    self getgoalvolume( var_2 );
+    self setgoalnode( var_2 );
     self.goalradius = 0;
 
     if ( isdefined( var_2.radius ) )
@@ -656,7 +656,7 @@ gotonode( var_0 )
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
     setgoalradius( var_1.radius );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self waittill( "goal" );
     resetgoalradius();
 }
@@ -671,7 +671,7 @@ gotonodeanddelete( var_0 )
 
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     setgoalradius( var_1.radius );
     self waittill( "goal" );
     self delete();
@@ -687,7 +687,7 @@ gotonodeandwait( var_0 )
 
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     setgoalradius( var_1.radius );
     self waittill( "goal" );
     set_animname( "guy" );
@@ -700,7 +700,7 @@ forcetonode( var_0 )
     self endon( "death" );
     var_1 = getnode( var_0, "targetname" );
     self pushplayer( 1 );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self waittill( "goal" );
     self pushplayer( 0 );
     resetgoalradius();
@@ -747,7 +747,7 @@ gotovolume( var_0 )
     self endon( "death" );
     var_1 = getent( var_0, "targetname" );
     var_2 = getnode( var_1.target, "targetname" );
-    self getgoalvolume( var_2 );
+    self setgoalnode( var_2 );
     self setgoalvolume( var_1 );
     self.goalradius = var_2.radius;
 }

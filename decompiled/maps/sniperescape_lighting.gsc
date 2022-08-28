@@ -33,7 +33,7 @@ set_level_lighting_values()
 {
     maps\_utility::vision_set_fog_changes( "sniperescape", 0 );
     level.player maps\_utility::set_light_set_player( "sniperescape" );
-    level.player _meth_848C( "clut_sniperescape", 1.0 );
+    level.player setclutforplayer( "clut_sniperescape", 1.0 );
 }
 
 handle_player_on_sniper_rifle()
@@ -45,7 +45,7 @@ handle_player_on_sniper_rifle()
     var_0 = getentarray( "zakhaev_light", "targetname" );
 
     foreach ( var_2 in var_0 )
-        var_2 _meth_8494( "force_on" );
+        var_2 setlightshadowstate( "force_on" );
 
     level.player maps\_utility::set_light_set_player( "sniperescape_scope" );
     maps\_utility::vision_set_fog_changes( "sniperescape_scope", 2 );
@@ -55,7 +55,7 @@ handle_player_on_sniper_rifle()
     var_0 = getentarray( "zakhaev_light", "targetname" );
 
     foreach ( var_2 in var_0 )
-        var_2 _meth_8494( "normal" );
+        var_2 setlightshadowstate( "normal" );
 
     level.player maps\_utility::set_light_set_player( "sniperescape" );
     maps\_utility::vision_set_fog_changes( "sniperescape", 2 );

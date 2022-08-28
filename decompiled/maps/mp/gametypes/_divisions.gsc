@@ -101,7 +101,7 @@ onplayerconnect()
     {
         checkforseason1start();
         initloss();
-        self _meth_8542( self.pers["division"]["init"]["dp"] );
+        self setdivision( self.pers["division"]["init"]["dp"] );
     }
 }
 

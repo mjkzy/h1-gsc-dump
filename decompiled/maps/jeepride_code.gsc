@@ -1777,7 +1777,7 @@ fliptruck_ghettoanimate()
 
     var_9 notsolid();
     var_3 maps\_vehicle_code::vehicle_dummy_add_collison();
-    var_3 _meth_8451();
+    var_3 vehicle_removebrushmodelcollision();
 
     if ( animated_crash( var_9, var_8, var_3 ) )
         return;

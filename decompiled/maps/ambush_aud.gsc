@@ -277,7 +277,7 @@ aud_start_ambush_heli_scripted_sequence( var_0 )
     wait 2;
     soundscripts\_audio_mix_manager::mm_clear_submix( "mix_ambush_heli" );
     wait 2;
-    self _meth_854D( "scn_ambush_convoy_heli_reveal" );
+    self stopsound( "scn_ambush_convoy_heli_reveal" );
 }
 
 aud_vehicle_engine_linear( var_0, var_1, var_2 )
@@ -307,5 +307,5 @@ aud_dog_sequence()
     self waittill( "trigger", var_0 );
     var_0 playsound( "scn_ambush_junkyard_dog_atk" );
     var_0 waittill( "death" );
-    var_0 _meth_854D( "scn_ambush_junkyard_dog_atk" );
+    var_0 stopsound( "scn_ambush_junkyard_dog_atk" );
 }

@@ -1053,7 +1053,7 @@ npc_cloak_enable()
 
 overdrive_on()
 {
-    level.player _meth_850D();
+    level.player enablecustomweaponcontext();
     snd_enable_soundcontextoverride( "slomo" );
     soundscripts\_audio_zone_manager::azm_set_reverb_bypass( 1 );
     level.player setreverb( "snd_enveffectsprio_level", "sewer", 1, 0.7, 1 );
@@ -1079,7 +1079,7 @@ overdrive_off()
     soundscripts\_snd_filters::snd_fade_out_filter( 2 );
     soundscripts\_audio_zone_manager::azm_set_filter_bypass( 0 );
     snd_disable_soundcontextoverride( "slomo" );
-    level.player _meth_850E();
+    level.player disablecustomweaponcontext();
 }
 
 sonic_blast()

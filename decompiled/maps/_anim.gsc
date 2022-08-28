@@ -1091,7 +1091,7 @@ anim_single_internal( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
             {
                 var_8 thread maps\_utility::play_sound_on_entity( var_24, "single dialogue" );
 
-                if ( var_8 _meth_851E() )
+                if ( var_8 hasanimtree() )
                 {
 
                 }
@@ -3117,11 +3117,11 @@ anim_facialfiller( var_0, var_1 )
     if ( !isdefined( var_1 ) && isdefined( self.looktarget ) )
         var_1 = self.looktarget;
 
-    if ( self _meth_84EA() )
+    if ( self hasblendshapes() )
         var_3 = %generic_talker_blend;
     else
     {
-        var_4 = self _meth_843E( "jnt_lips_L" );
+        var_4 = self gettagindex( "jnt_lips_L" );
 
         if ( var_4 != -1 )
             var_3 = %generic_talker_bs;

@@ -22,5 +22,5 @@ set_level_lighting_values()
 {
     maps\_utility::vision_set_fog_changes( "ac130", 0 );
     level.player maps\_utility::set_light_set_player( "ac130" );
-    level.player _meth_848C( "clut_ac130", 0.0 );
+    level.player setclutforplayer( "clut_ac130", 0.0 );
 }

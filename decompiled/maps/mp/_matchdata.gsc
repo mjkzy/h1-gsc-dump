@@ -117,7 +117,7 @@ accumulateplayerpingdata()
             if ( !isdefined( var_1.pers["pingAccumulation"] ) || !isdefined( var_1.pers["minPing"] ) || !isdefined( var_1.pers["maxPing"] ) || !isdefined( var_1.pers["pingSampleCount"] ) )
                 continue;
 
-            var_2 = var_1 _meth_8517();
+            var_2 = var_1 getcurrentping();
             var_1.pers["pingAccumulation"] += var_2;
             var_1.pers["pingSampleCount"]++;
 

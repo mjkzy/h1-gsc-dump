@@ -52,7 +52,7 @@ portable_mg_behavior()
             if ( isdefined( var_0.radius ) )
                 self.goalradius = var_0.radius;
 
-            self getgoalvolume( var_0 );
+            self setgoalnode( var_0 );
         }
     }
 

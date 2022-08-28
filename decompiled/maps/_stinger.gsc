@@ -30,7 +30,7 @@ clearirtarget()
     self.stinger.stingerlocksound = undefined;
     self stoprumble( "stinger_lock_rumble" );
     self weaponlockfree();
-    self _meth_82E4( 0 );
+    self weaponlocktargettooclose( 0 );
     self weaponlocknoclearance( 0 );
     self stoplocalsound( "stinger_clu_lock" );
     self stoplocalsound( "stinger_clu_aquiring_lock" );
@@ -250,12 +250,12 @@ settargettooclose( var_0 )
     if ( var_2 < var_1 )
     {
         self.stinger.targettoclose = 1;
-        self _meth_82E4( 1 );
+        self weaponlocktargettooclose( 1 );
     }
     else
     {
         self.stinger.targettoclose = 0;
-        self _meth_82E4( 0 );
+        self weaponlocktargettooclose( 0 );
     }
 }
 

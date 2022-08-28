@@ -247,7 +247,7 @@ handle_scripted_sfx_node( var_0 )
         var_2 playsound( var_0[1] );
 
     if ( isdefined( var_0[2] ) )
-        var_2 _meth_854D( var_0[2] );
+        var_2 stopsound( var_0[2] );
 
     if ( isdefined( var_0[3] ) )
         soundscripts\_audio_mix_manager::mm_add_submix( var_0[3] );
@@ -500,7 +500,7 @@ tunnel_crash_truck02( var_0 )
 {
     soundscripts\_audio_mix_manager::mm_clear_submix( "bmp_accelerate_mix" );
     var_0 thread maps\_utility::play_sound_on_tag( "scn_bmp_first_tunnel_crash_01", "body_animate_jnt" );
-    var_0 _meth_854D( "scn_sideswipe_bmp_accelerate_01" );
+    var_0 stopsound( "scn_sideswipe_bmp_accelerate_01" );
 }
 
 play_bridge_collapse_sfx( var_0, var_1 )

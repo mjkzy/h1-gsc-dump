@@ -2166,10 +2166,10 @@ _enabledetonate( var_0, var_1 )
     if ( !self hasweapon( var_0 ) )
         return;
 
-    if ( self _meth_84C0( var_0 ) == var_1 )
+    if ( self getdetonateenabled( var_0 ) == var_1 )
         return;
 
-    self _meth_84BF( var_0, var_1 );
+    self enabledetonate( var_0, var_1 );
 
     if ( var_1 )
         self notify( "WeaponDetonateEnabled", var_0 );
@@ -2610,13 +2610,13 @@ play_loop_sound_on_entity( var_0, var_1, var_2, var_3 )
     {
         var_4.origin = self.origin + var_1;
         var_4.angles = self.angles;
-        var_4 _meth_8442( self );
+        var_4 linktosynchronizedparent( self );
     }
     else
     {
         var_4.origin = self.origin;
         var_4.angles = self.angles;
-        var_4 _meth_8442( self );
+        var_4 linktosynchronizedparent( self );
     }
 
     if ( isdefined( var_2 ) && var_2 > 0 )
@@ -3019,10 +3019,10 @@ missile_settargetandflightmode( var_0, var_1, var_2 )
     switch ( var_1 )
     {
         case "direct":
-            self missilesetflightmodedirect();
+            self missile_setflightmodedirect();
             break;
         case "top":
-            self missilesetflightmodetop();
+            self missile_setflightmodetop();
             break;
     }
 }

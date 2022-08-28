@@ -202,7 +202,7 @@ streamprimaryweapons()
             }
         }
 
-        self _meth_8420( var_1, var_0 );
+        self hasloadedcustomizationplayerview( var_1, var_0 );
     }
     else if ( isdefined( level.streamprimariesfunc ) )
         self [[ level.streamprimariesfunc ]]();
@@ -265,13 +265,13 @@ streamclass( var_0, var_1, var_2 )
     var_3 = getloadoutforclass( var_2, 1 );
     var_4 = getstreaminfo( var_3 );
     var_5 = gatherclassweapons( 0, var_3 );
-    var_0 = !self _meth_8420( var_4, var_5 ) && var_0;
-    self _meth_852B( 1 );
+    var_0 = !self hasloadedcustomizationplayerview( var_4, var_5 ) && var_0;
+    self onlystreamactiveweapon( 1 );
 
-    for ( self.classweaponswait = var_0; var_0; var_0 = !self _meth_8420( var_4, var_5 ) )
+    for ( self.classweaponswait = var_0; var_0; var_0 = !self hasloadedcustomizationplayerview( var_4, var_5 ) )
         waitframe();
 
-    self _meth_852B( 0 );
+    self onlystreamactiveweapon( 0 );
     self.classweaponswait = 0;
     self notify( "streamClassComplete" );
 }
@@ -486,7 +486,7 @@ setuioptionsmenu( var_0 )
     self endon( "disconnect" );
     self endon( "joined_spectators" );
 
-    while ( self _meth_842D() && !maps\mp\_utility::invirtuallobby() )
+    while ( self ismlgspectator() && !maps\mp\_utility::invirtuallobby() )
         waitframe();
 
     self setclientomnvar( "ui_options_menu", var_0 );
@@ -554,12 +554,12 @@ spawnplayer( var_0, var_1 )
     var_2 = undefined;
     self.ti_spawn = 0;
 
-    if ( self _meth_8443( "ui_options_menu" ) > 0 )
+    if ( self getclientomnvar( "ui_options_menu" ) > 0 )
         thread setuioptionsmenu( 0 );
 
     self setclientomnvar( "ui_hud_shake", 0 );
-    self _meth_84AF( 0 );
-    self _meth_8526();
+    self setdemigod( 0 );
+    self disableforcefirstpersonwhenfollowed();
 
     if ( !level.ingraceperiod && !self.hasdonecombat )
     {
@@ -598,10 +598,10 @@ spawnplayer( var_0, var_1 )
         var_5 = maps\mp\gametypes\_class::cao_getcharactercamoindex();
         self _meth_857C( var_5 );
 
-        if ( !self _meth_8420( var_4 ) )
+        if ( !self hasloadedcustomizationplayerview( var_4 ) )
         {
             self.waitingtospawnamortize = 1;
-            self _meth_852B( 1 );
+            self onlystreamactiveweapon( 1 );
             var_6 = gettime() + 3000;
 
             while ( gettime() < var_6 )
@@ -609,11 +609,11 @@ spawnplayer( var_0, var_1 )
                 waitframe();
                 var_4 = gather_spawn_weapons();
 
-                if ( self _meth_8420( var_4 ) )
+                if ( self hasloadedcustomizationplayerview( var_4 ) )
                     break;
             }
 
-            self _meth_852B( 0 );
+            self onlystreamactiveweapon( 0 );
 
             if ( gettime() >= var_6 )
             {
@@ -914,7 +914,7 @@ in_spawnspectator( var_0, var_1 )
     maps\mp\gametypes\_spectating::setspectatepermissions();
     onspawnspectator( var_0, var_1 );
 
-    if ( level.teambased && !level.splitscreen && !self issplitscreenplayerprimary() )
+    if ( level.teambased && !level.splitscreen && !self issplitscreenplayer() )
         self setdepthoffield( 0, 128, 512, 4000, 6, 1.8 );
 }
 
@@ -1205,7 +1205,7 @@ removeplayerondisconnect()
 
 initclientdvarssplitscreenspecific()
 {
-    if ( level.splitscreen || self issplitscreenplayerprimary() )
+    if ( level.splitscreen || self issplitscreenplayer() )
         self setclientdvars( "cg_hudGrenadeIconHeight", "37.5", "cg_hudGrenadeIconWidth", "37.5", "cg_hudGrenadeIconOffset", "75", "cg_hudGrenadePointerHeight", "18", "cg_hudGrenadePointerWidth", "37.5", "cg_hudGrenadePointerPivot", "18 40.5", "cg_fovscale", "0.75" );
     else
         self setclientdvars( "cg_hudGrenadeIconHeight", "25", "cg_hudGrenadeIconWidth", "25", "cg_hudGrenadeIconOffset", "50", "cg_hudGrenadePointerHeight", "12", "cg_hudGrenadePointerWidth", "25", "cg_hudGrenadePointerPivot", "12 27", "cg_fovscale", "1" );
@@ -1463,7 +1463,7 @@ callback_playerconnect()
         setmatchdata( "players", self.clientid, "connectionIDChunkLow", var_3 );
         setmatchdata( "players", self.clientid, "connectionIDChunkHigh", var_2 );
         setmatchclientip( self, self.clientid );
-        setmatchdata( "players", self.clientid, "joinType", self _meth_84CB() );
+        setmatchdata( "players", self.clientid, "joinType", self getjointype() );
         setmatchdata( "players", self.clientid, "connectTimeUTC", getsystemtime() );
         setmatchdata( "players", self.clientid, "isSplitscreen", issplitscreen() );
         logplayerconsoleidandonwifiinmatchdata();
@@ -1592,7 +1592,7 @@ callback_playerconnect()
                 maps\mp\gametypes\_menus::menuspectator();
                 thread setuioptionsmenu( 1 );
 
-                if ( self _meth_842D() )
+                if ( self ismlgspectator() )
                     maps\mp\_utility::freezecontrolswrapper( 1 );
             }
             else

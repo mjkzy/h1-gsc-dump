@@ -207,7 +207,7 @@ deleteplacedentity( var_0 )
 
 issecondarysplitscreenplayer()
 {
-    if ( self issplitscreenplayerprimary() && !self _meth_82E5() )
+    if ( self issplitscreenplayer() && !self issplitscreenplayerprimary() )
         return 1;
 
     return 0;
@@ -297,13 +297,13 @@ playloopsoundtoplayers( var_0, var_1, var_2 )
     {
         var_3.origin = self.origin + var_1;
         var_3.angles = self.angles;
-        var_3 _meth_8442( self );
+        var_3 linktosynchronizedparent( self );
     }
     else
     {
         var_3.origin = self.origin;
         var_3.angles = self.angles;
-        var_3 _meth_8442( self );
+        var_3 linktosynchronizedparent( self );
     }
 
     var_3 playloopsound( var_0 );
@@ -1186,7 +1186,7 @@ leaderdialogonplayer_internal( var_0, var_1, var_2 )
             return;
 
         self.leaderdialogactive = var_4;
-        self _meth_8510( var_4 );
+        self playlocalannouncersound( var_4 );
         leaderdialog_trylockout( game["dialog"][var_0], self );
     }
     else if ( level.classicgamemode )
@@ -1697,7 +1697,7 @@ _takeweaponsexcept( var_0 )
 savedata()
 {
     var_0 = spawnstruct();
-    var_0.offhandclass = self getoffhandsecondaryclass();
+    var_0.offhandclass = self gettacticalweapon();
     var_0.actionslots = self.saved_actionslotdata;
     var_0.currentweapon = self getcurrentweapon();
     var_1 = self getweaponslistall();
@@ -1729,7 +1729,7 @@ savedata()
 restoredata()
 {
     var_0 = self.script_savedata;
-    self setoffhandsecondaryclass( var_0.offhandclass );
+    self settacticalweapon( var_0.offhandclass );
 
     foreach ( var_2 in var_0.weapons )
     {
@@ -4487,19 +4487,19 @@ revertvisionsetforplayer( var_0 )
 
     if ( isdefined( level.nukedetonated ) && isdefined( level.nukevisionset ) )
     {
-        self _meth_8476( level.nukevisionset, var_0 );
+        self setclienttriggervisionset( level.nukevisionset, var_0 );
         self visionsetnakedforplayer( level.nukevisionset, var_0 );
         set_visionset_for_watching_players( level.nukevisionset, var_0 );
     }
     else if ( isdefined( self.usingremote ) && isdefined( self.ridevisionset ) )
     {
-        self _meth_8476( self.ridevisionset, var_0 );
+        self setclienttriggervisionset( self.ridevisionset, var_0 );
         self visionsetnakedforplayer( self.ridevisionset, var_0 );
         set_visionset_for_watching_players( self.ridevisionset, var_0 );
     }
     else
     {
-        self _meth_8476( "", var_0 );
+        self setclienttriggervisionset( "", var_0 );
         self visionsetnakedforplayer( "", var_0 );
         set_visionset_for_watching_players( "", var_0 );
     }
@@ -4757,22 +4757,22 @@ playerallowhighjump( var_0, var_1 )
 
 playerallowhighjumpdrop( var_0, var_1 )
 {
-    _playerallow( "highjumpdrop", var_0, var_1, ::_meth_8482 );
+    _playerallow( "highjumpdrop", var_0, var_1, ::allowhighjumpdrop );
 }
 
 playerallowboostjump( var_0, var_1 )
 {
-    _playerallow( "boostjump", var_0, var_1, ::_meth_849A );
+    _playerallow( "boostjump", var_0, var_1, ::allowboostjump );
 }
 
 playerallowpowerslide( var_0, var_1 )
 {
-    _playerallow( "powerslide", var_0, var_1, ::_meth_8481 );
+    _playerallow( "powerslide", var_0, var_1, ::allowpowerslide );
 }
 
 playerallowdodge( var_0, var_1 )
 {
-    _playerallow( "dodge", var_0, var_1, ::_meth_8489 );
+    _playerallow( "dodge", var_0, var_1, ::allowdodge );
 }
 
 _playerallow( var_0, var_1, var_2, var_3, var_4 )
@@ -5031,7 +5031,7 @@ showfxtoteam( var_0 )
         {
             var_3 = var_2.team;
 
-            if ( var_3 != "axis" || var_2 _meth_842D() )
+            if ( var_3 != "axis" || var_2 ismlgspectator() )
                 var_3 = "allies";
 
             if ( var_0 == var_3 || var_0 == "neutral" )
@@ -5383,7 +5383,7 @@ is_true( var_0 )
 waittillplayersnextsnapshot( var_0 )
 {
     var_0 endon( "disconnect" );
-    var_1 = var_0 _meth_8556();
+    var_1 = var_0 getsnapshotindexforclient();
 
     if ( !isdefined( var_1 ) )
         return;
@@ -5391,7 +5391,7 @@ waittillplayersnextsnapshot( var_0 )
     for (;;)
     {
         waitframe();
-        var_2 = var_0 _meth_8557();
+        var_2 = var_0 getsnapshotacknowledgedindexforclient();
 
         if ( !isdefined( var_2 ) )
             return;
@@ -5563,7 +5563,7 @@ streamcarrierweaponstoplayers( var_0, var_1, var_2 )
             if ( distancesquared( var_20.origin, var_21 ) > 90000 )
                 continue;
 
-            var_20 _meth_8420( var_3[var_20.team], var_4[var_20.team] );
+            var_20 hasloadedcustomizationplayerview( var_3[var_20.team], var_4[var_20.team] );
         }
 
         wait 0.5;
@@ -5641,7 +5641,7 @@ streamspectatorweaponsforclient( var_0 )
     var_1.team = var_0.team;
     var_1.weapon = var_0.primaryweapon;
     var_2 = var_0 _meth_857F();
-    return self _meth_8420( var_1, var_2 );
+    return self hasloadedcustomizationplayerview( var_1, var_2 );
 }
 
 ishodgepodgemm()

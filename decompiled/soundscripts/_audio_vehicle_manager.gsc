@@ -1607,25 +1607,25 @@ input_callback_degrees_from_upright()
 input_callback_jetbike_thrust()
 {
     var_0 = avmx_get_vehicle_entity();
-    return var_0 _meth_844C();
+    return var_0 vehicle_jetbikegetthrustfraction();
 }
 
 input_callback_jetbike_drag()
 {
     var_0 = avmx_get_vehicle_entity();
-    return var_0 _meth_844D();
+    return var_0 vehicle_jetbikegetdragfraction();
 }
 
 input_callback_jetbike_anti_slip()
 {
     var_0 = avmx_get_vehicle_entity();
-    return var_0 _meth_844E();
+    return var_0 vehicle_jetbikegetantislipfraction();
 }
 
 input_callback_jetbike_total_repulsor()
 {
     var_0 = avmx_get_vehicle_entity();
-    return var_0 _meth_844F();
+    return var_0 vehicle_jetbikegettotalrepulsorfraction();
 }
 
 input_callback_player_jetbike_height()
@@ -1660,7 +1660,7 @@ input_callback_player_jetbike_height()
 input_hovertank_anti_slip()
 {
     var_0 = avmx_get_vehicle_entity();
-    return var_0 _meth_8471();
+    return var_0 vehicle_hovertankgetantislipforce();
 }
 
 input_hovertank_anti_slip_magnitude()
@@ -1678,7 +1678,7 @@ input_hovertank_anti_slip_direction()
 input_hovertank_auto_yaw()
 {
     var_0 = avmx_get_vehicle_entity();
-    return var_0 _meth_8473();
+    return var_0 vehicle_hovertankgetautoyawforce();
 }
 
 input_hovertank_auto_yaw_magnitude()
@@ -1696,7 +1696,7 @@ input_hovertank_auto_yaw_direction()
 input_hovertank_repulsors()
 {
     var_0 = avmx_get_vehicle_entity();
-    return var_0 _meth_8470();
+    return var_0 vehicle_hovertankgetrepulsorforces();
 }
 
 input_hovertank_repulsor_front_left()
@@ -1726,7 +1726,7 @@ input_hovertank_repulsor_back_right()
 input_hovertank_throttle()
 {
     var_0 = avmx_get_vehicle_entity();
-    return var_0 _meth_846F();
+    return var_0 vehicle_hovertankgetthrottleforce();
 }
 
 input_hovertank_throttle_magnitude()
@@ -1744,13 +1744,13 @@ input_hovertank_throttle_direction()
 input_hovertank_uprighting()
 {
     var_0 = avmx_get_vehicle_entity();
-    return var_0 _meth_8472();
+    return var_0 vehicle_hovertankgetuprightingforce();
 }
 
 input_hovertank_turret_pch()
 {
     var_0 = avmx_get_vehicle_entity();
-    var_1 = var_0.turret _meth_8475();
+    var_1 = var_0.turret getturretpitchrate();
     var_1 = abs( var_1 );
     var_1 = clamp( var_1, 0, 90 );
     var_1 = avmx_normalize_ranged_value( var_1, 0, 90 );
@@ -1762,9 +1762,9 @@ input_hovertank_turret_pch()
 input_hovertank_turret_yaw()
 {
     var_0 = avmx_get_vehicle_entity();
-    var_1 = var_0.turret _meth_8474();
+    var_1 = var_0.turret getturretyawrate();
     var_1 = abs( var_1 );
-    var_2 = var_0.turret _meth_8475();
+    var_2 = var_0.turret getturretpitchrate();
     var_2 = abs( var_2 );
     var_3 = length2d( ( var_1, var_2, 0 ) );
     var_3 = clamp( var_3, 0, 135 );
@@ -1785,7 +1785,7 @@ input_diveboat_throttle()
     }
     else
     {
-        var_1 = var_0 _meth_8512();
+        var_1 = var_0 vehicle_diveboatgetthrottleforce();
 
         if ( var_1 != 0 )
             level.aud.diveboat_throttle = var_1;
@@ -1797,7 +1797,7 @@ input_diveboat_throttle()
 input_diveboat_drag()
 {
     var_0 = avmx_get_vehicle_entity();
-    var_1 = var_0 _meth_8513();
+    var_1 = var_0 vehicle_diveboatgetdragforce();
     return var_1;
 }
 

@@ -45,8 +45,8 @@ onplayerconnect()
             if ( var_2 < 0 )
                 var_2 = 0;
 
-            var_3 = var_0 _meth_84FE() - var_2;
-            var_4 = var_0 _meth_84FE();
+            var_3 = var_0 gettotalmpxp() - var_2;
+            var_4 = var_0 gettotalmpxp();
         }
         else if ( isai( var_0 ) )
         {
@@ -333,7 +333,7 @@ giverankxp( var_0, var_1, var_2, var_3, var_4, var_5 )
                 var_6 = int( var_6 );
             }
 
-            var_7 = self _meth_852E();
+            var_7 = self getclanwarsbonus();
             break;
     }
 
@@ -466,7 +466,7 @@ xppointspopup( var_0, var_1 )
     {
         if ( var_2 >= 0 )
         {
-            self _meth_8561( &"score_event", 2, var_2, var_1 );
+            self luinotifyevent( &"score_event", 2, var_2, var_1 );
             self _meth_8579( &"score_event", 2, var_2, var_1 );
         }
 
@@ -562,7 +562,7 @@ processprestigemastery( var_0, var_1 )
     {
         var_4 = self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", "ch_prestige_max" );
         var_5 = var_4 >= 3;
-        self.pers["prestigeMaster2"] = self _meth_853E();
+        self.pers["prestigeMaster2"] = self setprestigemastery();
 
         if ( isdefined( self.pers["prestigeMaster2"] ) && !var_5 )
             return "prestigeMaster2";
@@ -572,7 +572,7 @@ processprestigemastery( var_0, var_1 )
     {
         var_4 = self getplayerdata( common_scripts\utility::getstatsgroup_ranked(), "challengeState", "ch_prestige_max" );
         var_5 = var_4 >= 2;
-        self.pers["prestigeMaster"] = self _meth_853E();
+        self.pers["prestigeMaster"] = self setprestigemastery();
 
         if ( isdefined( self.pers["prestigeMaster"] ) && !var_5 )
             return "prestigeMaster";

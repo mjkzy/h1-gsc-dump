@@ -251,7 +251,7 @@ onendusebomb( var_0, var_1 )
     }
 
     level thread stop_looping_beep_on_player( var_0 );
-    var_0 _meth_854D( "weap_suitcase_raise_plr" );
+    var_0 stopsound( "weap_suitcase_raise_plr" );
 
     if ( var_1 && isdefined( self.hiddenmodel ) )
     {

@@ -1212,7 +1212,7 @@ applyloadout()
 
     loadoutallperks( var_0 );
     maps\mp\perks\_perks::applyperks();
-    self setoffhandprimaryclass( var_0.equipment );
+    self setlethalweapon( var_0.equipment );
 
     if ( var_0.equipment != "specialty_null" && self hasweapon( var_0.equipment ) )
     {
@@ -1242,7 +1242,7 @@ applyloadout()
 
     self.pers["primaryWeapon"] = maps\mp\_utility::getbaseweaponname( var_5 );
     self.loadoutoffhand = var_0.offhand;
-    self setoffhandsecondaryclass( var_0.offhand );
+    self settacticalweapon( var_0.offhand );
 
     if ( !level.oldschool )
         giveoffhand( var_0.offhand );

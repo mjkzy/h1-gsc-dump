@@ -241,7 +241,7 @@ streamprimariesfunc()
         }
     }
 
-    self _meth_8420( var_4, var_0 );
+    self hasloadedcustomizationplayerview( var_4, var_0 );
 }
 
 onspawnplayer()
@@ -396,7 +396,7 @@ givenextgun( var_0 )
     var_2 = var_1.fullname;
     var_3 = common_scripts\utility::ter_op( var_1.altfireonly, weaponaltweaponname( var_2 ), var_2 );
 
-    while ( !self _meth_8508( var_2 ) )
+    while ( !self loadweapons( var_2 ) )
         waitframe();
 
     self takeallweapons();
@@ -444,7 +444,7 @@ getnextgun()
     if ( self.gungamegunindex > 0 )
         var_1[var_1.size] = var_0[( self.gungamegunindex - 1 ) % var_0.size].fullname;
 
-    self _meth_8508( var_1 );
+    self loadweapons( var_1 );
     return var_2;
 }
 

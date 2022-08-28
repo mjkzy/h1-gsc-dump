@@ -38,7 +38,7 @@ set_level_lighting_values()
     setsaveddvar( "sm_minSpotLightScore", "0.0001" );
     maps\_utility::vision_set_fog_changes( "bog_a", 0 );
     level.player maps\_utility::set_light_set_player( "bog_a" );
-    level.player _meth_848C( "clut_bog_a", 0.0 );
+    level.player setclutforplayer( "clut_bog_a", 0.0 );
 }
 
 setup_flickerlight_motion_presets()

@@ -469,7 +469,7 @@ levelstart_lighteffects()
     maps\_utility::set_vision_set( var_0 );
     maps\_utility::fog_set_changes( var_1 );
     level.player maps\_utility::set_light_set_player( var_2 );
-    level.player _meth_848C( var_3, 1 );
+    level.player setclutforplayer( var_3, 1 );
 }
 
 shootingrange_vo_togetback()
@@ -677,114 +677,114 @@ fng_shadowlightbyzone()
     {
         if ( common_scripts\utility::flag( "in_firerange_lighting_zone1" ) )
         {
-            var_0 _meth_8494( "force_on" );
-            var_1 _meth_8494( "force_on" );
-            var_2 _meth_8494( "force_off" );
-            var_3 _meth_8494( "force_off" );
+            var_0 setlightshadowstate( "force_on" );
+            var_1 setlightshadowstate( "force_on" );
+            var_2 setlightshadowstate( "force_off" );
+            var_3 setlightshadowstate( "force_off" );
 
             while ( common_scripts\utility::flag( "in_firerange_lighting_zone1" ) )
                 wait 0.5;
         }
         else if ( common_scripts\utility::flag( "in_firerange_lighting_zone2" ) )
         {
-            var_0 _meth_8494( "force_on" );
-            var_1 _meth_8494( "force_on" );
-            var_2 _meth_8494( "normal" );
-            var_3 _meth_8494( "normal" );
+            var_0 setlightshadowstate( "force_on" );
+            var_1 setlightshadowstate( "force_on" );
+            var_2 setlightshadowstate( "normal" );
+            var_3 setlightshadowstate( "normal" );
 
             while ( common_scripts\utility::flag( "in_firerange_lighting_zone2" ) )
                 wait 0.5;
         }
         else if ( common_scripts\utility::flag( "in_hangar3_lighting_zoneTower" ) )
         {
-            var_4 _meth_8494( "force_on" );
-            var_5 _meth_8494( "force_on" );
-            var_6 _meth_8494( "normal" );
-            var_7 _meth_8494( "force_on" );
-            var_8 _meth_8494( "force_on" );
-            var_9 _meth_8494( "force_off" );
-            var_10 _meth_8494( "force_off" );
-            var_11 _meth_8494( "force_off" );
-            var_12 _meth_8494( "force_off" );
+            var_4 setlightshadowstate( "force_on" );
+            var_5 setlightshadowstate( "force_on" );
+            var_6 setlightshadowstate( "normal" );
+            var_7 setlightshadowstate( "force_on" );
+            var_8 setlightshadowstate( "force_on" );
+            var_9 setlightshadowstate( "force_off" );
+            var_10 setlightshadowstate( "force_off" );
+            var_11 setlightshadowstate( "force_off" );
+            var_12 setlightshadowstate( "force_off" );
 
             while ( common_scripts\utility::flag( "in_hangar3_lighting_zoneTower" ) )
                 wait 0.5;
         }
         else if ( common_scripts\utility::flag( "in_hangar3_lighting_zoneHangarFloor" ) )
         {
-            var_4 _meth_8494( "normal" );
-            var_5 _meth_8494( "force_on" );
-            var_6 _meth_8494( "force_on" );
-            var_7 _meth_8494( "force_off" );
-            var_8 _meth_8494( "force_off" );
-            var_9 _meth_8494( "force_off" );
-            var_10 _meth_8494( "force_off" );
-            var_11 _meth_8494( "normal" );
-            var_12 _meth_8494( "normal" );
+            var_4 setlightshadowstate( "normal" );
+            var_5 setlightshadowstate( "force_on" );
+            var_6 setlightshadowstate( "force_on" );
+            var_7 setlightshadowstate( "force_off" );
+            var_8 setlightshadowstate( "force_off" );
+            var_9 setlightshadowstate( "force_off" );
+            var_10 setlightshadowstate( "force_off" );
+            var_11 setlightshadowstate( "normal" );
+            var_12 setlightshadowstate( "normal" );
 
             while ( common_scripts\utility::flag( "in_hangar3_lighting_zoneHangarFloor" ) )
                 wait 0.1;
         }
         else if ( common_scripts\utility::flag( "in_hangar3_lighting_zoneShipTopDeck" ) )
         {
-            var_4 _meth_8494( "force_off" );
-            var_5 _meth_8494( "normal" );
-            var_6 _meth_8494( "normal" );
-            var_7 _meth_8494( "force_on" );
-            var_8 _meth_8494( "force_on" );
-            var_9 _meth_8494( "normal" );
-            var_10 _meth_8494( "force_off" );
-            var_11 _meth_8494( "force_off" );
-            var_12 _meth_8494( "force_off" );
+            var_4 setlightshadowstate( "force_off" );
+            var_5 setlightshadowstate( "normal" );
+            var_6 setlightshadowstate( "normal" );
+            var_7 setlightshadowstate( "force_on" );
+            var_8 setlightshadowstate( "force_on" );
+            var_9 setlightshadowstate( "normal" );
+            var_10 setlightshadowstate( "force_off" );
+            var_11 setlightshadowstate( "force_off" );
+            var_12 setlightshadowstate( "force_off" );
 
             while ( common_scripts\utility::flag( "in_hangar3_lighting_zoneShipTopDeck" ) )
                 wait 0.5;
         }
         else if ( common_scripts\utility::flag( "in_hangar3_lighting_zoneShipInterior1" ) )
         {
-            var_4 _meth_8494( "force_off" );
-            var_5 _meth_8494( "force_off" );
-            var_6 _meth_8494( "force_off" );
-            var_7 _meth_8494( "force_off" );
-            var_8 _meth_8494( "force_off" );
-            var_9 _meth_8494( "force_on" );
-            var_10 _meth_8494( "force_on" );
-            var_11 _meth_8494( "force_on" );
-            var_12 _meth_8494( "normal" );
+            var_4 setlightshadowstate( "force_off" );
+            var_5 setlightshadowstate( "force_off" );
+            var_6 setlightshadowstate( "force_off" );
+            var_7 setlightshadowstate( "force_off" );
+            var_8 setlightshadowstate( "force_off" );
+            var_9 setlightshadowstate( "force_on" );
+            var_10 setlightshadowstate( "force_on" );
+            var_11 setlightshadowstate( "force_on" );
+            var_12 setlightshadowstate( "normal" );
 
             while ( common_scripts\utility::flag( "in_hangar3_lighting_zoneShipInterior1" ) )
                 wait 0.5;
         }
         else if ( common_scripts\utility::flag( "in_hangar3_lighting_zoneShipInterior2" ) )
         {
-            var_4 _meth_8494( "normal" );
-            var_5 _meth_8494( "normal" );
-            var_6 _meth_8494( "force_on" );
-            var_7 _meth_8494( "force_off" );
-            var_8 _meth_8494( "force_off" );
-            var_9 _meth_8494( "normal" );
-            var_10 _meth_8494( "normal" );
-            var_11 _meth_8494( "force_on" );
-            var_12 _meth_8494( "force_on" );
+            var_4 setlightshadowstate( "normal" );
+            var_5 setlightshadowstate( "normal" );
+            var_6 setlightshadowstate( "force_on" );
+            var_7 setlightshadowstate( "force_off" );
+            var_8 setlightshadowstate( "force_off" );
+            var_9 setlightshadowstate( "normal" );
+            var_10 setlightshadowstate( "normal" );
+            var_11 setlightshadowstate( "force_on" );
+            var_12 setlightshadowstate( "force_on" );
 
             while ( common_scripts\utility::flag( "in_hangar3_lighting_zoneShipInterior2" ) )
                 wait 0.5;
         }
         else
         {
-            var_0 _meth_8494( "normal" );
-            var_1 _meth_8494( "normal" );
-            var_2 _meth_8494( "normal" );
-            var_3 _meth_8494( "normal" );
-            var_4 _meth_8494( "normal" );
-            var_5 _meth_8494( "normal" );
-            var_6 _meth_8494( "normal" );
-            var_7 _meth_8494( "normal" );
-            var_8 _meth_8494( "normal" );
-            var_9 _meth_8494( "normal" );
-            var_10 _meth_8494( "normal" );
-            var_11 _meth_8494( "normal" );
-            var_12 _meth_8494( "normal" );
+            var_0 setlightshadowstate( "normal" );
+            var_1 setlightshadowstate( "normal" );
+            var_2 setlightshadowstate( "normal" );
+            var_3 setlightshadowstate( "normal" );
+            var_4 setlightshadowstate( "normal" );
+            var_5 setlightshadowstate( "normal" );
+            var_6 setlightshadowstate( "normal" );
+            var_7 setlightshadowstate( "normal" );
+            var_8 setlightshadowstate( "normal" );
+            var_9 setlightshadowstate( "normal" );
+            var_10 setlightshadowstate( "normal" );
+            var_11 setlightshadowstate( "normal" );
+            var_12 setlightshadowstate( "normal" );
 
             while ( !common_scripts\utility::flag( "in_firerange_lighting_zone1" ) && !common_scripts\utility::flag( "in_firerange_lighting_zone2" ) && !common_scripts\utility::flag( "in_hangar3_lighting_zoneTower" ) && !common_scripts\utility::flag( "in_hangar3_lighting_zoneHangarFloor" ) && !common_scripts\utility::flag( "in_hangar3_lighting_zoneShipTopDeck" ) && !common_scripts\utility::flag( "in_hangar3_lighting_zoneShipInterior1" ) && !common_scripts\utility::flag( "in_hangar3_lighting_zoneShipInterior2" ) )
                 wait 0.5;
@@ -825,9 +825,9 @@ humvee_walkers()
     var_1.disableexits = 1;
     var_4 = getent( "humvee_walkers_trigger", "targetname" );
     var_4 waittill( "trigger" );
-    var_0 getgoalvolume( var_2 );
+    var_0 setgoalnode( var_2 );
     wait 0.35;
-    var_1 getgoalvolume( var_3 );
+    var_1 setgoalnode( var_3 );
     var_0 maps\_utility::set_goal_radius( 5 );
     var_1 maps\_utility::set_goal_radius( 5 );
     var_0 maps\_utility::add_wait( maps\_utility::waittill_msg, "goal" );
@@ -898,7 +898,7 @@ look_training()
         setdvar( "ui_start_inverted", 1 );
 
     wait 0.1;
-    level.player _meth_84ED( &"MENU_TYPE_INVERT_AXIS" );
+    level.player luiopenmenu( &"MENU_TYPE_INVERT_AXIS" );
     level.player freezecontrols( 1 );
     setblur( 2, 0.1 );
     level.player waittill( "menuresponse", var_1, var_2 );
@@ -934,7 +934,7 @@ look_training()
         }
 
         maps\killhouse_code::clear_hints();
-        level.player _meth_84ED( &"MENU_TYPE_INVERT_AXIS_CONFIRM" );
+        level.player luiopenmenu( &"MENU_TYPE_INVERT_AXIS_CONFIRM" );
         level.player freezecontrols( 1 );
         setblur( 2, 0.1 );
         level.player waittill( "menuresponse", var_1, var_2 );
@@ -1177,7 +1177,7 @@ new_look_training_handler()
     if ( common_scripts\utility::flag( "player_has_look_problem" ) )
     {
         wait 0.1;
-        level.player _meth_84ED( &"MENU_TYPE_INVERT_AXIS" );
+        level.player luiopenmenu( &"MENU_TYPE_INVERT_AXIS" );
         level.player freezecontrols( 1 );
         setblur( 2, 0.1 );
         level.player waittill( "menuresponse", var_4, var_5 );
@@ -1189,7 +1189,7 @@ new_look_training_handler()
             level.waters thread maps\killhouse_code::execdialog( "onemoretime" );
             var_1 maps\killhouse_code::new_look_wait_for_target( 90, -90 );
             var_0 maps\killhouse_code::new_look_wait_for_target( 90, -90 );
-            level.player _meth_84ED( &"MENU_TYPE_INVERT_AXIS_CONFIRM" );
+            level.player luiopenmenu( &"MENU_TYPE_INVERT_AXIS_CONFIRM" );
             level.player freezecontrols( 1 );
             setblur( 2, 0.1 );
             level.player waittill( "menuresponse", var_4, var_5 );
@@ -1719,7 +1719,7 @@ spawnwhendooropen()
     var_10.rumble_radius = 500;
     var_10.rumble_duration = 2.5;
     var_11 = getent( "tankShadowOrigin", "targetname" );
-    var_10 _meth_8477( var_11.origin );
+    var_10 overridelightingorigin( var_11.origin );
     wait 60;
     var_9 delete();
 }
@@ -1764,7 +1764,7 @@ dooropening_lighteffects()
     maps\_utility::set_vision_set( var_2, var_1 );
     maps\_utility::fog_set_changes( var_3, var_1 );
     level.player maps\_utility::set_light_set_player( var_4 );
-    level.player _meth_848C( var_5, var_1 );
+    level.player setclutforplayer( var_5, var_1 );
     wait(var_1);
     var_1 = 3;
     var_2 = "killhouse";
@@ -1774,7 +1774,7 @@ dooropening_lighteffects()
     maps\_utility::set_vision_set( var_2, var_1 );
     maps\_utility::fog_set_changes( var_3, var_1 );
     level.player maps\_utility::set_light_set_player( var_4 );
-    level.player _meth_848C( var_5, var_1 );
+    level.player setclutforplayer( var_5, var_1 );
     wait(var_1);
     var_0 common_scripts\utility::trigger_on();
 }
@@ -1864,16 +1864,16 @@ shadowoverride_firing_range_door_close()
     var_0 = getent( "rifle_range_door", "targetname" );
     var_1 = getent( "rifle_range_doorframe", "targetname" );
     var_2 = getent( "rifleRangeDoor_ShadowOrigin3", "targetname" );
-    var_0 _meth_8477( var_2.origin );
-    var_1 _meth_8477( var_2.origin );
+    var_0 overridelightingorigin( var_2.origin );
+    var_1 overridelightingorigin( var_2.origin );
 }
 
 shadowoverride_firing_range_door_open()
 {
     var_0 = getent( "rifle_range_door", "targetname" );
     var_1 = getent( "rifle_range_doorframe", "targetname" );
-    var_0 _meth_8477( var_0.origin );
-    var_1 _meth_8477( var_1.origin );
+    var_0 overridelightingorigin( var_0.origin );
+    var_1 overridelightingorigin( var_1.origin );
 }
 
 close_firing_range_door()
@@ -2560,11 +2560,11 @@ obstacle_training()
     var_5.disablearrivals = 1;
     var_5.exitconditioncheckfunc = maps\killhouse_code::killhouse_guy_exitconditionoverride;
     var_0 waittill( "trigger" );
-    var_1 getgoalvolume( var_2 );
+    var_1 setgoalnode( var_2 );
     wait 0.1;
-    var_3 getgoalvolume( var_4 );
+    var_3 setgoalnode( var_4 );
     wait 0.1;
-    var_5 getgoalvolume( var_6 );
+    var_5 setgoalnode( var_6 );
     getent( "obstacle_course_start", "targetname" ) waittill( "trigger" );
     var_7 = getent( "ai_obstacle_shooter", "targetname" );
     common_scripts\utility::flag_set( "aa_obstacle" );
@@ -2615,7 +2615,7 @@ obstacle_training()
 ai_obstacle_course_shooter()
 {
     var_0 = self stalingradspawn();
-    var_0 getgoalvolume( getnode( self.target, "targetname" ) );
+    var_0 setgoalnode( getnode( self.target, "targetname" ) );
     var_0 waittill( "goal" );
     var_0 maps\_utility::enable_cqbwalk();
     var_0.target_dummy = getent( "obstacle_shoot_target", "targetname" );
@@ -3133,7 +3133,7 @@ debrief()
     thread debrief_anims();
     thread h1_fadetoblackdifficultyselect( 2.5 );
     wait 12.5;
-    level.player _meth_84ED( &"difficulty_selection_menu_fng" );
+    level.player luiopenmenu( &"difficulty_selection_menu_fng" );
     level.player freezecontrols( 1 );
     setblur( 2, 0.1 );
     level.player waittill( "menuresponse", var_1, var_2 );
@@ -3240,13 +3240,13 @@ convoy_gate_pass( var_0, var_1, var_2, var_3, var_4, var_5 )
     var_11 = getvehiclenode( var_4, "targetname" );
     var_12 = getvehiclenode( var_5, "targetname" );
 
-    while ( var_6[0] _meth_84B7() != var_10 )
+    while ( var_6[0] vehicle_getcurrentnode() != var_10 )
         wait 0.2;
 
     thread open_gate( var_1 );
     level.convoyatgate = 1;
 
-    while ( var_6[0] _meth_84B7() != var_12 )
+    while ( var_6[0] vehicle_getcurrentnode() != var_12 )
         wait 0.1;
 
     if ( !var_1.is_open )
@@ -3267,7 +3267,7 @@ convoy_gate_pass( var_0, var_1, var_2, var_3, var_4, var_5 )
         }
     }
 
-    while ( var_6[var_6.size - 1] _meth_84B7() != var_11 )
+    while ( var_6[var_6.size - 1] vehicle_getcurrentnode() != var_11 )
         wait 0.2;
 
     while ( level.loopingtrucksatgate )
@@ -3322,7 +3322,7 @@ checkgate_needopenorclose( var_0 )
             if ( var_4.classname == "script_vehicle_corpse" )
                 continue;
 
-            var_5 = var_4 _meth_84B7();
+            var_5 = var_4 vehicle_getcurrentnode();
 
             if ( isdefined( var_5 ) && isdefined( var_5.script_noteworthy ) )
             {
@@ -3452,7 +3452,7 @@ ai_rifle_training_loop( var_0 )
     var_1 = self stalingradspawn();
     var_1 pushplayer( 1 );
     var_1 allowedstances( "stand" );
-    var_1 getgoalvolume( getnode( self.target, "targetname" ) );
+    var_1 setgoalnode( getnode( self.target, "targetname" ) );
     var_1 waittill( "goal" );
     var_1 maps\_utility::enable_cqbwalk();
     var_1.target_dummy = undefined;
@@ -3593,9 +3593,9 @@ tower_guard_think()
     for (;;)
     {
         if ( var_2 )
-            self getgoalvolume( var_1[randomintrange( 0, var_1.size )] );
+            self setgoalnode( var_1[randomintrange( 0, var_1.size )] );
         else
-            self getgoalvolume( var_0[randomintrange( 0, var_0.size )] );
+            self setgoalnode( var_0[randomintrange( 0, var_0.size )] );
 
         var_2 = !var_2;
         self waittill( "goal" );
@@ -3671,7 +3671,7 @@ ai_ambient_think( var_0, var_1 )
 
     if ( isdefined( var_2 ) )
     {
-        self getgoalvolume( var_2 );
+        self setgoalnode( var_2 );
         wait 1;
         self.disablearrivals = 0;
         self.disableexits = 0;
@@ -4266,7 +4266,7 @@ sittingtalkingguy_think( var_0 )
     var_2 thread ai_ambient_facial();
     var_3 = getnode( "hangar2_ListenGuyStartNode", "targetname" );
     var_4 = getnode( "hangar2_ListenGuyEndNode", "targetname" );
-    var_2 getgoalvolume( var_3 );
+    var_2 setgoalnode( var_3 );
     var_5 = getent( "SittingGuyPos", "targetname" );
     var_6 = var_0;
     var_6 maps\killhouse_code::specify_head_model( "head_sas_ct_assault_charles_nomask" );
@@ -4280,7 +4280,7 @@ sittingtalkingguy_think( var_0 )
     var_5 notify( "end_idle" );
     var_6 thread ai_specific_facial_anim( "generic", "civilian_sitting_talking_A_2_facial" );
     var_6 maps\_utility::play_sound_on_entity( "killhouse_nwc_thrilledtosee" );
-    var_2 getgoalvolume( var_4 );
+    var_2 setgoalnode( var_4 );
     wait 1;
     var_6 maps\_utility::play_sound_on_entity( "killhouse_nwc_goodluck" );
     var_6 thread ai_ambient_facial();

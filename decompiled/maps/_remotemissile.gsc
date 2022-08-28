@@ -815,7 +815,7 @@ uavremotelaunchersequence( var_0, var_1 )
         }
 
         var_0 freezecontrols( 0 );
-        var_0 _meth_847E();
+        var_0 hideviewmodel();
         wait 0.05;
 
         if ( isdefined( level.activate_uav_hud_cb ) )
@@ -1143,7 +1143,7 @@ exitfromcamera_missile( var_0, var_1 )
             var_0 enableweapons();
 
         var_0 freezecontrols( 0 );
-        var_0 _meth_847D();
+        var_0 showviewmodel();
         wait 0.2;
         huditemsshow();
 
@@ -1166,7 +1166,7 @@ exitfromcamera_missile( var_0, var_1 )
         if ( !maps\_utility::is_player_down( var_0 ) )
             var_0 enableweapons();
 
-        var_0 _meth_847D();
+        var_0 showviewmodel();
         wait 0.5;
         huditemsshow();
 
@@ -1251,7 +1251,7 @@ exitfromcamera_uav( var_0, var_1 )
         if ( !maps\_utility::is_player_down( var_0 ) )
             var_0 enableweapons();
 
-        var_0 _meth_847D();
+        var_0 showviewmodel();
         wait 0.1;
         huditemsshow();
 
@@ -1275,7 +1275,7 @@ exitfromcamera_uav( var_0, var_1 )
         if ( !maps\_utility::is_player_down( var_0 ) )
             var_0 enableweapons();
 
-        var_0 _meth_847D();
+        var_0 showviewmodel();
         wait 0.5;
         huditemsshow();
         var_0 switchbacktomainweapon();

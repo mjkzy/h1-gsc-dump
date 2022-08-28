@@ -798,9 +798,9 @@ handgun_monitor()
 
     for (;;)
     {
-        if ( level.player issplitscreenplayer() == 1 && level.player getcurrentweapon() == level.cheat_handgun_weaponname )
+        if ( level.player weaponpickupenabled() == 1 && level.player getcurrentweapon() == level.cheat_handgun_weaponname )
             level.player maps\_utility::playerallowweaponpickup( 0, "cheat_handgun" );
-        else if ( level.player issplitscreenplayer() == 0 && level.player getcurrentweapon() != level.cheat_handgun_weaponname )
+        else if ( level.player weaponpickupenabled() == 0 && level.player getcurrentweapon() != level.cheat_handgun_weaponname )
             level.player maps\_utility::playerallowweaponpickup( 1, "cheat_handgun" );
 
         wait 0.05;
@@ -836,7 +836,7 @@ givehandgun()
 
 takehandgun()
 {
-    if ( level.player issplitscreenplayer() == 0 )
+    if ( level.player weaponpickupenabled() == 0 )
         level.player maps\_utility::playerallowweaponpickup( 1, "cheat_handgun" );
 
     var_0 = level.player getcurrentweapon();
@@ -885,13 +885,13 @@ lemonade_mode_update( var_0 )
 
 givelemonade()
 {
-    level.cheat_lemonade_currentlethal = level.player getoffhandprimaryclass();
+    level.cheat_lemonade_currentlethal = level.player getlethalweapon();
 
     if ( isdefined( level.cheat_lemonade_currentlethal ) && level.cheat_lemonade_currentlethal != "none" )
     {
         var_0 = level.player getweaponammoclip( level.cheat_lemonade_currentlethal );
         level.player takeweapon( level.cheat_lemonade_currentlethal );
-        level.player setoffhandprimaryclass( level.cheat_lemonade_weaponname );
+        level.player setlethalweapon( level.cheat_lemonade_weaponname );
         level.player giveweapon( level.cheat_lemonade_weaponname );
         level.player setweaponammoclip( level.cheat_lemonade_weaponname, var_0 );
     }
@@ -904,7 +904,7 @@ takelemonade()
 
     if ( isdefined( level.cheat_lemonade_currentlethal ) )
     {
-        level.player setoffhandprimaryclass( level.cheat_lemonade_currentlethal );
+        level.player setlethalweapon( level.cheat_lemonade_currentlethal );
         level.player giveweapon( level.cheat_lemonade_currentlethal );
         level.player setweaponammoclip( level.cheat_lemonade_currentlethal, var_0 );
     }

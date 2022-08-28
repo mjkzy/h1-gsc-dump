@@ -33,7 +33,7 @@ clearclutarget()
     level.javelinlockfinalized = 0;
     level.javelintarget = undefined;
     self weaponlockfree();
-    self _meth_82E4( 0 );
+    self weaponlocktargettooclose( 0 );
     self weaponlocknoclearance( 0 );
     setomnvar( "ui_javelin_lock_status", 0 );
 }
@@ -88,9 +88,9 @@ settargettooclose( var_0 )
     var_2 = distance2d( self.origin, var_0.origin );
 
     if ( var_2 < var_1 )
-        self _meth_82E4( 1 );
+        self weaponlocktargettooclose( 1 );
     else
-        self _meth_82E4( 0 );
+        self weaponlocktargettooclose( 0 );
 }
 
 setnoclearance()

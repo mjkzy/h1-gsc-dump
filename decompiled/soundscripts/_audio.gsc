@@ -1227,7 +1227,7 @@ restore_after_deathsdoor()
         soundscripts\_audio_mix_manager::mm_clear_submix( "deaths_door", 2 );
         soundscripts\_snd_common::snd_disable_soundcontextoverride( "deathsdoor" );
         level notify( "kill_deaths_door_audio" );
-        level.player _meth_848F( 0 );
+        level.player setpainvisioneq( 0 );
         soundscripts\_audio_zone_manager::azm_set_filter_bypass( 0 );
         thread soundscripts\_audio_reverb::rvb_start_preset( level._audio.deathsdoor.reverb );
         soundscripts\_snd_playsound::snd_play_2d( "deaths_door_exit" );
@@ -1259,7 +1259,7 @@ set_deathsdoor()
         soundscripts\_snd_playsound::snd_play_2d( "deaths_door_intro" );
         soundscripts\_snd_playsound::snd_play_2d( "deaths_door_breaths", "kill_deaths_door_audio", 0, 0.5 );
         soundscripts\_snd_playsound::snd_play_loop_2d( "deaths_door_loop", "kill_deaths_door_audio", 0, 0.5 );
-        level.player _meth_848F( 1 );
+        level.player setpainvisioneq( 1 );
     }
 }
 

@@ -902,7 +902,7 @@ scale_3d_hint_button( var_0, var_1, var_2, var_3, var_4, var_5 )
         }
         else if ( isdefined( var_5 ) && isdefined( var_5.classname ) && issubstr( var_5.classname, "trigger" ) )
         {
-            var_7 = var_2 _meth_8516();
+            var_7 = var_2 getusableentity();
 
             if ( isdefined( var_7 ) && var_7 == var_5 )
                 self.alpha = 1;
@@ -1039,10 +1039,10 @@ buttonmash_hint_cleanup( var_0, var_1, var_2, var_3 )
     self endon( "death" );
     common_scripts\utility::waittill_any_ents( self, var_0, level.player, var_0 );
     thread maps\_utility::hint_fade();
-    level.player _meth_8498( var_1, var_2 );
+    level.player notifyonplayercommandremove( var_1, var_2 );
 
     if ( isdefined( var_3 ) )
-        level.player _meth_8498( var_1, var_3 );
+        level.player notifyonplayercommandremove( var_1, var_3 );
 }
 
 hint_button_create_flashing( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )

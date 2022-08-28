@@ -2013,7 +2013,7 @@ process_fx_rotater()
         {
             var_2[var_3] = spawn( "script_origin", level._createfx.selected_fx_ents[var_3].v["origin"] );
             var_2[var_3].angles = level._createfx.selected_fx_ents[var_3].v["angles"];
-            var_2[var_3] _meth_8442( var_1 );
+            var_2[var_3] linktosynchronizedparent( var_1 );
         }
 
         rotate_over_time( var_1, var_2 );

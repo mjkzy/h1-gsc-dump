@@ -1597,7 +1597,7 @@ processchallenge( var_0, var_1, var_2 )
         {
             thread giverankxpafterwait( var_0, var_4 );
             var_10 = getchallengeid( var_0, var_4 );
-            self _meth_843F( var_10 );
+            self challengenotification( var_10 );
             var_11 = common_scripts\utility::tostring( var_10 );
             var_12 = int( getsubstr( var_11, 0, var_11.size - 2 ) );
 

@@ -84,7 +84,7 @@ processlobbyscoreboards()
         if ( !var_1 maps\mp\_utility::rankingenabled() )
             var_16 = var_1.pers["summary"]["xp"];
         else
-            var_16 = var_1 _meth_84FE() - var_1.pers["summary"]["matchStartXp"];
+            var_16 = var_1 gettotalmpxp() - var_1.pers["summary"]["matchStartXp"];
 
         var_1 setplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "totalXp", var_16 );
         var_1 setplayerdata( common_scripts\utility::getstatsgroup_common(), "round", "scoreXp", var_1.pers["summary"]["score"] );

@@ -108,7 +108,7 @@ _nextmission()
     {
         if ( getdvarint( "arcademode_full" ) )
         {
-            level.player _meth_84ED( &"AIRPLANE_CAMPAIGN_COMPLETED" );
+            level.player luiopenmenu( &"AIRPLANE_CAMPAIGN_COMPLETED" );
             level.player waittill( "menuresponse" );
         }
 
@@ -120,7 +120,7 @@ _nextmission()
     {
         if ( var_1 != level.missionsettings isallmisioncompleted() )
         {
-            level.player _meth_84ED( &"campaign_completed_popup" );
+            level.player luiopenmenu( &"campaign_completed_popup" );
             level.player waittill( "menuresponse", var_3, var_4 );
 
             if ( var_4 == "quit" )

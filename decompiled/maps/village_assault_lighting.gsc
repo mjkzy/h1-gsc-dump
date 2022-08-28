@@ -33,7 +33,7 @@ set_level_lighting_values()
     setsaveddvar( "r_specularColorScale", "4.5" );
     maps\_utility::vision_set_fog_changes( "village_assault", 0 );
     level.player maps\_utility::set_light_set_player( "village_assault" );
-    level.player _meth_848C( "clut_village_assault", 0.0 );
+    level.player setclutforplayer( "clut_village_assault", 0.0 );
 }
 
 setup_flickerlight_motion_presets()

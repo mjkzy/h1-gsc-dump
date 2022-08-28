@@ -177,23 +177,23 @@ cargoship_heroes5_disablepain()
 {
     level.heroes5["alavi"].a.disablepain = 1;
     level.heroes5["alavi"].allowpain = 0;
-    level.heroes5["alavi"] _meth_8565( 1 );
+    level.heroes5["alavi"] setisignoringgrenades( 1 );
     level.heroes5["alavi"].ignoresuppression = 1;
     level.heroes5["price"].a.disablepain = 1;
     level.heroes5["price"].allowpain = 0;
-    level.heroes5["price"] _meth_8565( 1 );
+    level.heroes5["price"] setisignoringgrenades( 1 );
     level.heroes5["price"].ignoresuppression = 1;
     level.heroes5["grigsby"].a.disablepain = 1;
     level.heroes5["grigsby"].allowpain = 0;
-    level.heroes5["grigsby"] _meth_8565( 1 );
+    level.heroes5["grigsby"] setisignoringgrenades( 1 );
     level.heroes5["grigsby"].ignoresuppression = 1;
     level.heroes5["seat5"].a.disablepain = 1;
     level.heroes5["seat5"].allowpain = 0;
-    level.heroes5["seat5"] _meth_8565( 1 );
+    level.heroes5["seat5"] setisignoringgrenades( 1 );
     level.heroes5["seat5"].ignoresuppression = 1;
     level.heroes5["seat6"].a.disablepain = 1;
     level.heroes5["seat6"].allowpain = 0;
-    level.heroes5["seat6"] _meth_8565( 1 );
+    level.heroes5["seat6"] setisignoringgrenades( 1 );
     level.heroes5["seat6"].ignoresuppression = 1;
 }
 
@@ -201,23 +201,23 @@ cargoship_heroes5_enablepain()
 {
     level.heroes5["alavi"].a.disablepain = 0;
     level.heroes5["alavi"].allowpain = 1;
-    level.heroes5["alavi"] _meth_8565( 0 );
+    level.heroes5["alavi"] setisignoringgrenades( 0 );
     level.heroes5["alavi"].ignoresuppression = 0;
     level.heroes5["price"].a.disablepain = 0;
     level.heroes5["price"].allowpain = 1;
-    level.heroes5["price"] _meth_8565( 0 );
+    level.heroes5["price"] setisignoringgrenades( 0 );
     level.heroes5["price"].ignoresuppression = 0;
     level.heroes5["grigsby"].a.disablepain = 0;
     level.heroes5["grigsby"].allowpain = 1;
-    level.heroes5["grigsby"] _meth_8565( 0 );
+    level.heroes5["grigsby"] setisignoringgrenades( 0 );
     level.heroes5["grigsby"].ignoresuppression = 0;
     level.heroes5["seat5"].a.disablepain = 0;
     level.heroes5["seat5"].allowpain = 1;
-    level.heroes5["seat5"] _meth_8565( 0 );
+    level.heroes5["seat5"] setisignoringgrenades( 0 );
     level.heroes5["seat5"].ignoresuppression = 0;
     level.heroes5["seat6"].a.disablepain = 0;
     level.heroes5["seat6"].allowpain = 1;
-    level.heroes5["seat6"] _meth_8565( 0 );
+    level.heroes5["seat6"] setisignoringgrenades( 0 );
     level.heroes5["seat6"].ignoresuppression = 0;
 }
 
@@ -592,7 +592,7 @@ bridge_setup()
             continue;
 
         var_3 = getnode( "seat" + var_1[var_2].seat_pos, "targetname" );
-        var_1[var_2] getgoalvolume( var_3 );
+        var_1[var_2] setgoalnode( var_3 );
         var_1[var_2].goalradius = 32;
         var_1[var_2].ignoresuppression = 1;
         var_1[var_2].suppressionwait = 0;
@@ -1016,7 +1016,7 @@ quarters_heli()
     level.heli.vehicle clearlookatent();
     level.heli.vehicle cleargoalyaw();
     var_0 = common_scripts\utility::getstruct( "heli_quarters_node", "targetname" );
-    level.heli.vehicle setgoalpos( var_0.origin, 1 );
+    level.heli.vehicle setvehgoalpos( var_0.origin, 1 );
     level.heli.vehicle setgoalyaw( var_1 );
     level.heli.vehicle settargetyaw( var_1 );
 
@@ -1027,8 +1027,8 @@ quarters_heli()
         if ( !isdefined( var_0.target ) )
             var_2 = 1;
 
-        level.heli.vehicle setgoalpos( var_0.origin + ( 0.0, 0.0, 150.0 ), var_2 );
-        level.heli.vehicle neargoalnotifydist( 150 );
+        level.heli.vehicle setvehgoalpos( var_0.origin + ( 0.0, 0.0, 150.0 ), var_2 );
+        level.heli.vehicle setneargoalnotifydist( 150 );
         level.heli.vehicle waittill( "near_goal" );
 
         if ( isdefined( var_0.target ) )
@@ -1134,8 +1134,8 @@ quarters_drunk()
     var_0.spinetarget = spawn( "script_origin", var_0 gettagorigin( "j_spine4" ) );
     var_0.spinetarget linkto( var_0, "j_spine4" );
     cargoship_disablealliesreload();
-    level.heroes3["price"] _meth_8565( 1 );
-    level.heroes3["alavi"] _meth_8565( 1 );
+    level.heroes3["price"] setisignoringgrenades( 1 );
+    level.heroes3["alavi"] setisignoringgrenades( 1 );
     level.heroes3["price"] maps\_utility::cqb_aim( var_0.spinetarget );
     level.heroes3["alavi"] maps\_utility::cqb_aim( var_0.spinetarget );
     var_3 = getanimlength( level.scr_anim[var_0.animname]["walk"] );
@@ -1146,8 +1146,8 @@ quarters_drunk()
     var_0 notify( "already_dying" );
     var_0 quarters_drunk_death( var_1 );
     cargoship_enablealliesreload();
-    level.heroes3["price"] _meth_8565( 0 );
-    level.heroes3["alavi"] _meth_8565( 0 );
+    level.heroes3["price"] setisignoringgrenades( 0 );
+    level.heroes3["alavi"] setisignoringgrenades( 0 );
 }
 
 quarters_drunk_bottle( var_0 )
@@ -1288,7 +1288,7 @@ quarters_price()
 
     if ( !common_scripts\utility::flag( "price_wait_at_stairs" ) )
     {
-        self getgoalvolume( var_0 );
+        self setgoalnode( var_0 );
         self.goalradius = var_0.radius;
         self.disableexits = 1;
         common_scripts\utility::flag_wait( "price_wait_at_stairs" );
@@ -1299,7 +1299,7 @@ quarters_price()
     thread quarters_price_safety();
     level endon( "deck_drop" );
     thread quarters_price_force_disable_approach();
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self.goalradius = var_1.radius;
 
     if ( lengthsquared( self.origin - var_0.origin ) < 25 )
@@ -1332,7 +1332,7 @@ quarters_price()
     maps\_utility::handsignal( "onme" );
     self pushplayer( 1 );
     quarters_price_restore_disable_approach();
-    self getgoalvolume( var_2 );
+    self setgoalnode( var_2 );
     self.goalradius = var_2.radius;
 }
 
@@ -1386,12 +1386,12 @@ quarters_alavi()
 
     if ( !common_scripts\utility::flag( "price_at_top_of_stairs" ) )
     {
-        self getgoalvolume( var_0 );
+        self setgoalnode( var_0 );
         self.goalradius = var_0.radius;
         common_scripts\utility::flag_wait( "price_at_top_of_stairs" );
     }
 
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self.goalradius = var_1.radius;
     common_scripts\utility::flag_wait( "quarters_drunk_spawned" );
     maps\_utility::cqb_aim( level.quartersdrunk );
@@ -1416,7 +1416,7 @@ quarters_alavi()
         wait 0.25;
     }
 
-    self getgoalvolume( var_2 );
+    self setgoalnode( var_2 );
     self.goalradius = var_2.radius;
     var_4 = common_scripts\utility::getstruct( "PriceKillsDrunkGuy", "targetname" );
     var_4 thread maps\_anim::anim_single_solo( self, "bunkbed_approach" );
@@ -1504,7 +1504,7 @@ deck_aftdeck_enemies()
     self endon( "death" );
     self.ignoreme = 1;
     self.ignoresuppression = 1;
-    self _meth_8565( 1 );
+    self setisignoringgrenades( 1 );
     self.allowpain = 0;
 
     if ( !isdefined( level.aftdeck_enemies ) )
@@ -1630,7 +1630,7 @@ deck_alavi_wait_for_player( var_0, var_1 )
         self.ignoreme = 0;
         self pushplayer( 1 );
         var_2 = getnode( "quarters_alavi_wait", "targetname" );
-        self getgoalvolume( var_2 );
+        self setgoalnode( var_2 );
         self.goalradius = var_2.radius;
         common_scripts\utility::flag_wait( "deck_drop" );
     }
@@ -1697,7 +1697,7 @@ deck_heroes( var_0, var_1 )
         var_2 delete();
     }
 
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 
     if ( isdefined( var_0.radius ) && var_0.radius > 0 )
         self.goalradius = var_0.radius;
@@ -1718,7 +1718,7 @@ deck_heroes( var_0, var_1 )
 
     while ( isdefined( var_0.target ) )
     {
-        self getgoalvolume( var_0 );
+        self setgoalnode( var_0 );
 
         if ( isdefined( var_0.radius ) && var_0.radius > 0 )
             self.goalradius = var_0.radius;
@@ -1739,7 +1739,7 @@ deck_heroes( var_0, var_1 )
                     var_5 = common_scripts\utility::getclosest( var_0.origin, var_1, var_0.radius );
 
                     if ( isdefined( var_5 ) )
-                        self getgoalvolume( var_5 );
+                        self setgoalnode( var_5 );
 
                     self.goalradius = 16;
                 }
@@ -1755,7 +1755,7 @@ deck_heroes( var_0, var_1 )
     }
 
     common_scripts\utility::flag_set( "deck_windows" );
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = 16;
     maps\mo_tools::disable_cqbwalk_ign_demo_wrapper();
 
@@ -1785,8 +1785,8 @@ deck_heli()
     level.heli.vehicle sethoverparams( 0, 0, 0 );
     level.heli.vehicle setgoalyaw( var_0.angles[1] );
     level.heli.vehicle settargetyaw( var_0.angles[1] );
-    level.heli.vehicle setgoalpos( var_0.origin + ( 0.0, 0.0, 146.0 ), 1 );
-    level.heli.vehicle neargoalnotifydist( 32 );
+    level.heli.vehicle setvehgoalpos( var_0.origin + ( 0.0, 0.0, 146.0 ), 1 );
+    level.heli.vehicle setneargoalnotifydist( 32 );
     level.heli.vehicle waittill( "near_goal" );
     common_scripts\utility::flag_wait( "deck_drop" );
     thread maps\_utility::radio_dialogue( "cargoship_hp1_forwarddeckradio" );
@@ -2092,7 +2092,7 @@ hallways_breach_moveout( var_0, var_1 )
         wait(var_3 - 0.2);
     }
 
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self.goalradius = 16;
     self stopanimscripted();
     self pushplayer( 1 );
@@ -2335,9 +2335,9 @@ cargohold_main()
             level.heroes3["price"].a.disablepain = 1;
             level.heroes3["alavi"].a.disablepain = 1;
             level.heroes3["grigsby"].a.disablepain = 1;
-            level.heroes3["price"] _meth_8565( 1 );
-            level.heroes3["alavi"] _meth_8565( 1 );
-            level.heroes3["grigsby"] _meth_8565( 1 );
+            level.heroes3["price"] setisignoringgrenades( 1 );
+            level.heroes3["alavi"] setisignoringgrenades( 1 );
+            level.heroes3["grigsby"] setisignoringgrenades( 1 );
             level.heroes3["alavi"] thread disable_turns_until_duration_or_flag( 3, "cargoholds_1_enter" );
             cargohold_flash();
             level.heroes3["price"].a.cqbchangedontmodifyinterval = 0;
@@ -2633,9 +2633,9 @@ cargohold1_flashed_enemies_death()
     level.heroes3["price"].a.disablepain = 0;
     level.heroes3["alavi"].a.disablepain = 0;
     level.heroes3["grigsby"].a.disablepain = 0;
-    level.heroes3["price"] _meth_8565( 0 );
-    level.heroes3["alavi"] _meth_8565( 0 );
-    level.heroes3["grigsby"] _meth_8565( 0 );
+    level.heroes3["price"] setisignoringgrenades( 0 );
+    level.heroes3["alavi"] setisignoringgrenades( 0 );
+    level.heroes3["grigsby"] setisignoringgrenades( 0 );
 }
 
 cargohold1_flashed_enemies()
@@ -2700,9 +2700,9 @@ cargohold1_breach()
     level.heroes3["price"].a.disablepain = 1;
     level.heroes3["alavi"].a.disablepain = 1;
     level.heroes3["grigsby"].a.disablepain = 1;
-    level.heroes3["price"] _meth_8565( 1 );
-    level.heroes3["alavi"] _meth_8565( 1 );
-    level.heroes3["grigsby"] _meth_8565( 1 );
+    level.heroes3["price"] setisignoringgrenades( 1 );
+    level.heroes3["alavi"] setisignoringgrenades( 1 );
+    level.heroes3["grigsby"] setisignoringgrenades( 1 );
     level.heroes3["price"] maps\_utility::set_ignoresuppression( 1 );
     level.heroes3["alavi"] maps\_utility::set_ignoresuppression( 1 );
     level.heroes3["grigsby"] maps\_utility::set_ignoresuppression( 1 );
@@ -2768,9 +2768,9 @@ cargohold1_breach()
     level.heroes3["price"].a.disablepain = 0;
     level.heroes3["alavi"].a.disablepain = 0;
     level.heroes3["grigsby"].a.disablepain = 0;
-    level.heroes3["price"] _meth_8565( 0 );
-    level.heroes3["alavi"] _meth_8565( 0 );
-    level.heroes3["grigsby"] _meth_8565( 0 );
+    level.heroes3["price"] setisignoringgrenades( 0 );
+    level.heroes3["alavi"] setisignoringgrenades( 0 );
+    level.heroes3["grigsby"] setisignoringgrenades( 0 );
     level.heroes3["price"] maps\_utility::set_ignoresuppression( 0 );
     level.heroes3["alavi"] maps\_utility::set_ignoresuppression( 0 );
     level.heroes3["grigsby"] maps\_utility::set_ignoresuppression( 0 );
@@ -2882,7 +2882,7 @@ cargohold2_enemies1()
     waittillframeend;
     self.goalradius = 64;
     common_scripts\utility::flag_wait( "cargohold2_catwalk2a" );
-    self getgoalvolume( getnode( "cargohold2_enemynode2", "targetname" ) );
+    self setgoalnode( getnode( "cargohold2_enemynode2", "targetname" ) );
     self.goalradius = 275;
 }
 
@@ -2895,7 +2895,7 @@ cargohold2_enemies_common()
     self.baseaccuracy *= 0.8;
     self.a.disablelongdeath = 1;
     common_scripts\utility::flag_wait( "package_enter" );
-    self getgoalvolume( getnode( "laststand_friendlynode", "targetname" ) );
+    self setgoalnode( getnode( "laststand_friendlynode", "targetname" ) );
     self.goalradius = 800;
 }
 
@@ -2903,7 +2903,7 @@ cargohold_catwalk_shuffle_clean_up( var_0 )
 {
     self.shuffling = 0;
     self.a.disablepain = 0;
-    self _meth_8565( 0 );
+    self setisignoringgrenades( 0 );
     self.allowpain = 1;
     maps\_utility::disable_cqbwalk();
 
@@ -2919,7 +2919,7 @@ cargohold_catwalk_shuffle_clean_up( var_0 )
 cargohold_catwalk_shuffle()
 {
     self.a.disablepain = 1;
-    self _meth_8565( 1 );
+    self setisignoringgrenades( 1 );
     self.allowpain = 0;
     common_scripts\utility::flag_init( "cargohold2_catwalk_end_" + self.script_noteworthy );
     common_scripts\utility::waittill_any_ents( self, "hallways_heroes_ready", level, "cargohold2_catwalk2" );
@@ -3031,13 +3031,13 @@ cargohold_catwalk_shuffle_shoot()
 manifest_light_hack()
 {
     var_0 = getent( "manifest_light", "targetname" );
-    var_0 _meth_8494( "force_off" );
+    var_0 setlightshadowstate( "force_off" );
     var_0 setlightfovrange( 6, 0 );
     common_scripts\utility::flag_wait( "package_open_doors" );
-    var_0 _meth_8494( "force_fully_on" );
+    var_0 setlightshadowstate( "force_fully_on" );
     var_0 setlightfovrange( 80, 0 );
     common_scripts\utility::flag_wait( "escape_explosion" );
-    var_0 _meth_8494( "normal" );
+    var_0 setlightshadowstate( "normal" );
 }
 
 laststand_main()
@@ -3105,7 +3105,7 @@ laststand_hero_think()
     setsaveddvar( "ai_coversearchinterval", 5000 );
     maps\_utility::disable_ai_color();
     var_1 = getnode( "laststand_friendlynode", "targetname" );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self.goalradius = var_1.radius;
     self waittill( "goal" );
     self.fixednode = 0;
@@ -3547,15 +3547,15 @@ escape_main()
     setsaveddvar( "cl_NoWeaponBobAmplitudeVertical", 3.0 );
     setsaveddvar( "cl_NoWeaponBobAmplitudeHorizontal", 3.0 );
     level.heroes5["price"].grenadeawareness = 0;
-    level.heroes5["price"] _meth_8565( 1 );
+    level.heroes5["price"] setisignoringgrenades( 1 );
     level.heroes5["price"].a.disablepain = 1;
     level.heroes5["price"].allowpain = 0;
     level.heroes5["grigsby"].grenadeawareness = 0;
-    level.heroes5["grigsby"] _meth_8565( 1 );
+    level.heroes5["grigsby"] setisignoringgrenades( 1 );
     level.heroes5["grigsby"].a.disablepain = 1;
     level.heroes5["grigsby"].allowpain = 0;
     level.heroes5["alavi"].grenadeawareness = 0;
-    level.heroes5["alavi"] _meth_8565( 1 );
+    level.heroes5["alavi"] setisignoringgrenades( 1 );
     level.heroes5["alavi"].a.disablepain = 1;
     level.heroes5["alavi"].allowpain = 0;
     maps\cargoship_code::water_stuff_for_art1( 1 );
@@ -3805,28 +3805,28 @@ end_scene_setup()
 
 seaknight_rescue_dof()
 {
-    level.player _meth_84A5();
-    level.player _meth_84A7( 1.0, 180, 2.0, 2.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 1.0, 180, 2.0, 2.0 );
     wait 0.65;
     setsaveddvar( "r_mbEnable", 2 );
     wait 0.7;
-    level.player _meth_84A7( 1.0, 180, 9.0, 9.0 );
+    level.player setphysicaldepthoffield( 1.0, 180, 9.0, 9.0 );
     wait 0.76;
-    level.player _meth_84A7( 0.8, 85, 4.0, 4.0 );
+    level.player setphysicaldepthoffield( 0.8, 85, 4.0, 4.0 );
     wait 0.6;
-    level.player _meth_84A7( 1.6, 36, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 1.6, 36, 1.0, 1.0 );
     wait 1.1;
-    level.player _meth_84A7( 2.4, 22, 8.0, 8.0 );
+    level.player setphysicaldepthoffield( 2.4, 22, 8.0, 8.0 );
     wait 0.56;
-    level.player _meth_84A7( 2.0, 17.5, 6.0, 6.0 );
+    level.player setphysicaldepthoffield( 2.0, 17.5, 6.0, 6.0 );
     wait 0.74;
-    level.player _meth_84A7( 0.8, 35.0, 8.0, 8.0 );
+    level.player setphysicaldepthoffield( 0.8, 35.0, 8.0, 8.0 );
     wait 1.0;
-    level.player _meth_84A7( 24, 7.0, 0.5, 0.5 );
+    level.player setphysicaldepthoffield( 24, 7.0, 0.5, 0.5 );
     wait 1.16;
-    level.player _meth_84A7( 0.7, 800, 8.0, 8.0 );
+    level.player setphysicaldepthoffield( 0.7, 800, 8.0, 8.0 );
     wait 18.0;
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
     setsaveddvar( "r_mbEnable", 0 );
 }
 
@@ -4975,8 +4975,8 @@ start_physical_dof()
     var_2 = set_dof_value( 2.6, 30, 2.0, 2.0 );
     var_3 = set_dof_value( 2.4, 46, 2.0, 2.0 );
     var_4 = set_dof_value( 1.2, 800, 3.0, 3.0 );
-    level.player _meth_84A5();
-    level.player _meth_84A7( var_2.fstop, var_2.focusdistance, var_2.focusspeed, var_2.aperturespeed );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( var_2.fstop, var_2.focusdistance, var_2.focusspeed, var_2.aperturespeed );
     var_5 = 0;
     var_6 = 26;
     var_7 = 0;
@@ -4996,7 +4996,7 @@ start_physical_dof()
             var_12 = 0;
         else if ( var_12 < var_8 )
         {
-            level.player _meth_84A7( var_4.fstop, var_4.focusdistance, var_4.focusspeed, var_4.aperturespeed );
+            level.player setphysicaldepthoffield( var_4.fstop, var_4.focusdistance, var_4.focusspeed, var_4.aperturespeed );
             var_7 = 1;
         }
         else if ( var_12 > var_9 && var_12 < var_10 )
@@ -5011,7 +5011,7 @@ start_physical_dof()
                 var_7 = 0;
             }
 
-            level.player _meth_84A7( var_2.fstop, var_2.focusdistance, var_13, var_14 );
+            level.player setphysicaldepthoffield( var_2.fstop, var_2.focusdistance, var_13, var_14 );
         }
         else if ( var_12 > var_11 )
         {
@@ -5025,20 +5025,20 @@ start_physical_dof()
                 var_7 = 0;
             }
 
-            level.player _meth_84A7( var_3.fstop, var_3.focusdistance, var_13, var_14 );
+            level.player setphysicaldepthoffield( var_3.fstop, var_3.focusdistance, var_13, var_14 );
         }
 
         wait 0.1;
     }
 
-    level.player _meth_84A7( 3.6, var_2.focusdistance, var_2.focusspeed, var_2.aperturespeed );
+    level.player setphysicaldepthoffield( 3.6, var_2.focusdistance, var_2.focusspeed, var_2.aperturespeed );
     wait 6.5;
-    level.player _meth_84A7( 1.0, 720, 1.0, 1.0 );
-    level.player _meth_84A7( 2.8, 180, 4.0, 4.0 );
+    level.player setphysicaldepthoffield( 1.0, 720, 1.0, 1.0 );
+    level.player setphysicaldepthoffield( 2.8, 180, 4.0, 4.0 );
     wait 1.8;
     setsaveddvar( "r_mbEnable", 2 );
     wait 2.7;
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
     wait 0.5;
     setsaveddvar( "r_mbEnable", 0 );
 }

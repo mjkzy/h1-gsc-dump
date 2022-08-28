@@ -93,7 +93,7 @@ detachallweaponmodels()
         }
     }
 
-    self updateplayermodelwithweapons();
+    self updateentitywithweapons();
 }
 
 updateattachedweaponmodels()
@@ -112,7 +112,7 @@ updateattachedweaponmodels()
         var_2[var_2.size] = gettagforpos( var_0[var_3] );
     }
 
-    self updateplayermodelwithweapons( var_1[0], var_2[0], var_1[1], var_2[1], var_1[2], var_2[2], var_1[3], var_2[3] );
+    self updateentitywithweapons( var_1[0], var_2[0], var_1[1], var_2[1], var_1[2], var_2[2], var_1[3], var_2[3] );
 
     for ( var_3 = 0; var_3 < var_0.size; var_3++ )
     {
@@ -346,7 +346,7 @@ getshootfrompos()
 
     if ( isdefined( self.usemuzzleforaim ) && self.usemuzzleforaim )
     {
-        if ( self _meth_843E( "tag_flash" ) != -1 )
+        if ( self gettagindex( "tag_flash" ) != -1 )
         {
             var_1 = self gettagorigin( "tag_flash" );
 

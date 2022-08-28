@@ -222,7 +222,7 @@ flying_intro_force_streaming_center( var_0 )
 
     for (;;)
     {
-        level.player _meth_8237( var_0 );
+        level.player playersetstreamorigin( var_0 );
         wait 0.01;
     }
 }

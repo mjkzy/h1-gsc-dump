@@ -239,16 +239,16 @@ main()
 
 h1_typing_dof_start()
 {
-    level.player _meth_84A7( 16.0, 150, 9.0, 9.0 );
-    level.player _meth_84A5();
-    level.player _meth_84A7( 2.5, 25, 4.0, 4.0 );
+    level.player setphysicaldepthoffield( 16.0, 150, 9.0, 9.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 2.5, 25, 4.0, 4.0 );
 }
 
 h1_typing_dof_stop()
 {
-    level.player _meth_84A7( 16.0, 150, 4.0, 4.0 );
+    level.player setphysicaldepthoffield( 16.0, 150, 4.0, 4.0 );
     wait 0.5;
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
 }
 
 start_default()
@@ -1804,7 +1804,7 @@ update_keyboard_monitor_screen( var_0, var_1 )
 
     for (;;)
     {
-        var_2 _meth_8468( "mtl_h1_mwr_ch_icbm_consolemonitor5", var_4[var_3] );
+        var_2 overridematerial( "mtl_h1_mwr_ch_icbm_consolemonitor5", var_4[var_3] );
         var_3++;
 
         if ( var_3 == var_4.size )

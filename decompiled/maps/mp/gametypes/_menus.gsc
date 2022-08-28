@@ -118,7 +118,7 @@ watchforclasschange()
         if ( var_0 != "class_select" )
             continue;
 
-        if ( maps\mp\_utility::ismlgsplitscreen() && self _meth_842D() && !maps\mp\_utility::invirtuallobby() )
+        if ( maps\mp\_utility::ismlgsplitscreen() && self ismlgspectator() && !maps\mp\_utility::invirtuallobby() )
         {
             self setclientomnvar( "ui_options_menu", 0 );
             continue;
@@ -236,7 +236,7 @@ watchforteamchange()
 
             if ( maps\mp\_utility::ismlgsplitscreen() )
             {
-                self _meth_84FD( 1 );
+                self setmlgspectator( 1 );
                 self setclientomnvar( "ui_use_mlg_hud", 1 );
                 thread maps\mp\gametypes\_spectating::setspectatepermissions();
             }
@@ -251,7 +251,7 @@ watchforteamchange()
 
             if ( maps\mp\_utility::ismlgsplitscreen() )
             {
-                self _meth_84FD( 0 );
+                self setmlgspectator( 0 );
                 self setclientomnvar( "ui_use_mlg_hud", 0 );
             }
 
@@ -278,7 +278,7 @@ watchforteamchange()
         }
 
         if ( getdvarint( "scr_lua_splashes" ) )
-            self _meth_8561( &"clear_notification_queue", 0 );
+            self luinotifyevent( &"clear_notification_queue", 0 );
 
         self setclientomnvar( "ui_loadout_selected", -1 );
 
@@ -324,7 +324,7 @@ autoassign()
         thread setteam( "allies" );
         self.sessionteam = "allies";
     }
-    else if ( self _meth_842D() && !maps\mp\_utility::invirtuallobby() )
+    else if ( self ismlgspectator() && !maps\mp\_utility::invirtuallobby() )
         thread setspectator();
     else
     {
@@ -487,7 +487,7 @@ waitforclassselect()
     }
     else
     {
-        if ( !isai( self ) && maps\mp\_utility::showgenericmenuonmatchstart() && ( self _meth_8443( "ui_options_menu" ) == 0 || maps\mp\_utility::ishodgepodgeph() ) )
+        if ( !isai( self ) && maps\mp\_utility::showgenericmenuonmatchstart() && ( self getclientomnvar( "ui_options_menu" ) == 0 || maps\mp\_utility::ishodgepodgeph() ) )
         {
             thread maps\mp\gametypes\_playerlogic::setuioptionsmenu( 3 );
 
@@ -514,7 +514,7 @@ beginclasschoice( var_0 )
     {
         thread maps\mp\gametypes\_playerlogic::setuioptionsmenu( 2 );
 
-        if ( !self _meth_842D() || maps\mp\_utility::invirtuallobby() )
+        if ( !self ismlgspectator() || maps\mp\_utility::invirtuallobby() )
             waitforclassselect();
 
         endrespawnnotify();
@@ -646,7 +646,7 @@ menugiveclass( var_0 )
 
             self waittill( "streamClassComplete" );
             self iprintlnbold( "" );
-            self _meth_852B( 0 );
+            self onlystreamactiveweapon( 0 );
         }
 
         maps\mp\gametypes\_class::setclass( self.pers["class"] );

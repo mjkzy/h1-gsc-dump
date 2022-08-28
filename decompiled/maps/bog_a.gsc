@@ -559,7 +559,7 @@ price_moves_up_and_waves_player_on()
 
     level endon( "player_heads_towards_apartment" );
     var_0 = getnode( "price_road_node", "targetname" );
-    level.price getgoalvolume( var_0 );
+    level.price setgoalnode( var_0 );
     level.price.goalradius = 64;
     level.price waittill( "goal" );
     common_scripts\utility::flag_set( "price_reaches_moveup_point" );
@@ -1270,7 +1270,7 @@ defend_the_roof_with_javelin()
     var_4 maps\_utility::make_hero();
     var_4.animname = "generic";
     var_5 = getnode( "friendly_javelin_node", "targetname" );
-    var_4 getgoalvolume( var_5 );
+    var_4 setgoalnode( var_5 );
     var_4.goalradius = 64;
     maps\_utility::battlechatter_on( "allies" );
     maps\_utility::delaythread( 3, maps\bog_a_code::set_flag_when_bmps_are_dead );
@@ -1321,7 +1321,7 @@ flee_overpass()
 {
     var_0 = getnodearray( "bridge_flee_node", "targetname" );
     var_1 = common_scripts\utility::random( var_0 );
-    self getgoalvolume( var_1 );
+    self setgoalnode( var_1 );
     self.goalradius = 64;
     self endon( "death" );
     wait(randomfloat( 3.5 ));
@@ -1493,7 +1493,7 @@ run_down_street( var_0 )
         while ( !isdefined( self.node ) )
             wait 0.05;
 
-        self getgoalvolume( self.node );
+        self setgoalnode( self.node );
         self.goalradius = 32;
         self waittill( "goal" );
         self.reached_bridge_flee_spot = 1;
@@ -1585,7 +1585,7 @@ move_in_on_goal( var_0 )
     wait 10;
     self.goalradius = var_0.radius;
     self.goalheight = 64;
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     var_1 = 300;
 
     for (;;)

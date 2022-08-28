@@ -41,7 +41,7 @@ set_level_lighting_values()
     setsaveddvar( "sm_minSpotLightScore", "0.0001" );
     maps\_utility::vision_set_fog_changes( "blackout_swamp_1", 0 );
     level.player maps\_utility::set_light_set_player( "blackout_swamp_1" );
-    level.player _meth_848C( "clut_blackout", 0.0 );
+    level.player setclutforplayer( "clut_blackout", 0.0 );
     enableouterspacemodellighting( ( 10000.0, 10000.0, 10000.0 ), ( 0.00158008, 0.00158008, 0.00158008 ) );
 }
 

@@ -559,7 +559,7 @@ pool_have_body()
     var_1.animname = "dead_guy";
     var_1 maps\_utility::assign_animtree();
     var_1 character\character_sp_spetsnaz_derik::main();
-    var_1 _meth_855D();
+    var_1 disablerootmotion();
     var_1 setanim( var_1 maps\_utility::getanim( "pool_death" ), 1, 0, 1 );
 }
 
@@ -598,14 +598,14 @@ fair_patroller_think()
     {
         self.pathenemyfightdist = 0;
         self.pathenemylookahead = 0;
-        self getgoalvolume( var_0 );
+        self setgoalnode( var_0 );
         self.goalradius = var_0.radius;
         self.enemy waittill( "death" );
         maps\_utility::set_default_pathenemy_settings();
         return;
     }
 
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
     self.goalradius = var_0.radius;
 }
 
@@ -1321,9 +1321,9 @@ heli_hits_ground( var_0 )
 {
     thread common_scripts\_exploder::exploder( 67 );
     level.player playrumbleonentity( "damage_heavy" );
-    self _meth_8468( "mtl_h1_mi_28_glass", "mtl_h1_mi_28_glass_damaged" );
-    self _meth_8468( "mtl_h1_mi_28_body", "mtl_h1_mi_28_body_damaged" );
-    self _meth_8468( "mtl_h1_mi_28_details", "mtl_h1_mi_28_details_damaged" );
+    self overridematerial( "mtl_h1_mi_28_glass", "mtl_h1_mi_28_glass_damaged" );
+    self overridematerial( "mtl_h1_mi_28_body", "mtl_h1_mi_28_body_damaged" );
+    self overridematerial( "mtl_h1_mi_28_details", "mtl_h1_mi_28_details_damaged" );
     maps\_utility::delaythread( 0.1, maps\_utility::_earthquake, 0.6, 1.2, self.origin, 6000 );
     var_0 thread maps\_vehicle::vehicle_lights_off( "running" );
     self notify( "stop_enginefire_fx" );

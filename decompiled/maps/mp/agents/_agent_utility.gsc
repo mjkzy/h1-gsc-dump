@@ -171,7 +171,7 @@ deactivateagentdelayed()
     self.headmodel = undefined;
     self detachall();
     self notify( "disconnect" );
-    self _meth_8486();
+    self agentclearscriptvars();
     level.despawning_agents = common_scripts\utility::array_remove( level.despawning_agents, self );
 }
 

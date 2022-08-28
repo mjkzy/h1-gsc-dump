@@ -47,7 +47,7 @@ bypassclasschoicefunc()
     self.pers["gamemodeLoadout"] = level.oldschool_loadout;
     self.class = self.pers["class"];
     self.lastclass = self.pers["lastClass"];
-    self _meth_8508( level.oldschool_loadout["loadoutPrimary"] );
+    self loadweapons( level.oldschool_loadout["loadoutPrimary"] );
 }
 
 streamprimariesfunc()
@@ -65,7 +65,7 @@ streamprimariesfunc()
         var_3[var_3.size] = var_6;
     }
 
-    self _meth_8420( var_3, var_1, var_2 );
+    self hasloadedcustomizationplayerview( var_3, var_1, var_2 );
 }
 
 oldschoolloadout()
@@ -436,7 +436,7 @@ changesecondarygrenadetype( var_0 )
         var_4 waittill( "trigger", var_5 );
 
         if ( var_5 getweaponammototal( var_1 ) == 0 && var_5 getweaponammototal( var_2 ) == 0 && var_5 getweaponammototal( var_3 ) == 0 )
-            var_5 setoffhandsecondaryclass( var_0 );
+            var_5 settacticalweapon( var_0 );
     }
 }
 

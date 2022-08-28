@@ -461,7 +461,7 @@ createprimaryprogressbar( var_0, var_1 )
     if ( !isdefined( var_1 ) )
         var_1 = 0;
 
-    if ( self issplitscreenplayerprimary() )
+    if ( self issplitscreenplayer() )
         var_1 += 20;
 
     var_2 = createbar( ( 1.0, 1.0, 1.0 ), level.primaryprogressbarwidth, level.primaryprogressbarheight );
@@ -477,7 +477,7 @@ createprimaryprogressbartext( var_0, var_1 )
     if ( !isdefined( var_1 ) )
         var_1 = 0;
 
-    if ( self issplitscreenplayerprimary() )
+    if ( self issplitscreenplayer() )
         var_1 += 20;
 
     var_2 = createfontstring( "hudbig", level.primaryprogressbarfontsize );

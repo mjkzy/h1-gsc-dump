@@ -2585,7 +2585,7 @@ freezeallplayers( var_0, var_1 )
 
         if ( isdefined( var_1 ) && var_1 )
         {
-            if ( level.splitscreen || var_3 issplitscreenplayerprimary() )
+            if ( level.splitscreen || var_3 issplitscreenplayer() )
                 var_3 setclientdvars( "cg_everyoneHearsEveryone", 1, "cg_fovscale", 0.75 );
             else
                 var_3 setclientdvars( "cg_everyoneHearsEveryone", 1, "cg_fovScale", 1 );
@@ -2684,7 +2684,7 @@ handlekillstreaksonroundswitch( var_0 )
             continue;
         }
 
-        var_4 = int( var_3 _meth_8443( "ks_count1" ) );
+        var_4 = int( var_3 getclientomnvar( "ks_count1" ) );
         var_3.pers["cur_kill_count"] = var_4;
     }
 }

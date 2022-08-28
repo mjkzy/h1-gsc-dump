@@ -262,16 +262,16 @@ beautiful_view_position( var_0 )
         level.player lightsetforplayer( level.beautiful_lightsets[var_0] );
 
     if ( level.beautiful_cluts[var_0] != "" )
-        level.player _meth_848C( level.beautiful_cluts[var_0], 0 );
+        level.player setclutforplayer( level.beautiful_cluts[var_0], 0 );
 
     if ( level.beautiful_view_static && isdefined( level.beautiful_dof[var_0] ) )
     {
         var_1 = level.beautiful_dof[var_0];
-        level.player _meth_84A5();
-        level.player _meth_84A7( var_1["fstop"], var_1["focus_distance"], var_1["focus_speed"], var_1["aperture_speed"] );
+        level.player enablephysicaldepthoffieldscripting();
+        level.player setphysicaldepthoffield( var_1["fstop"], var_1["focus_distance"], var_1["focus_speed"], var_1["aperture_speed"] );
     }
     else
-        level.player _meth_84A6();
+        level.player disablephysicaldepthoffieldscripting();
 
     level.player setstance( "stand" );
 

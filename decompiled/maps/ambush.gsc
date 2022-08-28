@@ -967,7 +967,7 @@ ambush_rockets()
     var_2 = getent( "rpg_target2", "targetname" );
     var_0[0] notify( "end_patrol" );
     var_0[0] maps\_utility::set_ignoresuppression( 1 );
-    var_0[0] getgoalvolume( getnode( "bmp_attack_node", "targetname" ) );
+    var_0[0] setgoalnode( getnode( "bmp_attack_node", "targetname" ) );
     var_0[0] setstablemissile( 1 );
     var_0[0].goalradius = 32;
     var_0[0] setentitytarget( var_1 );
@@ -977,7 +977,7 @@ ambush_rockets()
     level.bmp maps\_vehicle::godoff();
     var_0[1] notify( "end_patrol" );
     var_0[1] maps\_utility::set_ignoresuppression( 1 );
-    var_0[1] getgoalvolume( getnode( "rear_truck_attack_node", "targetname" ) );
+    var_0[1] setgoalnode( getnode( "rear_truck_attack_node", "targetname" ) );
     var_0[1].goalradius = 32;
     var_0[1].ignoreall = 1;
     common_scripts\utility::flag_wait( "extra_guys_spawned" );
@@ -1457,7 +1457,7 @@ ambush_tower_fall_player( var_0 )
     var_2 hide();
     var_2 linkto( var_1 );
     var_1 thread maps\_anim::anim_first_frame_solo( var_2, "ambush_plr_tower_fall" );
-    level.player _meth_855E( var_2, "tag_player", 1, 0.4, 0.2, 0.2, 50, 50, 40, 10 );
+    level.player playerlinktodeltablendviewangle( var_2, "tag_player", 1, 0.4, 0.2, 0.2, 50, 50, 40, 10 );
     wait 0.4;
     var_2 show();
     var_1 thread maps\_anim::anim_single_solo( var_2, "ambush_plr_tower_fall" );
@@ -1476,7 +1476,7 @@ ambush_tower_fall_player( var_0 )
         var_9 -= 360;
 
     var_10 = ( 0, var_9, 0 );
-    var_1 _meth_8425( var_10, var_7 * 0.53, 1 );
+    var_1 rotatebylinked( var_10, var_7 * 0.53, 1 );
     level.player lerpviewangleclamp( var_7 * 0.5, 0, 0, 0, 0, 0, 0 );
     level waittill( "tower_fall_unlink" );
     var_2 delete();
@@ -1489,8 +1489,8 @@ ambush_tower_fall_player( var_0 )
 
 h1_towerfalling_dof()
 {
-    level.player _meth_84A5();
-    level.player _meth_84A7( 2.4, 130, 1.0, 1.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 2.4, 130, 1.0, 1.0 );
     setsaveddvar( "r_mbEnable", 2 );
     level waittill( "tower_fall_unlink" );
     wait 0.25;
@@ -2806,7 +2806,7 @@ apartment_suicide_price()
     var_0 = getnode( "price_roof_end", "targetname" );
     var_1 = getent( "price_roof_ent", "targetname" );
     level.price.goalradius = 64;
-    level.price getgoalvolume( var_0 );
+    level.price setgoalnode( var_0 );
     var_1 thread maps\_anim::anim_loop_solo( level.price, "roof_idle", undefined, "stop_idle" );
 
     if ( getdvarint( "use_old_suicide" ) == 1 )
@@ -3538,7 +3538,7 @@ start_teleport( var_0 )
     if ( isdefined( self.radius ) )
         self.goalradius = var_0.radius;
 
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 }
 
 delete_dropped_weapons()
@@ -3580,9 +3580,9 @@ shoot_mg_targets()
 {
     self endon( "stop_targeting" );
     self setmode( "manual" );
-    self _meth_815A( 60 );
-    self _meth_8158( 60 );
-    self _meth_8157( 60 );
+    self setbottomarc( 60 );
+    self setleftarc( 60 );
+    self setrightarc( 60 );
     var_0 = getentarray( self.target, "targetname" );
     var_0 = common_scripts\utility::array_add( var_0, level.player );
     var_1 = undefined;
@@ -3768,7 +3768,7 @@ adjust_angles_to_player( var_0 )
 
 set_goalnode( var_0 )
 {
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 
     if ( isdefined( var_0.radius ) )
         self.goalradius = var_0.radius;

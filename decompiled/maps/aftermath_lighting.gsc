@@ -125,7 +125,7 @@ set_level_lighting_values()
 {
     maps\_utility::vision_set_fog_changes( "aftermath", 0 );
     level.player maps\_utility::set_light_set_player( "aftermath" );
-    level.player _meth_848C( "clut_h1_aftermath", 0.0 );
+    level.player setclutforplayer( "clut_h1_aftermath", 0.0 );
     thread set_level_lighting_default();
     thread set_level_lighting_pain();
     thread set_level_lighting_glow();
@@ -138,7 +138,7 @@ set_level_lighting_default()
     {
         level waittill( "aftermath_lighting_default", var_0 );
         level.player maps\_utility::set_light_set_player( "aftermath" );
-        level.player _meth_848C( "clut_h1_aftermath", var_0 );
+        level.player setclutforplayer( "clut_h1_aftermath", var_0 );
     }
 }
 
@@ -148,7 +148,7 @@ set_level_lighting_pain()
     {
         level waittill( "aftermath_lighting_pain", var_0 );
         level.player maps\_utility::set_light_set_player( "aftermath" );
-        level.player _meth_848C( "clut_h1_aftermath_pain", var_0 );
+        level.player setclutforplayer( "clut_h1_aftermath_pain", var_0 );
         var_1 = maps\_cinematography::cinseq_create_screen_shake_struct();
         var_1.duration = 1;
         var_1.duration_fade_down = 0.6;
@@ -175,6 +175,6 @@ set_level_lighting_glow()
     {
         level waittill( "aftermath_lighting_glow", var_0 );
         level.player maps\_utility::set_light_set_player( "aftermath_glow" );
-        level.player _meth_848C( "clut_h1_aftermath_glow", var_0 );
+        level.player setclutforplayer( "clut_h1_aftermath_glow", var_0 );
     }
 }

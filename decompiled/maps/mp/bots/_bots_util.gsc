@@ -1455,7 +1455,7 @@ bot_monitor_enemy_camp_spots( var_0 )
             if ( var_3 [[ var_0 ]]() && !isdefined( var_1[var_3.team] ) )
             {
                 level.enemy_camp_assassin[var_3.team] = undefined;
-                level.enemy_camp_spots[var_3.team] = var_3 _meth_8432( 1 );
+                level.enemy_camp_spots[var_3.team] = var_3 botpredictenemycampspots( 1 );
 
                 if ( isdefined( level.enemy_camp_spots[var_3.team] ) )
                 {

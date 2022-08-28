@@ -151,7 +151,7 @@ spawn_agent_player( var_0, var_1, var_2, var_3, var_4, var_5 )
     thread maps\mp\gametypes\_healthoverlay::playerhealthregen();
 
     if ( isdefined( self.use_randomized_personality ) && self.use_randomized_personality && isdefined( self.respawn_on_death ) && self.respawn_on_death )
-        self _meth_8520( 1 );
+        self setagentcostumeindex( 1 );
 
     level notify( "spawned_agent_player", self );
     level notify( "spawned_agent", self );
@@ -217,7 +217,7 @@ finishagentdamage_impactfxwrapper( var_0, var_1, var_2, var_3, var_4, var_5, var
     if ( !isdefined( self ) || !isdefined( var_0 ) )
         return;
 
-    self _meth_8533( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
+    self finishagentdamage_impactfx( var_0, var_1, var_2, var_3, var_4, var_5, var_6 );
 }
 
 on_agent_generic_damaged( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9 )

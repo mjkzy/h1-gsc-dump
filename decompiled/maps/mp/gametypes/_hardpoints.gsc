@@ -921,7 +921,7 @@ triggerhardpoint( var_0 )
     {
         if ( isdefined( level.airstrikeinprogress ) )
         {
-            self _meth_854D( "h1_ks_airstrike_activate_start_plr" );
+            self stopsound( "h1_ks_airstrike_activate_start_plr" );
             self iprintlnbold( level.hardpointhints[var_0 + "_not_available"] );
             return 0;
         }

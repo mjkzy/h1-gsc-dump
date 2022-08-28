@@ -784,7 +784,7 @@ istouchingbadtrigger()
         return 1;
     }
 
-    if ( !self.visuals[0] _meth_851D() )
+    if ( !self.visuals[0] physicsisactive() )
     {
         var_0 = getentarray( "out_of_bounds_at_rest", "targetname" );
 
@@ -1128,7 +1128,7 @@ useobjectusethink()
         if ( !var_0 isonground() )
             continue;
 
-        if ( var_0 _meth_8514() )
+        if ( var_0 isdodging() )
             continue;
 
         var_1 = var_0 getcurrentprimaryweapon();

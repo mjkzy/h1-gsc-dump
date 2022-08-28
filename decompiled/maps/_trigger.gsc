@@ -1499,7 +1499,7 @@ trigger_multiple_visionset( var_0, var_1 )
                         level.player maps\_utility::set_light_set_player( var_0.script_lightset );
 
                     if ( isdefined( var_0.script_clut ) )
-                        level.player _meth_848C( var_0.script_clut, var_0.script_delay );
+                        level.player setclutforplayer( var_0.script_clut, var_0.script_delay );
                 }
             }
             else
@@ -1524,7 +1524,7 @@ trigger_multiple_visionset( var_0, var_1 )
                             level.player maps\_utility::set_light_set_player( level.default_lightset );
 
                         if ( isdefined( var_0.script_clut ) && can_reset_vision_type( var_0, "clut" ) )
-                            level.player _meth_848C( level.default_clut, var_0.script_delay );
+                            level.player setclutforplayer( level.default_clut, var_0.script_delay );
                     }
                 }
 

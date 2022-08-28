@@ -385,7 +385,7 @@ walking_the_stream()
         var_7 = getnode( "gaz_hut_node", "targetname" );
         level.gaz maps\_utility::disable_ai_color();
         level.gaz.fixednodesaferadius = 0;
-        level.gaz getgoalvolume( var_7 );
+        level.gaz setgoalnode( var_7 );
         level.gaz pushplayer( 1 );
         level.gaz.ignoreall = 0;
         level.price.ignoreall = 0;
@@ -503,7 +503,7 @@ field_meeting()
     {
         var_0 thread maps\_anim::anim_reach_solo( level.price, "meeting" );
         var_4 = getnode( "gaz_field_node", "targetname" );
-        level.gaz getgoalvolume( var_4 );
+        level.gaz setgoalnode( var_4 );
         var_5 = maps\_utility::make_array( level.price, level.kamarov );
         level.price.goalradius = 180;
         level.price waittill( "goal" );
@@ -1021,8 +1021,8 @@ blackout_house()
     level.gaz.baseaccuracy = 5000;
     level.price.grenadeammo = 0;
     level.gaz.grenadeammo = 0;
-    level.price _meth_8565( 1 );
-    level.gaz _meth_8565( 1 );
+    level.price setisignoringgrenades( 1 );
+    level.gaz setisignoringgrenades( 1 );
     level.price maps\_utility::dialogue_queue( "cut_the_power" );
 
     if ( getdvarint( "use_old_power_cut" ) == 1 )
@@ -1123,7 +1123,7 @@ start_rescue()
     wait 1;
     level.price setgoalpos( level.price.origin );
     level.price.goalradius = 32;
-    level.gaz getgoalvolume( var_3 );
+    level.gaz setgoalnode( var_3 );
     level.gaz.goalradius = 32;
     var_4 = getent( "exit_door", "targetname" );
     var_4 thread maps\_utility::palm_style_door_open();

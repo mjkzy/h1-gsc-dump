@@ -259,7 +259,7 @@ dyndof_system_start( var_0 )
     if ( !isdefined( level.player_dynamic_dof_settings ) && level.player_dynamic_dof_settings.settings_list.size <= 0 )
         return;
 
-    level.player _meth_84A5();
+    level.player enablephysicaldepthoffieldscripting();
     var_1 = "";
 
     while ( level.player_dynamic_dof_settings.active )
@@ -389,13 +389,13 @@ dyndof_system_start( var_0 )
             if ( var_24 < 1 )
                 var_24 = 1;
 
-            level.player _meth_84A7( var_6.fstop, var_24, var_6.focus_speed, var_6.aperture_speed );
+            level.player setphysicaldepthoffield( var_6.fstop, var_24, var_6.focus_speed, var_6.aperture_speed );
             var_25 = var_6.fstop * var_6.view_model_fstop_scale;
 
             if ( var_25 > 512 )
                 var_25 = 512;
 
-            level.player _meth_84B8( var_25, var_24 );
+            level.player setphysicalviewmodeldepthoffield( var_25, var_24 );
             var_1 = var_6.name;
         }
 
@@ -455,7 +455,7 @@ dyndof_system_end()
     level notify( "end_dynamic_dof" );
     setsaveddvar( "r_dof_physical_bokehEnable", 0 );
     level.player_dynamic_dof_settings = undefined;
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
 }
 
 cinematic_sequence( var_0 )

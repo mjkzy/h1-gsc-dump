@@ -227,13 +227,13 @@ snd_veh_play_loops( var_0, var_1, var_2 )
     var_3 = self;
     var_4 = [ var_0, var_1, var_2 ];
     var_5[0] = spawn( "script_origin", var_3.origin );
-    var_5[0] _meth_8442( var_3 );
+    var_5[0] linktosynchronizedparent( var_3 );
     var_5[0] playloopsound( var_0 );
     var_5[1] = spawn( "script_origin", var_3.origin );
-    var_5[1] _meth_8442( var_3 );
+    var_5[1] linktosynchronizedparent( var_3 );
     var_5[1] playloopsound( var_1 );
     var_5[2] = spawn( "script_origin", var_3.origin );
-    var_5[2] _meth_8442( var_3 );
+    var_5[2] linktosynchronizedparent( var_3 );
     var_5[2] playloopsound( var_2 );
     var_3 waittill( "death" );
 

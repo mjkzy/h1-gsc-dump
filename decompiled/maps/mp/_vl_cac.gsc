@@ -361,7 +361,7 @@ streamcacweaponwait( var_0 )
     var_3 = getdvarfloat( "scr_vl_minweaponstreamtime", 0.0 );
     waittillframeend;
 
-    if ( self _meth_8508( var_1 ) )
+    if ( self loadweapons( var_1 ) )
         return;
 
     level.weaponavatarparent dontinterpolate();
@@ -371,7 +371,7 @@ streamcacweaponwait( var_0 )
     {
         waittillframeend;
 
-        if ( self _meth_8508( var_1 ) )
+        if ( self loadweapons( var_1 ) )
             break;
 
         waitframe();
@@ -522,7 +522,7 @@ getweaponavatarlocation( var_0, var_1 )
     if ( isdefined( self.fovscale ) )
         var_6 *= self.fovscale;
 
-    var_7 = self _meth_84EE( ( var_3, var_4, 0 ), var_6, var_2, 1 );
+    var_7 = self screenpostoworldpoint( ( var_3, var_4, 0 ), var_6, var_2, 1 );
     return var_7;
 }
 
@@ -599,7 +599,7 @@ positionweaponavatar( var_0, var_1 )
     level.weaponavatarparent.origin = var_5;
     var_9 = level.weaponavatarparent.angles;
     level.weaponavatarparent.angles = ( 0.0, 180.0, 0.0 );
-    var_3 _meth_8442( level.weaponavatarparent );
+    var_3 linktosynchronizedparent( level.weaponavatarparent );
     level.weaponavatarparent.angles = var_9;
 }
 
@@ -615,12 +615,12 @@ getperkbounds( var_0 )
             var_0.origin = ( 0.0, 0.0, 0.0 );
         }
 
-        var_1 = var_0 _meth_8540( 0, 0, 0 );
-        var_2 = var_0 _meth_8540( 1, 0, 0 );
+        var_1 = var_0 getpointinmodelbounds( 0, 0, 0 );
+        var_2 = var_0 getpointinmodelbounds( 1, 0, 0 );
         var_3 = distance( var_2, var_1 );
-        var_4 = var_0 _meth_8540( 0, 1, 0 );
+        var_4 = var_0 getpointinmodelbounds( 0, 1, 0 );
         var_5 = distance( var_4, var_1 );
-        var_6 = var_0 _meth_8540( 0, 0, 1 );
+        var_6 = var_0 getpointinmodelbounds( 0, 0, 1 );
         var_7 = distance( var_6, var_1 );
         level.perkboundscache["midpoint"] = var_1;
         level.perkboundscache["halfsize"] = ( var_3, var_5, var_7 );
@@ -634,7 +634,7 @@ spawnloadingweaponavatar( var_0 )
     var_1 = common_scripts\utility::getstruct( "cameraWeapon", "targetname" ).origin;
     var_2 = spawn( "weapon_" + var_0, var_1, 1 );
     var_2.isloadingweapon = 1;
-    var_2 _meth_8447();
+    var_2 cloakingenable();
     var_2.weapon_name = var_0;
     var_2.linker = spawngenericprop3avatar();
     level.weaponavatarparent.loadingweaponavatar = var_2;
@@ -660,7 +660,7 @@ showloadingweaponavatar( var_0, var_1 )
 
     var_3 = strtok( var_0, "_" );
     var_4 = var_3[0] + "_" + var_3[1] + "loading_mp";
-    var_2 _meth_847F( var_4, 1 );
+    var_2 setpickupweapon( var_4, 1 );
     var_2.weapon_name = var_0;
     var_2.category = var_1;
     var_5 = shouldplayidleanim( var_1 );
@@ -673,22 +673,22 @@ showloadingweaponavatar( var_0, var_1 )
         {
             var_7 = common_scripts\utility::getstruct( "cameraWeapon", "targetname" ).origin;
             var_2.akimboavatar = spawn( "weapon_" + var_0, var_7, 1 );
-            var_2.akimboavatar _meth_8447();
-            var_2.akimboavatar _meth_8442( var_2.linker, "j_prop_2", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+            var_2.akimboavatar cloakingenable();
+            var_2.akimboavatar linktosynchronizedparent( var_2.linker, "j_prop_2", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         }
         else
             var_2.akimboavatar show();
 
-        var_2.akimboavatar _meth_847F( var_4, 1 );
+        var_2.akimboavatar setpickupweapon( var_4, 1 );
         weaponitemplayidleanim( var_2.akimboavatar, var_5 );
-        var_2 _meth_8442( var_2.linker, "j_prop_1", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+        var_2 linktosynchronizedparent( var_2.linker, "j_prop_1", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     }
     else
     {
         if ( isdefined( var_2.akimboavatar ) )
             var_2.akimboavatar hide();
 
-        var_2 _meth_8442( var_2.linker, "j_prop_3", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+        var_2 linktosynchronizedparent( var_2.linker, "j_prop_3", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     }
 
     positionweaponavatar( var_2, var_1 );
@@ -722,7 +722,7 @@ showweaponavatar( var_0 )
     else
         var_1 show();
 
-    var_1 _meth_847F( level.cac_weapon, 1 );
+    var_1 setpickupweapon( level.cac_weapon, 1 );
     var_1.weapon_name = level.cac_weapon;
     var_1.category = var_0;
     var_2 = shouldplayidleanim( var_0 );
@@ -734,21 +734,21 @@ showweaponavatar( var_0 )
         if ( !isdefined( var_1.akimboavatar ) )
         {
             var_1.akimboavatar = spawn( "weapon_" + level.cac_weapon, ( 0.0, 0.0, 0.0 ), 1 );
-            var_1.akimboavatar _meth_8442( var_1.linker, "j_prop_2", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+            var_1.akimboavatar linktosynchronizedparent( var_1.linker, "j_prop_2", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
         }
         else
             var_1.akimboavatar show();
 
-        var_1.akimboavatar _meth_847F( level.cac_weapon, 1 );
+        var_1.akimboavatar setpickupweapon( level.cac_weapon, 1 );
         weaponitemplayidleanim( var_1.akimboavatar, var_2 );
-        var_1 _meth_8442( var_1.linker, "j_prop_1", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+        var_1 linktosynchronizedparent( var_1.linker, "j_prop_1", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     }
     else
     {
         if ( isdefined( var_1.akimboavatar ) )
             var_1.akimboavatar hide();
 
-        var_1 _meth_8442( var_1.linker, "j_prop_3", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+        var_1 linktosynchronizedparent( var_1.linker, "j_prop_3", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     }
 
     positionweaponavatar( var_1, var_0 );

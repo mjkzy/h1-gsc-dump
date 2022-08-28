@@ -651,7 +651,7 @@ set_goal_and_volume( var_0 )
         self._colors_go_line = undefined;
     }
 
-    self getgoalvolume( var_0 );
+    self setgoalnode( var_0 );
 
     if ( !self.fixednode )
         self.goalradius = var_0.radius;

@@ -61,7 +61,7 @@ trackloop( var_0, var_1, var_2, var_3, var_4 )
     {
         incranimaimweight();
 
-        if ( self _meth_843E( "tag_flash" ) == -1 )
+        if ( self gettagindex( "tag_flash" ) == -1 )
         {
             wait 0.05;
             continue;

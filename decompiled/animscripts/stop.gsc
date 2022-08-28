@@ -230,7 +230,7 @@ transitiontoidle( var_0, var_1 )
         if ( self.node doesnodeforcecombat() )
             var_2 = 1;
 
-        if ( self.node _meth_8564() )
+        if ( self.node doesnodeforceidle() )
             var_2 = 0;
     }
 
@@ -262,7 +262,7 @@ playidle( var_0, var_1 )
         if ( self.node doesnodeforcecombat() )
             var_2 = 1;
 
-        if ( self.node _meth_8564() )
+        if ( self.node doesnodeforceidle() )
             var_2 = 0;
     }
 

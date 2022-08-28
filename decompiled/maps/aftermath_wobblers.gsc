@@ -119,7 +119,7 @@ wobbler_linked_think()
     {
         var_1 = randomfloatrange( 0.125, 0.25 );
         var_2 = local_update_angles_vector_from_axis( self.axis, var_0 );
-        self _meth_8425( var_2, var_1, var_1 * 0.5, var_1 * 0.5 );
+        self rotatebylinked( var_2, var_1, var_1 * 0.5, var_1 * 0.5 );
         wait(var_1);
         var_0 *= -1;
     }

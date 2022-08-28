@@ -510,14 +510,14 @@ dof_monitor_prone()
 
 dof_set_standing()
 {
-    level.player _meth_84A6();
+    level.player disablephysicaldepthoffieldscripting();
 }
 
 dof_set_prone()
 {
-    level.player _meth_84A5();
-    level.player _meth_84A7( 3.0, 800.0, 20, 20 );
-    level.player _meth_84B8( 12.0, 900.0 );
+    level.player enablephysicaldepthoffieldscripting();
+    level.player setphysicaldepthoffield( 3.0, 800.0, 20, 20 );
+    level.player setphysicalviewmodeldepthoffield( 12.0, 900.0 );
 }
 
 javelin_dof( var_0, var_1, var_2, var_3, var_4 )
@@ -611,7 +611,7 @@ dof_update()
             if ( var_0 > 0.0 )
             {
                 var_1 = dof_process_physical_ads( var_0 );
-                self _meth_84A8( var_1["start"], var_1["end"] );
+                self setadsphysicaldepthoffield( var_1["start"], var_1["end"] );
             }
 
             continue;

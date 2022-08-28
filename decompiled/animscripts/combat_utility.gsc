@@ -1101,9 +1101,9 @@ trygrenadethrow( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         }
 
         if ( !isdefined( var_4 ) )
-            var_9 = self checkgrenadethrowpos( var_3, var_11, "min energy", "min time", "max time" );
+            var_9 = self checkgrenadethrow( var_3, var_11, "min energy", "min time", "max time" );
         else
-            var_9 = self checkgrenadethrowpos( var_3, var_11, "min time", "min energy" );
+            var_9 = self checkgrenadethrow( var_3, var_11, "min time", "min energy" );
     }
 
     self.a.nextgrenadetrytime = gettime() + randomintrange( 1000, 2000 );

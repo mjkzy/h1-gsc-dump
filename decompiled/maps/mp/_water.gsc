@@ -62,7 +62,7 @@ watchforhostmigration()
         self waittill( "player_migrated" );
 
         foreach ( var_1 in level.waterline_ents )
-            self _meth_84E2( var_1.script_noteworthy, var_1 );
+            self initwaterclienttrigger( var_1.script_noteworthy, var_1 );
     }
 }
 
@@ -76,7 +76,7 @@ onplayerconnectfunctions()
         var_0 thread watchforhostmigration();
 
         foreach ( var_2 in level.waterline_ents )
-            var_0 _meth_84E2( var_2.script_noteworthy, var_2 );
+            var_0 initwaterclienttrigger( var_2.script_noteworthy, var_2 );
     }
 }
 
@@ -269,7 +269,7 @@ playerinwater( var_0 )
             {
                 playerenableunderwater( "none" );
                 self allowfire( 0 );
-                self _meth_84BB();
+                self disableoffhandsecondaryweapons();
             }
             else if ( !isdefined( level.iszombiegame ) || !isscriptedagent( self ) )
                 playerenableunderwater( "shallow" );
@@ -285,7 +285,7 @@ playerinwater( var_0 )
             {
                 playerenableunderwater( "none" );
                 self allowfire( 0 );
-                self _meth_84BB();
+                self disableoffhandsecondaryweapons();
             }
             else if ( !isdefined( level.iszombiegame ) || !isscriptedagent( self ) )
                 playerenableunderwater( "deep" );
@@ -525,9 +525,9 @@ playerdisableunderwater()
                 self disableoffhandweapons();
 
             if ( !isdefined( self.heavyexodata.hasrockets ) || self.heavyexodata.hasrockets == 0 )
-                self _meth_84BB();
+                self disableoffhandsecondaryweapons();
             else
-                self _meth_84BC();
+                self enableoffhandsecondaryweapons();
         }
 
         if ( isdefined( level.ishorde ) && isplayer( self ) )

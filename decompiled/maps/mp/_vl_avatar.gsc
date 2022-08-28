@@ -111,7 +111,7 @@ teleport_avatar_stick( var_0, var_1, var_2 )
     if ( !maps\mp\_utility::is_true( level.vl_setup ) )
         maps\mp\_utility::waittillplayersnextsnapshot( var_2 );
 
-    var_0 _meth_8442( var_0.teleportlinker, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+    var_0 linktosynchronizedparent( var_0.teleportlinker, "tag_origin", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
     var_2 setorigin( var_1.origin, 1 );
     var_3 = get_ownerid_for_avatar( var_0 );
     var_2 maps\mp\_vl_base::playerrefreshavatar( var_3 );
@@ -248,7 +248,7 @@ wait_load_costume( var_0, var_1 )
     var_4 = maps\mp\_vl_cac::getfactionenvironment();
     var_0.costumeloaded = 0;
 
-    for ( var_5 = self _meth_84E6( var_0.costume, var_0.team, var_2, var_4 ); !var_5; var_5 = self _meth_84E6( var_0.costume, var_0.team, var_2, var_4 ) )
+    for ( var_5 = self loadcostumemodels( var_0.costume, var_0.team, var_2, var_4 ); !var_5; var_5 = self loadcostumemodels( var_0.costume, var_0.team, var_2, var_4 ) )
         waitframe();
 
     var_0.costumeloaded = 1;
@@ -493,7 +493,7 @@ vl_avatar_loadout( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 
     var_5 takeallweapons();
     vl_avatar_costume( var_0, var_5, var_3, var_2, var_7, var_8 );
-    var_0 _meth_84B6( var_5.costume, maps\mp\_utility::getbaseweaponname( var_2 ) + "_mp", var_7, var_8 );
+    var_0 setcostumemodels( var_5.costume, maps\mp\_utility::getbaseweaponname( var_2 ) + "_mp", var_7, var_8 );
     var_0 _meth_857C( var_4 );
     var_5 _meth_857C( var_4 );
     var_5.primaryweapon = var_2;
@@ -534,12 +534,12 @@ avatarattachprimaryweapons()
             var_0.primaryweapon = self.primaryweapon;
             self.primaryweaponent show();
             self.primaryweaponent showallparts();
-            self.primaryweaponent _meth_847F( self.primaryweapon );
+            self.primaryweaponent setpickupweapon( self.primaryweapon );
         }
         else if ( self.primaryweaponent.primaryweapon != self.primaryweapon )
         {
             self.primaryweaponent.primaryweapon = self.primaryweapon;
-            self.primaryweaponent _meth_847F( self.primaryweapon );
+            self.primaryweaponent setpickupweapon( self.primaryweapon );
         }
 
         if ( isdefined( self.primaryweaponent ) )
@@ -583,8 +583,8 @@ attachprimaryweapon( var_0 )
     var_0.primaryweaponent unlink();
     var_0.primaryweaponent.origin = var_0 gettagorigin( var_2 );
     var_0.primaryweaponent.angles = var_0 gettagangles( var_2 );
-    var_0.primaryweaponent _meth_8442( var_0, var_2, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
-    var_0.primaryweaponent _meth_8523( var_1 );
+    var_0.primaryweaponent linktosynchronizedparent( var_0, var_2, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+    var_0.primaryweaponent setowneroriginal( var_1 );
 }
 
 playerteleportavatarcao( var_0, var_1 )
@@ -649,7 +649,7 @@ agentplaylobbyanim( var_0, var_1, var_2 )
         self.lastanim = var_6;
         self scragentsetscripted( 1 );
         self scragentsetphysicsmode( "noclip" );
-        self _meth_8552( 0, 0, var_0, "j_prop_1", "tag_origin" );
+        self scragentsynchronizeanims( 0, 0, var_0, "j_prop_1", "tag_origin" );
     }
 
     show_avatar( self );
@@ -712,13 +712,13 @@ animateallweaponrooms()
 animateweaponroomscenenode( var_0, var_1, var_2 )
 {
     var_3 = maps\mp\_vl_base::getalignmentanimation( var_2 );
-    var_0 _meth_8487( var_3, var_1.origin, var_1.angles, "scene_node_anim" );
+    var_0 scriptmodelplayanimdeltamotionfrompos( var_3, var_1.origin, var_1.angles, "scene_node_anim" );
     startweaponroompropanimations( var_0, var_1, var_2 );
 }
 
 cameralinktoscenenode( var_0, var_1, var_2 )
 {
-    var_0 _meth_8442( var_1, var_2, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+    var_0 linktosynchronizedparent( var_1, var_2, ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
 }
 
 startweaponroompropanimations( var_0, var_1, var_2 )
@@ -730,10 +730,10 @@ startweaponroompropanimations( var_0, var_1, var_2 )
         if ( isdefined( var_3 ) )
         {
             if ( !var_3 islinked() )
-                var_3 _meth_8442( var_0, "J_prop_3", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
+                var_3 linktosynchronizedparent( var_0, "J_prop_3", ( 0.0, 0.0, 0.0 ), ( 0.0, 0.0, 0.0 ) );
 
             var_3 show();
-            var_3 _meth_8487( "h1_lobby_mk19_idle", var_1.origin, var_1.angles, "mk19_anim" );
+            var_3 scriptmodelplayanimdeltamotionfrompos( "h1_lobby_mk19_idle", var_1.origin, var_1.angles, "mk19_anim" );
         }
     }
     else if ( isdefined( var_3 ) )

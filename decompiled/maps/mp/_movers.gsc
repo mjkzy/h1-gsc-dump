@@ -507,7 +507,7 @@ script_mover_play_animation( var_0, var_1 )
         thread script_mover_handle_notetracks();
 
     if ( isdefined( self.scripted_node ) )
-        self _meth_8487( var_0.animname, self.scripted_node.origin, self.scripted_node.angles, "script_mover_anim" );
+        self scriptmodelplayanimdeltamotionfrompos( var_0.animname, self.scripted_node.origin, self.scripted_node.angles, "script_mover_anim" );
     else
         self scriptmodelplayanimdeltamotion( var_0.animname, "script_mover_anim" );
 }
@@ -873,7 +873,7 @@ player_unresolved_collision_watch()
 
         if ( isagent( self ) && isdefined( self.animclass ) )
         {
-            if ( self _meth_854B() == "noclip" )
+            if ( self scragentgetphysicsmode() == "noclip" )
                 continue;
         }
 

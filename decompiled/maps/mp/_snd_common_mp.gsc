@@ -16,9 +16,9 @@ snd_mp_mix_init()
     {
         foreach ( var_1 in level.players )
         {
-            var_1 _meth_84CF( "mp_init_mix" );
+            var_1 clientaddsoundsubmix( "mp_init_mix" );
             wait 0.05;
-            var_1 _meth_84CF( "mp_pre_event_mix" );
+            var_1 clientaddsoundsubmix( "mp_pre_event_mix" );
             wait 0.05;
         }
     }
@@ -32,9 +32,9 @@ snd_mp_mix_post_event()
     {
         foreach ( var_1 in level.players )
         {
-            var_1 _meth_84D0( "mp_pre_event_mix" );
+            var_1 clientclearsoundsubmix( "mp_pre_event_mix" );
             wait 0.05;
-            var_1 _meth_84CF( "mp_post_event_mix" );
+            var_1 clientaddsoundsubmix( "mp_post_event_mix" );
             wait 0.05;
         }
     }
@@ -42,14 +42,14 @@ snd_mp_mix_post_event()
 
 snd_mp_player_join()
 {
-    self _meth_84CF( "mp_init_mix" );
+    self clientaddsoundsubmix( "mp_init_mix" );
 
     if ( !isdefined( level._snd.dynamic_event_happened ) || !level._snd.dynamic_event_happened )
-        self _meth_84CF( "mp_pre_event_mix" );
+        self clientaddsoundsubmix( "mp_pre_event_mix" );
     else
     {
-        self _meth_84D0( "mp_pre_event_mix" );
-        self _meth_84CF( "mp_post_event_mix" );
+        self clientclearsoundsubmix( "mp_pre_event_mix" );
+        self clientaddsoundsubmix( "mp_post_event_mix" );
     }
 }
 

@@ -653,7 +653,7 @@ player_picked_team( var_0 )
     if ( isdefined( var_0.spectating_actively ) && var_0.spectating_actively )
         return 1;
 
-    if ( var_0 _meth_842D() )
+    if ( var_0 ismlgspectator() )
         return 1;
 
     return 0;

@@ -1258,7 +1258,7 @@ heli_wait_node( var_0, var_1 )
 
     if ( isdefined( var_0.radius ) )
     {
-        self neargoalnotifydist( var_0.radius );
+        self setneargoalnotifydist( var_0.radius );
         common_scripts\utility::waittill_any( "near_goal", "goal" );
     }
     else
@@ -1276,7 +1276,7 @@ heli_wait_node( var_0, var_1 )
 
 helipath( var_0, var_1, var_2 )
 {
-    self setairresitance( 30 );
+    self setairresistance( 30 );
     self vehicle_setspeed( var_1, var_2, 10 );
     maps\_vehicle::vehicle_paths( common_scripts\utility::getstruct( var_0, "targetname" ) );
 }
@@ -1941,7 +1941,7 @@ vehicle_do_crash( var_0, var_1, var_2, var_3 )
     }
 
     if ( isdefined( level.vehicle_hasmainturret[var_0] ) && level.vehicle_hasmainturret[var_0] )
-        self clearturrettargetent();
+        self clearturrettarget();
 
     if ( _ishelicopter() )
     {
@@ -2152,7 +2152,7 @@ _vehicle_landvehicle( var_0, var_1 )
     if ( !isdefined( var_0 ) )
         var_0 = 2;
 
-    self neargoalnotifydist( var_0 );
+    self setneargoalnotifydist( var_0 );
     self sethoverparams( 0, 0, 0 );
     self cleargoalyaw();
     self settargetyaw( common_scripts\utility::flat_angle( self.angles )[1] );
@@ -2278,7 +2278,7 @@ waittill_stable( var_0 )
     {
         var_4 = maps\_utility::groundpos( var_0.origin ) + ( 0, 0, self.dropoff_height );
         self settargetyaw( var_0.angles[1] );
-        self setgoalpos( var_4, 1 );
+        self setvehgoalpos( var_4, 1 );
         self waittill( "goal" );
     }
 
@@ -2514,7 +2514,7 @@ _setvehgoalpos_wrap( var_0, var_1 )
     if ( isdefined( self.originheightoffset ) )
         var_0 += ( 0, 0, self.originheightoffset );
 
-    self setgoalpos( var_0, var_1 );
+    self setvehgoalpos( var_0, var_1 );
 }
 
 helicopter_crash_move( var_0, var_1 )
@@ -2548,8 +2548,8 @@ helicopter_crash_move( var_0, var_1 )
     {
         var_6 = 60;
         self vehicle_setspeed( var_6, 15, 10 );
-        self neargoalnotifydist( var_2.radius );
-        self setgoalpos( var_2.origin, 0 );
+        self setneargoalnotifydist( var_2.radius );
+        self setvehgoalpos( var_2.origin, 0 );
         thread helicopter_crash_flavor( var_2.origin, var_6 );
         common_scripts\utility::waittill_any( "goal", "near_goal" );
         helicopter_crash_path( var_2 );
@@ -2565,8 +2565,8 @@ helicopter_crash_move( var_0, var_1 )
         }
 
         self vehicle_setspeed( 40, 10, 10 );
-        self neargoalnotifydist( 300 );
-        self setgoalpos( var_7, 1 );
+        self setneargoalnotifydist( 300 );
+        self setvehgoalpos( var_7, 1 );
         thread helicopter_crash_flavor( var_7, 40 );
         var_8 = "blank";
 
@@ -2584,7 +2584,7 @@ helicopter_crash_move( var_0, var_1 )
                 var_8 = "death";
         }
 
-        self setgoalpos( var_2.origin, 0 );
+        self setvehgoalpos( var_2.origin, 0 );
         self waittill( "goal" );
         helicopter_crash_path( var_2 );
     }
@@ -2606,8 +2606,8 @@ helicopter_crash_path( var_0 )
         if ( isdefined( var_0.radius ) )
             var_1 = var_0.radius;
 
-        self neargoalnotifydist( var_1 );
-        self setgoalpos( var_0.origin, 0 );
+        self setneargoalnotifydist( var_1 );
+        self setvehgoalpos( var_0.origin, 0 );
         common_scripts\utility::waittill_any( "goal", "near_goal" );
     }
 }
@@ -5093,7 +5093,7 @@ vehicle_pathdetach()
     self.attachedpath = undefined;
     self notify( "newpath" );
     self setgoalyaw( common_scripts\utility::flat_angle( self.angles )[1] );
-    self setgoalpos( self.origin + ( 0.0, 0.0, 4.0 ), 1 );
+    self setvehgoalpos( self.origin + ( 0.0, 0.0, 4.0 ), 1 );
 }
 
 waittill_dropoff_height()
@@ -5550,7 +5550,7 @@ vehicle_liftoffvehicle( var_0 )
         var_0 = 512;
 
     var_1 = self.origin + ( 0, 0, var_0 );
-    self neargoalnotifydist( 10 );
+    self setneargoalnotifydist( 10 );
     setvehgoalpos_wrap( var_1, 1 );
     self waittill( "goal" );
 }
@@ -5892,7 +5892,7 @@ vehicle_play_anim_from_node( var_0 )
     var_4 = "body_animate_jnt";
     maps\_vehicle::vehicle_to_dummy( var_4, 1 );
     vehicle_dummy_add_collison( var_4 );
-    self _meth_8451();
+    self vehicle_removebrushmodelcollision();
     self makevehiclenotcollidewithplayers( 1 );
     self setcontents( 0 );
     var_5 = self vehicle_getvelocity();
@@ -5934,13 +5934,13 @@ vehicle_dummy_add_collison( var_0 )
         var_1 = self.modeldummy.origin - self.modeldummy gettagorigin( var_0 );
         var_2 = self.modeldummy.angles - self.modeldummy gettagangles( var_0 );
         self.modeldummycoll linkto( self.modeldummy, var_0, var_1, var_2 );
-        self.modeldummycoll _meth_8450();
+        self.modeldummycoll vehicle_assignbrushmodelcollision();
         self.modeldummycoll hide();
         self.modeldummycoll dontinterpolate();
         self.modeldummy notsolid();
     }
     else
-        self.modeldummy _meth_8450();
+        self.modeldummy vehicle_assignbrushmodelcollision();
 }
 
 model_dummycoll_death()

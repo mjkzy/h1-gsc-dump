@@ -772,7 +772,7 @@ pathchange_doturnanim()
 
 getcurrentforwardmovementanimation()
 {
-    var_0 = self _meth_84EB();
+    var_0 = self getactiveanimations();
 
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
     {

@@ -145,7 +145,7 @@ wait_start_firingrange( var_0 )
     var_0 setplayerangles( var_1.angles );
     var_0 maps\mp\_vl_base::playersetfovscale( 1.0 );
     var_0 thread playermonitorweaponforlane();
-    var_0 _meth_84A6();
+    var_0 disablephysicaldepthoffieldscripting();
     level.firingrange.isshuttingdown = 0;
     var_0 thread maps\mp\_vl_base::virtual_lobby_set_class( 0, level.caccontroller, "lobby" + var_0.currentselectedclass, 1 );
     maps\mp\_utility::updatesessionstate( "playing" );
@@ -616,7 +616,7 @@ targetpopup( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
         self.perks["specialty_armorvest"] = 1;
 
     self setcandamage( 1 );
-    self _meth_8491( 1 );
+    self setdamagecallbackon( 1 );
     self.damagecallback = ::targetdamagecallback;
     self thermaldrawenable();
     self unlink();
@@ -642,7 +642,7 @@ targetpopup( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
     common_scripts\utility::waittill_either( "death", "reset" );
     self.active = undefined;
     self.perks = undefined;
-    self motionblurhqenable();
+    self thermaldrawdisable();
     targetdamageoff();
     self unlink();
     self rotateto( var_1, 0.2 );
@@ -666,7 +666,7 @@ targetpopup( var_0, var_1, var_2, var_3, var_4, var_5, var_6 )
 targetdamageoff()
 {
     self setcandamage( 0 );
-    self _meth_8491( 0 );
+    self setdamagecallbackon( 0 );
     self.damagecallback = undefined;
 }
 
@@ -680,7 +680,7 @@ targetattachedmoveonce()
     if ( !maps\mp\_utility::is_true( self.active ) )
         return;
 
-    self _meth_8442( self.mover );
+    self linktosynchronizedparent( self.mover );
     var_0 = distance( self.mover.endpos, self.mover.origin );
     var_1 = var_0 / 100;
     var_2 = 0.5;
@@ -709,7 +709,7 @@ targetattachedmoveback()
     if ( maps\mp\_utility::is_true( self.active ) )
         return;
 
-    self _meth_8442( self.mover );
+    self linktosynchronizedparent( self.mover );
     var_0 = distance( self.mover.startpos, self.mover.origin );
     var_1 = var_0 / 300;
 
@@ -832,7 +832,7 @@ targetdamagecallback( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, va
         var_1 setclientomnvar( "ui_vlobby_round_damage", level.firingrange.damagedone );
 
     self.lastshottime = gettime();
-    self _meth_8492( var_0, var_1, var_13, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11 );
+    self finishentitydamage( var_0, var_1, var_13, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_11 );
 }
 
 popupplywood( var_0 )
@@ -942,7 +942,7 @@ getmodifier( var_0, var_1, var_2 )
             else
                 var_3 = "none";
 
-            var_4 = var_2 _meth_8501( var_6 + "_mp", var_3 );
+            var_4 = var_2 getweapondamagelocationmultiplier( var_6 + "_mp", var_3 );
             return var_4;
         }
         else

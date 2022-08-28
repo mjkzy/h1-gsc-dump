@@ -36,8 +36,8 @@ opticsthermal_blur( var_0, var_1 )
     if ( var_0.opticsthermalenabled )
         return;
 
-    var_0 _meth_84A5( 3 );
-    var_0 _meth_84A7( 70, 0, 40, 80 );
+    var_0 enablephysicaldepthoffieldscripting( 3 );
+    var_0 setphysicaldepthoffield( 70, 0, 40, 80 );
     var_0.opticsthermalenabled = 1;
 }
 
@@ -46,6 +46,6 @@ opticsthermal_blur_off( var_0 )
     if ( !var_0.opticsthermalenabled )
         return;
 
-    var_0 _meth_84A6();
+    var_0 disablephysicaldepthoffieldscripting();
     var_0.opticsthermalenabled = 0;
 }
