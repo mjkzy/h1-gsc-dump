@@ -1003,7 +1003,7 @@ checkhitsthismag( var_0 )
     if ( isdefined( self.hitsthismag[var_0] ) && self.hitsthismag[var_0] == 0 )
     {
         var_1 = maps\mp\_utility::getweaponclass( var_0 );
-        maps\mp\gametypes\_misions::genericchallenge( var_1 );
+        maps\mp\gametypes\_missions::genericchallenge( var_1 );
         self.hitsthismag[var_0] = weaponclipsize( var_0 );
     }
 }

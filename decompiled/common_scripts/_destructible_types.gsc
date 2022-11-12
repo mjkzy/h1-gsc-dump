@@ -265,6 +265,7 @@ getinfoindex( var_0 )
 
     return -1;
 }
+
 #using_animtree("vehicles");
 
 vehicle_80s_sedan1( var_0 )

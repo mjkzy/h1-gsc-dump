@@ -191,6 +191,7 @@ drone_thermal_draw_disable( var_0 )
     if ( isdefined( self ) )
         self thermaldrawdisable();
 }
+
 #using_animtree("generic_human");
 
 drone_play_looping_anim( var_0, var_1 )

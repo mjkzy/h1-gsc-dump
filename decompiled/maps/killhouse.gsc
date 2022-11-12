@@ -4204,6 +4204,7 @@ outside_blur()
     wait 0.5;
     setblur( 0.0, 1.8 );
 }
+
 #using_animtree("generic_human");
 
 ai_patrol_think( var_0, var_1 )

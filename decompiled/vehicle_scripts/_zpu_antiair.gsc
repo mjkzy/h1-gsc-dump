@@ -24,6 +24,7 @@ init_local()
 {
 
 }
+
 #using_animtree("vehicles");
 
 set_vehicle_anims( var_0 )
@@ -31,6 +32,7 @@ set_vehicle_anims( var_0 )
     var_0[0].vehicle_turret_fire = %zpu_gun_fire_a;
     return var_0;
 }
+
 #using_animtree("generic_human");
 
 setanims()

@@ -2112,6 +2112,7 @@ drop_to_floor()
     var_0 = bullettrace( self.origin + ( 0.0, 0.0, 32.0 ), self.origin, 0, undefined );
     self.origin = var_0["position"];
 }
+
 #using_animtree("generic_human");
 
 player_picks_up_price()

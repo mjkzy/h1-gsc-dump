@@ -1865,6 +1865,7 @@ _vehicle_is_crashing()
 {
     return isdefined( self.crashing ) && self.crashing == 1;
 }
+
 #using_animtree("vehicles");
 
 vehicle_finish_death( var_0 )

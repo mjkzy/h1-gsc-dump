@@ -5,7 +5,7 @@ init()
 {
     level.persistentdatainfo = [];
     maps\mp\gametypes\_class::init();
-    maps\mp\gametypes\_misions::init();
+    maps\mp\gametypes\_missions::init();
     maps\mp\gametypes\_playercards::init();
     maps\mp\gametypes\_rank::init();
 

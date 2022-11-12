@@ -341,7 +341,7 @@ getprefereddompoints( var_0, var_1 )
     if ( var_0.size == 1 && var_1.size == 2 )
     {
         var_6 = maps\mp\_utility::getotherteam( self.team );
-        var_7 = maps\mp\gametypes\_gamescores::_getteamscore( var_6 ) - maps\mp\gametypes\_gamescores::_getteamscore( self.team );
+        var_7 = maps\mp\gametypes\_gamescore::_getteamscore( var_6 ) - maps\mp\gametypes\_gamescore::_getteamscore( self.team );
 
         if ( var_7 > 25 )
         {
@@ -946,7 +946,7 @@ updatedomscores()
 
                 foreach ( var_6, var_11 in var_3 )
                 {
-                    if ( var_11 + maps\mp\gametypes\_gamescores::_getteamscore( var_6 ) >= var_8 )
+                    if ( var_11 + maps\mp\gametypes\_gamescore::_getteamscore( var_6 ) >= var_8 )
                     {
                         if ( !isdefined( var_9 ) )
                         {
@@ -960,11 +960,11 @@ updatedomscores()
                 }
 
                 if ( isdefined( var_9 ) )
-                    var_3[var_9] = var_8 - maps\mp\gametypes\_gamescores::_getteamscore( var_9 );
+                    var_3[var_9] = var_8 - maps\mp\gametypes\_gamescore::_getteamscore( var_9 );
             }
 
             foreach ( var_6, var_11 in var_3 )
-                maps\mp\gametypes\_gamescores::giveteamscoreforobjective( var_6, var_11 );
+                maps\mp\gametypes\_gamescore::giveteamscoreforobjective( var_6, var_11 );
 
             if ( var_0.size == 3 && var_2 != "none" && level.players.size > 5 )
             {
@@ -980,7 +980,7 @@ updatedomscores()
                         if ( var_14.team != var_2 )
                             continue;
 
-                        var_14 maps\mp\gametypes\_misions::processchallenge( "ch_dom_tripcap" );
+                        var_14 maps\mp\gametypes\_missions::processchallenge( "ch_dom_tripcap" );
                     }
                 }
             }

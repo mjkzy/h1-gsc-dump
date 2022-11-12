@@ -50,6 +50,7 @@ setup_flags()
     common_scripts\utility::flag_init( "player_passed_dumpster" );
     common_scripts\utility::flag_init( "truck_crush_tank_in_position" );
 }
+
 #using_animtree("generic_human");
 
 beautiful_corner_settings()

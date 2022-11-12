@@ -303,7 +303,7 @@ breacher_think( var_0, var_1, var_2 )
 
     var_0.animent maps\_anim::anim_generic( self, var_4 );
     var_0.animent thread maps\_anim::anim_generic_loop( self, var_5, self.ender );
-    self._id_7F7E = self.origin;
+    self.setgoalpos = self.origin;
     var_0.breachers++;
     self.scriptedarrivalent = undefined;
     var_0 waittill( "execute_the_breach" );

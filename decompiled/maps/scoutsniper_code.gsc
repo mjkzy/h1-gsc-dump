@@ -3073,6 +3073,7 @@ pond_create_body_piles()
     pond_create_body_pile( ( -27210.0, 3900.0, 198.0 ) + var_0, ( 6.0, 90.0, -6.0 ), 1 );
     pond_create_body_pile( ( -27430.0, 3900.0, 180.0 ) + var_0, ( 8.0, 120.0, 0.0 ) );
 }
+
 #using_animtree("generic_human");
 
 pond_create_body_pile( var_0, var_1, var_2 )

@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("generic_human");
 
 advancedtraverse( var_0, var_1 )
@@ -470,6 +471,7 @@ dog_traverse_cleanup_on_end()
     self.traversestartnode = undefined;
     self.traverseendnode = undefined;
 }
+
 #using_animtree("dog");
 
 dog_wall_and_window_hop( var_0, var_1, var_2 )

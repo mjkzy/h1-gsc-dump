@@ -517,6 +517,7 @@ friendly_spawner_death( var_0 )
 
     level notify( "friendly_globals_check_wave" );
 }
+
 #using_animtree("generic_human");
 
 friendly_repel_animload()

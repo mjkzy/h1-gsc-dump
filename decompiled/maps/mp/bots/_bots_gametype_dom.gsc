@@ -607,8 +607,8 @@ bot_allowed_to_3_cap()
     if ( var_0.size == 3 )
         return 1;
 
-    var_1 = maps\mp\gametypes\_gamescores::_getteamscore( common_scripts\utility::get_enemy_team( self.team ) );
-    var_2 = maps\mp\gametypes\_gamescores::_getteamscore( self.team );
+    var_1 = maps\mp\gametypes\_gamescore::_getteamscore( common_scripts\utility::get_enemy_team( self.team ) );
+    var_2 = maps\mp\gametypes\_gamescore::_getteamscore( self.team );
     var_3 = 200 - var_1;
     var_4 = 200 - var_2;
     var_5 = var_4 * 0.5 > var_3;

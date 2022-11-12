@@ -7,6 +7,7 @@ main()
     main_anim();
     animated_palm_trees_setup();
 }
+
 #using_animtree("generic_human");
 
 main_anim()
@@ -197,6 +198,7 @@ play_griggs_custom_fire_empty_sfx( var_0 )
 {
     var_0.scriptedweaponmodel thread maps\_utility::play_sound_on_tag( "scn_griggs_drag_colt_empty", "TAG_FLASH" );
 }
+
 #using_animtree("player");
 
 player_anims()
@@ -210,6 +212,7 @@ player_anims()
     level.scr_anim["playerview"]["player_bridgeexplosion"] = %h1_jeepride_beforeexplosion_player;
     level.scr_anim["playerview"]["player_bridge_mantle"] = %h1_jeepride_bridgecollapse_mantle;
 }
+
 #using_animtree("vehicles");
 
 vehicle_anims()
@@ -281,6 +284,7 @@ precache_crash_models()
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         precachemodel( level.jeepride_crash_model[var_0[var_1]] );
 }
+
 #using_animtree("generic_human");
 
 uaz_overrides()
@@ -335,6 +339,7 @@ uaz_overrides()
     var_0[0].weave = %uaz_driver_weave;
     return var_0;
 }
+
 #using_animtree("vehicles");
 
 override_roto_anim()
@@ -361,6 +366,7 @@ uaz_override_vehicle( var_0 )
     var_0[3].vehicle_getoutanim = %uaz_passenger2_exit_into_run_door;
     return var_0;
 }
+
 #using_animtree("animated_props");
 
 bridge_animation()
@@ -419,6 +425,7 @@ bridge_animation()
     level.scr_animtree["pistol_griggs"] = #animtree;
     level.scr_anim["pistol_griggs"]["drag_pistol"] = %h1_jeepride_drag_pistol;
 }
+
 #using_animtree("script_model");
 
 cliff_collapse_anim()
@@ -430,6 +437,7 @@ cliff_collapse_anim()
     level.scr_anim["exploder_script_model"]["h1_jeepride_cliff_collapse_4_anim"] = %h1_jeepride_cliff_collapse_4_anim;
     level.scr_anim["exploder_script_model"]["h1_jeepride_cliff_collapse_5_anim"] = %h1_jeepride_cliff_collapse_5_anim;
 }
+
 #using_animtree("animated_props");
 
 animated_palm_trees_setup()

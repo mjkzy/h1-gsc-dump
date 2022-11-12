@@ -284,6 +284,7 @@ main()
     var_16["stand"] = 1500;
     thread maps\_stealth_logic::stealth_detect_ranges_set( var_15, var_16, undefined );
 }
+
 #using_animtree("vehicles");
 
 setup_bm21_deathanim()

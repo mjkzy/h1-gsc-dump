@@ -8,6 +8,7 @@ main()
     else if ( self.type == "dog" )
         animscripts\traverse\shared::dog_jump_down( 96, 7 );
 }
+
 #using_animtree("generic_human");
 
 jump_down_human()

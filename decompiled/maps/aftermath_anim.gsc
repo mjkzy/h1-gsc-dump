@@ -15,6 +15,7 @@ setup_exploder_anims()
     level.exploder_animtrees = [];
     level.exploder_animtrees[0] = "exploder_script_model";
 }
+
 #using_animtree("animated_props");
 
 animated_model_setup()
@@ -26,6 +27,7 @@ animated_model_setup()
     level.anim_prop_models["vehicle_bus_animated"]["still"] = %vehicle_animated_bus_still;
     level.anim_prop_models["vehicle_bus_animated"]["strong"] = %vehicle_animated_bus_sway;
 }
+
 #using_animtree("script_model");
 
 exploder_script_model_anims()
@@ -53,6 +55,7 @@ exploder_script_model_anims()
     level.scr_anim["exploder_script_model"]["h1_aftermath_build_a_6_anim"] = %h1_aftermath_build_a_6_anim;
     level.scr_anim["exploder_script_model"]["h1_aftermath_build_a_7_anim"] = %h1_aftermath_build_a_7_anim;
 }
+
 #using_animtree("generic_human");
 
 deadbody__anims()
@@ -64,6 +67,7 @@ deadbody__anims()
     maps\_anim::addnotetrack_animsound( "dead_guy", "soldierB_dying", "scn_dyin_pelayo_dying", "h1_male_crew_helico_suffering_02" );
     maps\_anim::addnotetrack_animsound( "dead_guy", "soldierA_dying", "scn_dying_soldier_a", "h1_male_crew_helico_suffering_01" );
 }
+
 #using_animtree("player");
 
 player_body_sense()

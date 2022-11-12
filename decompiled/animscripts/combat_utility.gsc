@@ -243,6 +243,7 @@ getuniqueflagnameindex()
     anim.animflagnameindex++;
     return anim.animflagnameindex;
 }
+
 #using_animtree("generic_human");
 
 setupaim( var_0 )

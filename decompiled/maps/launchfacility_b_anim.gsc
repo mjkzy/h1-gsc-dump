@@ -9,6 +9,7 @@ main()
     player_anims();
     dialogue();
 }
+
 #using_animtree("generic_human");
 
 anims()
@@ -85,6 +86,7 @@ setup_exploder_anims()
     level.exploder_animtrees = [];
     level.exploder_animtrees[0] = "exploder_script_model";
 }
+
 #using_animtree("script_model");
 
 blast_door()
@@ -94,6 +96,7 @@ blast_door()
     level.scr_animtree["exploder_script_model"] = #animtree;
     level.scr_anim["exploder_script_model"]["h1_launch_b_breach_anim"] = %h1_launch_b_breach_anim;
 }
+
 #using_animtree("player");
 
 player_anims()

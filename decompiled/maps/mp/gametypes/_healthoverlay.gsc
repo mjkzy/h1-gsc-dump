@@ -247,7 +247,7 @@ healthregeneration( var_0, var_1 )
     }
 
     maps\mp\gametypes\_damage::resetattackerlist();
-    maps\mp\gametypes\_misions::healthregenerated();
+    maps\mp\gametypes\_missions::healthregenerated();
 }
 
 wait_for_not_using_remote()

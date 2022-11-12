@@ -124,7 +124,7 @@ getspawnpoint()
 
 onnormaldeath( var_0, var_1, var_2 )
 {
-    level maps\mp\gametypes\_gamescores::giveteamscoreforobjective( var_1.pers["team"], 1 );
+    level maps\mp\gametypes\_gamescore::giveteamscoreforobjective( var_1.pers["team"], 1 );
 
     if ( game["state"] == "postgame" && game["teamScores"][var_1.team] > game["teamScores"][level.otherteam[var_1.team]] )
         var_1.finalkill = 1;

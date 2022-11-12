@@ -100,16 +100,16 @@ monitorflash()
         else if ( isdefined( var_4 ) )
         {
             if ( var_4 != self )
-                var_4 maps\mp\gametypes\_misions::processchallenge( "ch_flash" );
+                var_4 maps\mp\gametypes\_missions::processchallenge( "ch_flash" );
 
             var_11 = maps\mp\_utility::getmapname();
 
             if ( var_11 == "mp_crash_snow" )
-                var_4 maps\mp\gametypes\_misions::processchallenge( "ch_wc_tactical" );
+                var_4 maps\mp\gametypes\_missions::processchallenge( "ch_wc_tactical" );
             else if ( var_11 == "mp_farm_spring" )
-                var_4 maps\mp\gametypes\_misions::processchallenge( "ch_stpatty_tactical" );
+                var_4 maps\mp\gametypes\_missions::processchallenge( "ch_stpatty_tactical" );
             else if ( var_11 == "mp_bog_summer" )
-                var_4 maps\mp\gametypes\_misions::processchallenge( "ch_summer_tactical" );
+                var_4 maps\mp\gametypes\_missions::processchallenge( "ch_summer_tactical" );
         }
 
         if ( var_8 && isdefined( self ) )

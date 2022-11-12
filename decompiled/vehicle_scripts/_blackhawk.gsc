@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("vehicles");
 
 main( var_0, var_1, var_2 )
@@ -97,6 +98,7 @@ set_vehicle_anims( var_0 )
 
     return var_0;
 }
+
 #using_animtree("fastrope");
 
 setplayer_anims( var_0 )
@@ -114,6 +116,7 @@ setplayer_anims( var_0 )
     var_0[3].player_animtree = #animtree;
     return var_0;
 }
+
 #using_animtree("generic_human");
 
 setanims()

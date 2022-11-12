@@ -4539,6 +4539,7 @@ ai_array()
     waittillframeend;
     level.ai_array[level.unique_id] = undefined;
 }
+
 #using_animtree("generic_human");
 
 spawner_dronespawn( var_0 )

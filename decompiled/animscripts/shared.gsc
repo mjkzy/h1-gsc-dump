@@ -372,6 +372,7 @@ getaimyawtopoint( var_0 )
     var_1 = angleclamp180( var_1 );
     return var_1;
 }
+
 #using_animtree("generic_human");
 
 ramboaim( var_0 )

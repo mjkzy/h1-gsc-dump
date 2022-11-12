@@ -1439,6 +1439,7 @@ get_turret_setup_anim( var_0 )
     var_1["saw_bipod_prone"] = level.mg_animmg["bipod_prone_setup"];
     return var_1[var_0.weaponinfo];
 }
+
 #using_animtree("generic_human");
 
 run_to_new_spot_and_setup_gun( var_0 )

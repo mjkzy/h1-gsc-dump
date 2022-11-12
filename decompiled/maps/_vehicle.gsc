@@ -1444,6 +1444,7 @@ get_dummy()
 {
     return maps\_vehicle_code::_get_dummy();
 }
+
 #using_animtree("vehicles");
 
 vehicle_to_dummy( var_0, var_1 )

@@ -75,6 +75,7 @@ monitor_death_stop_sounds()
     self waittill( "death" );
     vehicle_scripts\_mi17_aud::snd_stop_mi17( 1.0 );
 }
+
 #using_animtree("vehicles");
 
 set_vehicle_anims( var_0 )
@@ -89,6 +90,7 @@ setplayer_anims( var_0 )
 {
     return var_0;
 }
+
 #using_animtree("generic_human");
 
 setanims()

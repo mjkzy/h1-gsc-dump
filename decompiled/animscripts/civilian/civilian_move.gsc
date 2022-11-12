@@ -21,6 +21,7 @@ civilian_noncombatmoveturn( var_0, var_1 )
     else
         return undefined;
 }
+
 #using_animtree("generic_human");
 
 civilian_combatmoveturn( var_0, var_1 )

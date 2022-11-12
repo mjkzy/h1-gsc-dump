@@ -329,6 +329,7 @@ notetrackposecrouch( var_0, var_1 )
 
     setpose( "crouch" );
 }
+
 #using_animtree("generic_human");
 
 notetrackposeprone( var_0, var_1 )

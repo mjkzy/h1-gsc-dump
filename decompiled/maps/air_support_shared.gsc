@@ -8,6 +8,7 @@ air_support_precache()
     level._effect["airsupport_marker_vfx"] = loadfx( "vfx/props/air_support_marker_glow" );
     setdvar( "use_new_air_support", "true" );
 }
+
 #using_animtree("script_model");
 
 air_support_create_arrow_ent()

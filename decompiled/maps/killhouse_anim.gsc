@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("generic_human");
 
 anim_main()
@@ -216,6 +217,7 @@ anim_main()
     anim_chair();
     maps\_patrol::init_patrol_animation_list();
 }
+
 #using_animtree("player");
 
 anim_view_body()
@@ -435,6 +437,7 @@ dialog()
     level.scr_sound["price"]["remainingtarg"] = "killhouse_pri_remainingtarg";
     level.scr_sound["price"]["hitother"] = "killhouse_pri_hitother";
 }
+
 #using_animtree("animated_props");
 
 anim_props()
@@ -449,6 +452,7 @@ anim_props()
     level.anim_prop_models["h1_foliage_jr_pine_02_animated"]["strong"] = %jr_pine_02_sway;
     level.anim_prop_models["h1_foliage_jr_pine_02_animated"]["heli"] = %jr_pine_02_heliwash;
 }
+
 #using_animtree("chair");
 
 anim_chair()
@@ -459,6 +463,7 @@ anim_chair()
     level.scr_animtree["chair"] = #animtree;
     level.scr_model["chair"] = "h1_mwr_com_office_chair_black";
 }
+
 #using_animtree("generic_human");
 
 play_idle_facial_anim( var_0 )

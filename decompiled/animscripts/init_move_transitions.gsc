@@ -35,6 +35,7 @@ init_move_transition_arrays()
 
     anim.arrivalendstance = [];
 }
+
 #using_animtree("generic_human");
 
 initsoldierentrance()

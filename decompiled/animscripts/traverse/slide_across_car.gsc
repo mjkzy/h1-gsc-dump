@@ -8,6 +8,7 @@ main()
     else
         slide_across_car_human();
 }
+
 #using_animtree("generic_human");
 
 slide_across_car_human()
@@ -22,6 +23,7 @@ slide_across_car_human()
     var_0["traverseToCoverSound"] = "npc_car_slide_cover";
     animscripts\traverse\shared::dotraverse( var_0 );
 }
+
 #using_animtree("dog");
 
 slide_across_car_dog()

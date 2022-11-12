@@ -29,6 +29,7 @@ set_vehicle_anims( var_0 )
 {
     return var_0;
 }
+
 #using_animtree("generic_human");
 
 setanims()

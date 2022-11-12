@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("generic_human");
 
 main()
@@ -47,6 +48,7 @@ setup_exploder_anims()
     level.exploder_animtrees = [];
     level.exploder_animtrees[0] = "exploder_script_model";
 }
+
 #using_animtree("script_model");
 
 building_destruction()

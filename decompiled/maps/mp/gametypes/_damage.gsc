@@ -81,8 +81,8 @@ handleworlddeath( var_0, var_1, var_2, var_3 )
 
 givescoreloss( var_0 )
 {
-    var_1 = int( max( 0, maps\mp\gametypes\_gamescores::_getplayerscore( self ) - var_0 ) );
-    maps\mp\gametypes\_gamescores::_setplayerscore( self, var_1 );
+    var_1 = int( max( 0, maps\mp\gametypes\_gamescore::_getplayerscore( self ) - var_0 ) );
+    maps\mp\gametypes\_gamescore::_setplayerscore( self, var_1 );
 }
 
 handlesuicidedeath( var_0, var_1 )
@@ -287,7 +287,7 @@ handlenormaldeath( var_0, var_1, var_2, var_3, var_4 )
 
             var_11[var_11.size] = var_13.owner;
             var_13.owner thread maps\mp\_events::processassistevent( self, "assist_uav" );
-            var_13.owner thread maps\mp\gametypes\_misions::processchallenge( "ch_uav_assist" );
+            var_13.owner thread maps\mp\gametypes\_missions::processchallenge( "ch_uav_assist" );
         }
     }
 
@@ -615,7 +615,7 @@ playerkilled_internal( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, v
         if ( isdefined( var_0 ) && ( !isdefined( var_0.isorbitalcam ) || var_0.isorbitalcam == 0 ) )
         {
             handlenormaldeath( self.lifeid, var_1, var_0, var_5, var_4 );
-            var_2 thread maps\mp\gametypes\_misions::playerkilled( var_0, var_1, var_3, var_4, var_5, var_20, var_7, var_1.modifiers, var_11 );
+            var_2 thread maps\mp\gametypes\_missions::playerkilled( var_0, var_1, var_3, var_4, var_5, var_20, var_7, var_1.modifiers, var_11 );
         }
 
         var_2.pers["cur_death_streak"]++;
@@ -1468,7 +1468,7 @@ dofinalkillcam()
         switch ( level.finalkillcam_sweapon[var_0] )
         {
             case "artillery_mp":
-                var_3 maps\mp\gametypes\_misions::processchallenge( "ch_finishingtouch" );
+                var_3 maps\mp\gametypes\_missions::processchallenge( "ch_finishingtouch" );
                 break;
             default:
                 break;
@@ -2067,7 +2067,7 @@ callback_playerdamage_internal( var_0, var_1, var_2, var_3, var_4, var_5, var_6,
             }
 
             var_2 finishplayerdamagewrapper( var_0, var_1, var_3, var_4, var_5, var_6, var_7, var_8, var_9, var_10, var_14 );
-            var_2 thread maps\mp\gametypes\_misions::playerdamaged( var_0, var_1, var_3, var_5, var_6, var_9 );
+            var_2 thread maps\mp\gametypes\_missions::playerdamaged( var_0, var_1, var_3, var_5, var_6, var_9 );
         }
 
         if ( var_3 > 0 && var_5 != "MOD_FALLING" )
@@ -3459,7 +3459,7 @@ processdamagetaken( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_
             if ( maps\mp\_utility::islootweapon( var_14 ) )
                 var_14 = maps\mp\gametypes\_class::getbasefromlootversion( var_14 );
 
-            var_15 = maps\mp\gametypes\_misions::get_challenge_weapon_class( var_5, var_14 );
+            var_15 = maps\mp\gametypes\_missions::get_challenge_weapon_class( var_5, var_14 );
         }
 
         self.stopdamagefunc = 1;
@@ -3586,7 +3586,7 @@ onkillstreakkilled( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7 )
             level thread maps\mp\_utility::teamplayercardsplash( var_6, var_8 );
 
         if ( isdefined( var_7 ) && var_7 )
-            level thread maps\mp\gametypes\_misions::vehiclekilled( self.owner, self, undefined, var_8, var_3, var_2, var_1 );
+            level thread maps\mp\gametypes\_missions::vehiclekilled( self.owner, self, undefined, var_8, var_3, var_2, var_1 );
     }
 
     thread maps\mp\_events::checkvandalismmedal( var_8 );

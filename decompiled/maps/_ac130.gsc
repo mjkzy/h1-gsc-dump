@@ -791,6 +791,7 @@ moveplanetopoint( var_0, var_1 )
             thread rotateplane( "on" );
     }
 }
+
 #using_animtree("ac130");
 
 ac130_move_in()

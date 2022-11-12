@@ -6,6 +6,7 @@ main()
     humans();
     dogs();
 }
+
 #using_animtree("generic_human");
 
 humans()
@@ -34,6 +35,7 @@ humans()
     level.scr_anim["generic"]["_stealth_find_jog"] = %patrol_boredjog_find;
     level.scr_anim["generic"]["_stealth_find_run"] = %patrol_boredrun_find;
 }
+
 #using_animtree("dog");
 
 dogs()

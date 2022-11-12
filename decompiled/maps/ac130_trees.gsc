@@ -9,6 +9,7 @@ main()
     var_1 = getentarray( "ac130_tree", "targetname" );
     common_scripts\utility::run_thread_on_targetname( "ac130_tree", ::ac130_tree_setup );
 }
+
 #using_animtree("script_model");
 
 ac130_tree_setup()

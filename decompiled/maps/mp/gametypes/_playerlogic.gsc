@@ -819,7 +819,7 @@ spawnplayer( var_0, var_1 )
 
     if ( !var_0 )
     {
-        maps\mp\gametypes\_misions::playerspawned();
+        maps\mp\gametypes\_missions::playerspawned();
 
         if ( isai( self ) && isdefined( level.bot_funcs ) && isdefined( level.bot_funcs["player_spawned"] ) )
             self [[ level.bot_funcs["player_spawned"] ]]();
@@ -1174,7 +1174,7 @@ callback_playerdisconnect( var_0 )
     thread maps\mp\_events::disconnected();
 
     if ( level.gameended )
-        maps\mp\gametypes\_gamescores::removedisconnectedplayerfromplacement();
+        maps\mp\gametypes\_gamescore::removedisconnectedplayerfromplacement();
 
     if ( isdefined( self.team ) )
         removefromteamcount();

@@ -9,6 +9,7 @@ main()
     dialogue();
     run_anims();
 }
+
 #using_animtree("generic_human");
 
 dialogue()
@@ -126,6 +127,7 @@ player_boarding()
     level.scr_animtree["player_carry"] = #animtree;
     level.scr_model["player_carry"] = "viewhands_player_sas_woodland";
 }
+
 #using_animtree("script_model");
 
 script_models()
@@ -141,6 +143,7 @@ script_models()
     level.scr_animtree["minigun"] = #animtree;
     level.scr_model["minigun"] = "weapon_minigun";
 }
+
 #using_animtree("generic_human");
 
 script_models_minigun_player()
@@ -154,6 +157,7 @@ script_models_minigun_player()
     maps\_anim::addnotetrack_customfunction( "detonator_guy", "spawn_detonator", maps\village_defend::toggle_detonator, "press_detonator", 1 );
     maps\_anim::addnotetrack_customfunction( "detonator_guy", "despawn_detonator", maps\village_defend::toggle_detonator, "press_detonator", 0 );
 }
+
 #using_animtree("vehicles");
 
 seaknight_anims()
@@ -166,6 +170,7 @@ setup_exploder_anims()
     level.exploder_animtrees = [];
     level.exploder_animtrees[0] = "exploder_script_model";
 }
+
 #using_animtree("script_model");
 
 exploder_script_model_anims()
@@ -174,6 +179,7 @@ exploder_script_model_anims()
     level.scr_anim["exploder_script_model"]["village_defend_church_prt1_anim"] = %village_defend_church_prt1_anim;
     level.scr_anim["exploder_script_model"]["village_defend_church_prt2_anim"] = %village_defend_church_prt2_anim;
 }
+
 #using_animtree("animated_props");
 
 animated_model_setup()

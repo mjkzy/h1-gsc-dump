@@ -265,7 +265,7 @@ pointblankevent( var_0, var_1, var_2 )
     level thread maps\mp\gametypes\_rank::awardgameevent( "pointblank", self, var_1, undefined, var_2 );
 
     if ( maps\mp\_utility::_hasperk( "specialty_quieter" ) )
-        maps\mp\gametypes\_misions::processchallenge( "ch_deadsilence" );
+        maps\mp\gametypes\_missions::processchallenge( "ch_deadsilence" );
 }
 
 killedplayerevent( var_0, var_1, var_2 )
@@ -292,7 +292,7 @@ killedplayerevent( var_0, var_1, var_2 )
     if ( var_3 != "kill" )
     {
         maps\mp\_utility::incplayerstat( var_3, 1 );
-        maps\mp\gametypes\_misions::ch_streak_kill( var_3 );
+        maps\mp\gametypes\_missions::ch_streak_kill( var_3 );
     }
 
     level thread maps\mp\gametypes\_rank::awardgameevent( var_3, self, var_1, var_0, var_2 );
@@ -343,10 +343,10 @@ bulletpenetrationevent( var_0, var_1 )
 {
     maps\mp\_utility::incplayerstat( "bulletpenkills", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "bulletpen", self );
-    maps\mp\gametypes\_misions::processchallenge( "ch_xrayvision" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_xrayvision" );
 
     if ( maps\mp\_utility::_hasperk( "specialty_bulletpenetration" ) )
-        maps\mp\gametypes\_misions::processchallenge( "ch_deepimpact" );
+        maps\mp\gametypes\_missions::processchallenge( "ch_deepimpact" );
 }
 
 multikillonebulletevent()
@@ -366,7 +366,7 @@ neardeathkillevent( var_0, var_1 )
     level thread maps\mp\gametypes\_rank::awardgameevent( "near_death_kill", self, var_0, undefined, var_1 );
 
     if ( maps\mp\_utility::_hasperk( "specialty_armorvest" ) )
-        maps\mp\gametypes\_misions::processchallenge( "ch_juggernaut" );
+        maps\mp\gametypes\_missions::processchallenge( "ch_juggernaut" );
 }
 
 flashedkillevent( var_0, var_1 )
@@ -484,7 +484,7 @@ headshotevent( var_0, var_1, var_2 )
 
     if ( isdefined( self.headshots ) && self.headshots >= self.headhuntercounter * 10 )
     {
-        maps\mp\gametypes\_misions::processchallenge( "ch_headhunter" );
+        maps\mp\gametypes\_missions::processchallenge( "ch_headhunter" );
         self.headhuntercounter++;
     }
 }
@@ -515,7 +515,7 @@ avengedplayerevent( var_0, var_1, var_2 )
     maps\mp\_utility::incplayerstat( "avengekills", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "avenger", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::logkillevent( var_0, "avenger" );
-    maps\mp\gametypes\_misions::processchallenge( "ch_avenger" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_avenger" );
 }
 
 assistedsuicideevent( var_0, var_1, var_2 )
@@ -532,7 +532,7 @@ defendedplayerevent( var_0, var_1, var_2 )
     maps\mp\_utility::incplayerstat( "rescues", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "defender", self, var_1, undefined, var_2 );
     thread maps\mp\_matchdata::logkillevent( var_0, "defender" );
-    maps\mp\gametypes\_misions::processchallenge( "ch_savior" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_savior" );
 }
 
 defendobjectiveevent( var_0, var_1 )
@@ -557,7 +557,7 @@ postdeathkillevent( var_0 )
     maps\mp\_utility::incplayerstat( "posthumous", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "posthumous", self );
     thread maps\mp\_matchdata::logkillevent( var_0, "posthumous" );
-    maps\mp\gametypes\_misions::processchallenge( "ch_afterlife" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_afterlife" );
 }
 
 isbackstabevent( var_0, var_1, var_2 )
@@ -582,7 +582,7 @@ backstabevent( var_0 )
 {
     maps\mp\_utility::incplayerstat( "backstab", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "backstab", self );
-    maps\mp\gametypes\_misions::processchallenge( "ch_backstab" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_backstab" );
 }
 
 revengeevent( var_0 )
@@ -592,7 +592,7 @@ revengeevent( var_0 )
     maps\mp\_utility::incplayerstat( "revengekills", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "revenge", self );
     thread maps\mp\_matchdata::logkillevent( var_0, "revenge" );
-    maps\mp\gametypes\_misions::processchallenge( "ch_revenge" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_revenge" );
 }
 
 multikillevent( var_0, var_1, var_2, var_3 )
@@ -600,7 +600,7 @@ multikillevent( var_0, var_1, var_2, var_3 )
     if ( !isdefined( var_3 ) )
         var_3 = 0;
 
-    var_4 = maps\mp\gametypes\_misions::get_challenge_weapon_class( var_2 );
+    var_4 = maps\mp\gametypes\_missions::get_challenge_weapon_class( var_2 );
     var_5 = maps\mp\_utility::getbaseweaponname( var_2 );
 
     if ( maps\mp\_utility::islootweapon( var_5 ) )
@@ -618,35 +618,35 @@ multikillevent( var_0, var_1, var_2, var_3 )
         case 2:
             level thread maps\mp\gametypes\_rank::awardgameevent( "doublekill", self );
             maps\mp\_utility::incplayerstat( "doublekill", 1 );
-            maps\mp\gametypes\_misions::processchallenge( "ch_killer_double" );
+            maps\mp\gametypes\_missions::processchallenge( "ch_killer_double" );
             break;
         case 3:
             level thread maps\mp\gametypes\_rank::awardgameevent( "triplekill", self );
             level thread maps\mp\_utility::teamplayercardsplash( "callout_3xkill", self );
             maps\mp\_utility::incplayerstat( "triplekill", 1 );
-            maps\mp\gametypes\_misions::processchallenge( "ch_killer_triple" );
+            maps\mp\gametypes\_missions::processchallenge( "ch_killer_triple" );
 
-            if ( maps\mp\gametypes\_misions::isatbrinkofdeath() )
-                maps\mp\gametypes\_misions::processchallenge( "ch_triplehurt" );
+            if ( maps\mp\gametypes\_missions::isatbrinkofdeath() )
+                maps\mp\gametypes\_missions::processchallenge( "ch_triplehurt" );
 
             break;
         case 4:
             level thread maps\mp\gametypes\_rank::awardgameevent( "fourkill", self );
             level thread maps\mp\_utility::teamplayercardsplash( "callout_4xkill", self );
             maps\mp\_utility::incplayerstat( "fourkill", 1 );
-            maps\mp\gametypes\_misions::processchallenge( "ch_killer_quadra" );
+            maps\mp\gametypes\_missions::processchallenge( "ch_killer_quadra" );
             break;
         case 5:
             level thread maps\mp\gametypes\_rank::awardgameevent( "fivekill", self );
             level thread maps\mp\_utility::teamplayercardsplash( "callout_5xkill", self );
             maps\mp\_utility::incplayerstat( "fivekill", 1 );
-            maps\mp\gametypes\_misions::processchallenge( "ch_killer_penta" );
+            maps\mp\gametypes\_missions::processchallenge( "ch_killer_penta" );
             break;
         case 6:
             level thread maps\mp\gametypes\_rank::awardgameevent( "sixkill", self );
             level thread maps\mp\_utility::teamplayercardsplash( "callout_6xkill", self );
             maps\mp\_utility::incplayerstat( "sixkill", 1 );
-            maps\mp\gametypes\_misions::processchallenge( "ch_killer_hexa" );
+            maps\mp\gametypes\_missions::processchallenge( "ch_killer_hexa" );
             break;
         case 7:
             level thread maps\mp\gametypes\_rank::awardgameevent( "sevenkill", self );
@@ -672,10 +672,10 @@ takeandkillevent()
 {
     maps\mp\_utility::incplayerstat( "take_and_kill", 1 );
     level thread maps\mp\gametypes\_rank::awardgameevent( "take_and_kill", self );
-    maps\mp\gametypes\_misions::processchallenge( "ch_backfire" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_backfire" );
 
     if ( maps\mp\_utility::getmapname() == "mp_bog_summer" )
-        maps\mp\gametypes\_misions::processchallenge( "ch_summer_backfire" );
+        maps\mp\gametypes\_missions::processchallenge( "ch_summer_backfire" );
 }
 
 setuplinkstats()
@@ -743,11 +743,11 @@ killdeniedevent( var_0 )
     {
         var_1 = "kill_denied_retrieved";
         maps\mp\_utility::incplayerstat( "kill_denied_retrieved", 1 );
-        maps\mp\gametypes\_misions::processchallenge( "ch_save_yourself" );
+        maps\mp\gametypes\_missions::processchallenge( "ch_save_yourself" );
     }
 
     level thread maps\mp\gametypes\_rank::awardgameevent( var_1, self );
-    maps\mp\gametypes\_misions::processchallenge( "ch_denial" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_denial" );
 }
 
 killconfirmedevent()
@@ -757,7 +757,7 @@ killconfirmedevent()
     maps\mp\_utility::setextrascore0( self.pers["confirmed"] );
     maps\mp\gametypes\_persistence::statsetchild( "round", "confirmed", self.pers["confirmed"] );
     level thread maps\mp\gametypes\_rank::awardgameevent( "kill_confirmed", self );
-    maps\mp\gametypes\_misions::processchallenge( "ch_collector" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_collector" );
 }
 
 tagcollectorevent()
@@ -815,7 +815,7 @@ bombdefuseevent( var_0 )
         maps\mp\_utility::incplayerstat( var_0, 1 );
 
         if ( var_0 == "ninja_defuse" && isdefined( level.bombowner ) && level.bombowner.bombplantedtime + 6000 + level.defusetime * 1000 > gettime() )
-            maps\mp\gametypes\_misions::processchallenge( "ch_ninja" );
+            maps\mp\gametypes\_missions::processchallenge( "ch_ninja" );
     }
 
     level thread maps\mp\gametypes\_rank::awardgameevent( var_0, self );
@@ -843,7 +843,7 @@ bombdetonateevent()
     maps\mp\gametypes\_persistence::statsetchild( "round", "destructions", self.pers["destructions"] );
     level thread maps\mp\_utility::teamplayercardsplash( "callout_destroyed_objective", self );
     level thread maps\mp\gametypes\_rank::awardgameevent( "destroy", self );
-    maps\mp\gametypes\_misions::processchallenge( "ch_sd_destroyer" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_sd_destroyer" );
 }
 
 increasegunlevelevent()
@@ -896,7 +896,7 @@ domcaptureevent( var_0 )
 
     level thread maps\mp\gametypes\_rank::awardgameevent( var_1, self );
     thread maps\mp\_matchdata::loggameevent( "capture", self.origin );
-    maps\mp\gametypes\_misions::processchallenge( "ch_dom_aggression" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_dom_aggression" );
 }
 
 domneutralizeevent()
@@ -938,7 +938,7 @@ hqcaptureevent()
     level thread maps\mp\_utility::teamplayercardsplash( "callout_capturedhq", self );
     level thread maps\mp\gametypes\_rank::awardgameevent( "hq_secure", self );
     thread maps\mp\_matchdata::loggameevent( "capture", self.origin );
-    maps\mp\gametypes\_misions::processchallenge( "ch_hq_aggression" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_hq_aggression" );
 }
 
 hqdestroyevent()
@@ -950,7 +950,7 @@ hqdestroyevent()
     level thread maps\mp\_utility::teamplayercardsplash( "callout_destroyedhq", self );
     level thread maps\mp\gametypes\_rank::awardgameevent( "hq_destroy", self );
     thread maps\mp\_matchdata::loggameevent( "destroy", self.origin );
-    maps\mp\gametypes\_misions::processchallenge( "ch_hq_destroyer" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_hq_destroyer" );
 }
 
 firstbloodevent( var_0, var_1, var_2 )
@@ -983,7 +983,7 @@ oneshotkillevent( var_0, var_1, var_2 )
 {
     self.modifiers["oneshotkill"] = 1;
     maps\mp\_utility::incplayerstat( "oneshotkill", 1 );
-    maps\mp\gametypes\_misions::processchallenge( "ch_deadeye" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_deadeye" );
 }
 
 comebackevent( var_0, var_1, var_2 )
@@ -1141,32 +1141,32 @@ checkstreakingevents( var_0 )
         case 5:
             level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak5", self );
             maps\mp\_utility::incplayerstat( "killstreak5", 1 );
-            maps\mp\gametypes\_misions::processchallenge( "ch_killer_bloodthirsty" );
+            maps\mp\gametypes\_missions::processchallenge( "ch_killer_bloodthirsty" );
             break;
         case 10:
             level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak10", self );
             maps\mp\_utility::incplayerstat( "killstreak10", 1 );
-            maps\mp\gametypes\_misions::processchallenge( "ch_killer_merciless" );
+            maps\mp\gametypes\_missions::processchallenge( "ch_killer_merciless" );
             break;
         case 15:
             level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak15", self );
             maps\mp\_utility::incplayerstat( "killstreak15", 1 );
-            maps\mp\gametypes\_misions::processchallenge( "ch_killer_ruthless" );
+            maps\mp\gametypes\_missions::processchallenge( "ch_killer_ruthless" );
             break;
         case 20:
             level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak20", self );
             maps\mp\_utility::incplayerstat( "killstreak20", 1 );
-            maps\mp\gametypes\_misions::processchallenge( "ch_killer_relentless" );
+            maps\mp\gametypes\_missions::processchallenge( "ch_killer_relentless" );
             break;
         case 25:
             level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak25", self );
             maps\mp\_utility::incplayerstat( "killstreak25", 1 );
-            maps\mp\gametypes\_misions::processchallenge( "ch_killer_brutal" );
+            maps\mp\gametypes\_missions::processchallenge( "ch_killer_brutal" );
             break;
         case 30:
             level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak30", self );
             maps\mp\_utility::incplayerstat( "killstreak30", 1 );
-            maps\mp\gametypes\_misions::processchallenge( "ch_killer_vicious" );
+            maps\mp\gametypes\_missions::processchallenge( "ch_killer_vicious" );
             break;
         default:
             level thread maps\mp\gametypes\_rank::awardgameevent( "killstreak30plus", self );
@@ -1196,7 +1196,7 @@ checkhigherrankkillevents( var_0 )
     {
         maps\mp\_utility::incplayerstat( "firstplacekill", 1 );
         level thread maps\mp\gametypes\_rank::awardgameevent( "firstplacekill", self );
-        maps\mp\gametypes\_misions::processchallenge( "ch_kingslayer" );
+        maps\mp\gametypes\_missions::processchallenge( "ch_kingslayer" );
     }
 }
 
@@ -1237,13 +1237,13 @@ processassistevent( var_0, var_1 )
             self.assists = maps\mp\_utility::getpersstat( "assists" );
 
         maps\mp\gametypes\_persistence::statsetchild( "round", "assists", self.assists );
-        thread maps\mp\gametypes\_misions::playerassist();
+        thread maps\mp\gametypes\_missions::playerassist();
     }
 }
 
 stoppingpowerevent()
 {
-    maps\mp\gametypes\_misions::processchallenge( "ch_stoppingpower" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_stoppingpower" );
 }
 
 sleightofhandeventwatcher()
@@ -1255,7 +1255,7 @@ sleightofhandeventwatcher()
     var_0 = common_scripts\utility::waittill_any_return( "sleightOfHandEventEarned", "sleightOfHandEventFailed" );
 
     if ( var_0 == "sleightOfHandEventEarned" )
-        maps\mp\gametypes\_misions::processchallenge( "ch_sleightofhand" );
+        maps\mp\gametypes\_missions::processchallenge( "ch_sleightofhand" );
 
     self.sleightofhandeventweap = undefined;
 }
@@ -1301,40 +1301,40 @@ sleightofhandevent( var_0, var_1 )
 
 doubletapevent()
 {
-    maps\mp\gametypes\_misions::processchallenge( "ch_doubletap" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_doubletap" );
 }
 
 overkillevent()
 {
-    maps\mp\gametypes\_misions::processchallenge( "ch_overkill" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_overkill" );
 }
 
 uavjammerevent()
 {
-    maps\mp\gametypes\_misions::processchallenge( "ch_uavjammer" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_uavjammer" );
 }
 
 sonicboomevent()
 {
-    maps\mp\gametypes\_misions::processchallenge( "ch_sonicboom" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_sonicboom" );
 }
 
 steadyaimevent()
 {
-    maps\mp\gametypes\_misions::processchallenge( "ch_steadyaim" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_steadyaim" );
 }
 
 laststandevent()
 {
-    maps\mp\gametypes\_misions::processchallenge( "ch_laststand" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_laststand" );
 }
 
 ironlungsevent()
 {
-    maps\mp\gametypes\_misions::processchallenge( "ch_ironlungs" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_ironlungs" );
 }
 
 eavesdropevent()
 {
-    maps\mp\gametypes\_misions::processchallenge( "ch_eavesdrop" );
+    maps\mp\gametypes\_missions::processchallenge( "ch_eavesdrop" );
 }

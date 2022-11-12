@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("generic_human");
 
 main()
@@ -14,6 +15,7 @@ main()
     self.additiveturretfire = %saw_gunner_firing_add;
     thread animscripts\saw\common::main( var_0 );
 }
+
 #using_animtree("mg42");
 
 turretinit( var_0 )

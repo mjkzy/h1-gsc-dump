@@ -1809,6 +1809,7 @@ cobra_rpgs()
 {
     maps\_utility::delaythread( 13, ::rpg_fake, "rpg_source_missing_cobra_2" );
 }
+
 #using_animtree("vehicles");
 
 cobra_crash()
@@ -2500,6 +2501,7 @@ cobra_crashsite_think()
     wait 3;
     missile_deleteattractor( var_1 );
 }
+
 #using_animtree("generic_human");
 
 cobrapilot_change_facial_anim( var_0, var_1 )
@@ -4556,6 +4558,7 @@ exploder_statue_old()
     var_0 moveto( var_2, var_6, var_6 );
     var_0 rotateto( var_3, var_5, var_5 );
 }
+
 #using_animtree("vehicles");
 
 seaknight_liftoff_anim()

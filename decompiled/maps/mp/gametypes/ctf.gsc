@@ -806,7 +806,7 @@ onuse( var_0 )
     var_0 thread maps\mp\_events::flagcaptureevent();
 
     if ( !maps\mp\_utility::inovertime() )
-        maps\mp\gametypes\_gamescores::giveteamscoreforobjective( var_1, 1 );
+        maps\mp\gametypes\_gamescore::giveteamscoreforobjective( var_1, 1 );
 
     game["shut_out"][var_2] = 0;
 

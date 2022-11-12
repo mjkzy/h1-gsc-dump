@@ -260,6 +260,7 @@ rider_drone_toai( var_0, var_1, var_2, var_3 )
     var_4 allowedstances( "stand", "crouch" );
     thread whackamole( var_4 );
 }
+
 #using_animtree("generic_human");
 
 rider_droneai( var_0, var_1, var_2 )
@@ -3382,6 +3383,7 @@ add_death_function( var_0, var_1, var_2, var_3 )
 
     self.deathfuncs[self.deathfuncs.size] = var_4;
 }
+
 #using_animtree("vehicles");
 
 freeonend()

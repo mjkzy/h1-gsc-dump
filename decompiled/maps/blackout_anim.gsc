@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("generic_human");
 
 main()
@@ -299,6 +300,7 @@ main()
     radio_prec();
     animated_model_setup();
 }
+
 #using_animtree("script_model");
 
 script_models()
@@ -345,6 +347,7 @@ script_models()
     level.scr_anim["electrical_box_animated"]["powercut"] = %h1_blackout_electric_box_animated_2_cutting_power;
     level.scr_anim["electrical_box_animated"]["idle_cut"][0] = %h1_blackout_electric_box_animated_3_idle_cut;
 }
+
 #using_animtree("animated_props");
 
 animated_model_setup()
@@ -361,6 +364,7 @@ play_relaxed_guard_chair_death( var_0 )
 {
     var_0 thread common_scripts\utility::play_sound_in_space( "scn_relaxed_guard_chair_fall", var_0.origin + ( 0.0, 0.0, 30.0 ) );
 }
+
 #using_animtree("player");
 
 player_rappel()
@@ -378,6 +382,7 @@ player_rappel()
         level.scr_anim["evac_rig"]["player_evac"] = %h1_blackout_bh_evac_player;
     }
 }
+
 #using_animtree("vehicles");
 
 blackhawk_anims()
@@ -447,6 +452,7 @@ setup_exploder_anims()
     level.exploder_animtrees = [];
     level.exploder_animtrees[0] = "exploder_script_model";
 }
+
 #using_animtree("script_model");
 
 exploder_script_model_anims()

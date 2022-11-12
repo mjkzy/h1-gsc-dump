@@ -1227,6 +1227,7 @@ force_crawling_death( var_0, var_1, var_2, var_3 )
 
     thread force_crawling_death_proc( var_0, var_1, var_2, var_3 );
 }
+
 #using_animtree("generic_human");
 
 override_crawl_death_anims()

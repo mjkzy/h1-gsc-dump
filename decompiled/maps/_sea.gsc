@@ -37,6 +37,7 @@ main()
     thread sea_logic();
     return;
 }
+
 #using_animtree("script_model");
 
 sea_animate()

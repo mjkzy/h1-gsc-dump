@@ -11,6 +11,7 @@ main()
     dog();
     script_models();
 }
+
 #using_animtree("script_model");
 
 script_models()
@@ -19,6 +20,7 @@ script_models()
     level.scr_animtree["chair"] = #animtree;
     level.scr_model["chair"] = "com_folding_chair";
 }
+
 #using_animtree("generic_human");
 
 anims()
@@ -343,6 +345,7 @@ patrol()
     maps\_patrol::add_to_patrol_animation_list( "h1_patrol_walk_04", level.scr_anim["generic"]["h1_patrol_walk_04"] );
     maps\_patrol::add_to_patrol_animation_list( "h1_patrol_walk_05", level.scr_anim["generic"]["h1_patrol_walk_05"] );
 }
+
 #using_animtree("dog");
 
 dog()

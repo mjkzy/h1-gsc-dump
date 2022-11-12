@@ -12,6 +12,7 @@ main()
     animated_model_setup();
     bm21_custom();
 }
+
 #using_animtree("generic_human");
 
 anims()
@@ -228,6 +229,7 @@ dialogue()
     level.scr_radio["getmovin"] = "hunted_acc_getmovin";
     level.scr_sound["price"]["comeonletsgo"] = "hunted_pri_comeonletsgo";
 }
+
 #using_animtree("player");
 
 player_anims()
@@ -239,6 +241,7 @@ player_anims()
     level.scr_animtree["opening_player_model"] = #animtree;
     level.scr_model["opening_player_model"] = "worldbody_h1_sas_woodland";
 }
+
 #using_animtree("vehicles");
 
 anim_blackhawk()
@@ -246,6 +249,7 @@ anim_blackhawk()
     level.scr_animtree["blackhawk"] = #animtree;
     level.scr_anim["blackhawk"]["interiorwires"][0] = %h1_blackhawk_interiorwires;
 }
+
 #using_animtree("script_model");
 
 scriptmodel_anims()
@@ -267,6 +271,7 @@ scriptmodel_anims()
     level.scr_animtree["dogtags"] = #animtree;
     level.scr_model["dogtags"] = "h1_prop_dogtag";
 }
+
 #using_animtree("animated_props");
 
 animated_model_setup()
@@ -278,6 +283,7 @@ animated_model_setup()
     level.anim_prop_models["h1_tree_pine_evergreen_03_hero"]["strong"] = %h1_tree_pine_evergreen_03_hero_sway;
     level.anim_prop_models["h1_tree_pine_evergreen_03_hero"]["heli"] = %h1_tree_pine_evergreen_03_hero_heliwash;
 }
+
 #using_animtree("vehicles");
 
 bm21_custom()

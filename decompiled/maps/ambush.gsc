@@ -125,6 +125,7 @@ main()
     level thread music_control();
     common_scripts\utility::array_thread( getentarray( "respawn_guy", "script_noteworthy" ), maps\_utility::add_spawn_function, ::generic_allied );
 }
+
 #using_animtree("vehicles");
 
 uaz_vehicle_anims( var_0 )
@@ -139,6 +140,7 @@ uaz_vehicle_anims_clear()
 {
     self clearanim( %ambush_vip_escape_uaz, 0 );
 }
+
 #using_animtree("generic_human");
 
 uaz_anims()

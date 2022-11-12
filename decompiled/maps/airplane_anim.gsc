@@ -11,6 +11,7 @@ main()
     air_mask_anims();
     bathroom_door_anims();
 }
+
 #using_animtree("generic_human");
 
 anims()
@@ -164,6 +165,7 @@ dialogue()
     level.scr_radio["airplane_gaz_seeya"] = "airplane_gaz_seeya";
     player_view();
 }
+
 #using_animtree("player");
 
 player_view()
@@ -174,6 +176,7 @@ player_view()
     level.scr_model["worldbody"] = "worldbody_h1_sas_ct";
     level.scr_anim["worldbody"]["airplane_end_player"] = %h1_airplane_tandem_jump_full;
 }
+
 #using_animtree("script_model");
 
 exploder_script_model_anims()

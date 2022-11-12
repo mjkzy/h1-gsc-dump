@@ -273,6 +273,7 @@ spawner_switch_think2()
         wait 0.2;
     }
 }
+
 #using_animtree("fastrope");
 
 player_fastrope_go( var_0 )

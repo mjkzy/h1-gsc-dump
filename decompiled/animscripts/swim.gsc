@@ -176,6 +176,7 @@ moveswim_noncombat_exit()
 {
     self notify( "end_MoveSwim_NonCombat_TwitchUpdate" );
 }
+
 #using_animtree("generic_human");
 
 moveswim_combat_enter()

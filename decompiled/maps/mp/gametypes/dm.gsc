@@ -115,7 +115,7 @@ onplayerscore( var_0, var_1, var_2 )
 {
     var_3 = maps\mp\gametypes\_rank::getscoreinfovalue( var_0 );
     var_1 maps\mp\_utility::setextrascore0( var_1.extrascore0 + var_3 );
-    var_1 maps\mp\gametypes\_gamescores::updatescorestatsffa( var_1, var_3 );
+    var_1 maps\mp\gametypes\_gamescore::updatescorestatsffa( var_1, var_3 );
 
     if ( isscoringevent( var_0 ) )
         return 1;

@@ -7,6 +7,7 @@ main()
     animscripts\utility::initialize( "reactions" );
     newenemysurprisedreaction();
 }
+
 #using_animtree("generic_human");
 
 init_animset_reactions()

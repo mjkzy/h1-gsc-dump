@@ -194,6 +194,7 @@ driver_stop_anims()
     waittillframeend;
     thread maps\_anim::anim_loop_solo( self.edriver, "stop", "tag_driver", "stop_idle" );
 }
+
 #using_animtree("vehicles");
 
 gameplay_hijack()

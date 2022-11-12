@@ -2105,6 +2105,7 @@ map_change( var_0 )
         maps\_compass::setupminimap( var_0 );
     }
 }
+
 #using_animtree("animated_props");
 
 airduct_fan_large()

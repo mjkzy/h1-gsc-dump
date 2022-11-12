@@ -2406,6 +2406,7 @@ getplayerc4()
 
     return var_4;
 }
+
 #using_animtree("generic_human");
 
 flashback_guy_setup()

@@ -97,6 +97,7 @@ archetypeexists( var_0 )
 {
     return isdefined( anim.archetypes[var_0] );
 }
+
 #using_animtree("generic_human");
 
 init_animset_run_move()

@@ -419,8 +419,8 @@ musiccontroller()
                 }
                 else
                 {
-                    var_1 = maps\mp\gametypes\_gamescores::gethighestscoringplayer();
-                    var_2 = maps\mp\gametypes\_gamescores::getlosingplayers();
+                    var_1 = maps\mp\gametypes\_gamescore::gethighestscoringplayer();
+                    var_2 = maps\mp\gametypes\_gamescore::getlosingplayers();
                     var_3[0] = var_1;
 
                     if ( !level.hardcoremode )

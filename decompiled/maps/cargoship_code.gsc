@@ -2636,6 +2636,7 @@ blur_overlay( var_0, var_1 )
 {
     setblur( var_0, var_1 );
 }
+
 #using_animtree("vehicles");
 
 seaknight_spawn( var_0 )
@@ -3632,6 +3633,7 @@ escape_heroes_turn_setup()
     for ( var_1 = 0; var_1 < var_0.size; var_1++ )
         level.escape_turns[var_0[var_1].script_noteworthy] = var_0[var_1];
 }
+
 #using_animtree("generic_human");
 
 escape_turn( var_0 )

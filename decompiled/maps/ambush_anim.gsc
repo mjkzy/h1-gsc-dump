@@ -7,6 +7,7 @@ main()
     setup_exploder_anims();
     exploder_script_model_anims();
 }
+
 #using_animtree("generic_human");
 
 anims()
@@ -168,6 +169,7 @@ anims()
     level.scr_anim["badguy"]["h1_quickdeath_down"] = %h1_ambush_zakhaev_son_quickdeath_down;
     bmp_anims();
 }
+
 #using_animtree("player");
 
 player_anims()
@@ -183,6 +185,7 @@ setup_exploder_anims()
     level.exploder_animtrees = [];
     level.exploder_animtrees[0] = "exploder_script_model";
 }
+
 #using_animtree("script_model");
 
 exploder_script_model_anims()
@@ -190,6 +193,7 @@ exploder_script_model_anims()
     level.scr_animtree["exploder_script_model"] = #animtree;
     level.scr_anim["exploder_script_model"]["h1_ambush_apartment_01_anim"] = %h1_ambush_apartment_01_anim;
 }
+
 #using_animtree("vehicles");
 
 bmp_anims()

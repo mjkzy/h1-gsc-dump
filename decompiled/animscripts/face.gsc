@@ -350,6 +350,7 @@ initlevelface()
     anim.numenemyvoices = 8;
     initfacialanims();
 }
+
 #using_animtree("generic_human");
 
 initfacialanims()

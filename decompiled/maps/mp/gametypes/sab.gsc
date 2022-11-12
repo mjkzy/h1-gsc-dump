@@ -512,8 +512,8 @@ bombplanted( var_0, var_1 )
         return;
 
     setgameendtime( 0 );
-    maps\mp\gametypes\_gamescores::_setteamscore( var_2, 1 );
-    maps\mp\gametypes\_gamescores::updateteamscore( var_2 );
+    maps\mp\gametypes\_gamescore::_setteamscore( var_2, 1 );
+    maps\mp\gametypes\_gamescore::updateteamscore( var_2 );
     wait 3;
     level.finalkillcam_winner = var_2;
     thread maps\mp\gametypes\_gamelogic::endgame( var_2, game["end_reason"]["target_destroyed"] );
@@ -660,8 +660,8 @@ ondeadevent( var_0 )
         if ( level.bombplanted )
         {
             level.finalkillcam_winner = level.bombplantedby;
-            maps\mp\gametypes\_gamescores::_setteamscore( level.bombplantedby, 1 );
-            maps\mp\gametypes\_gamescores::updateteamscore( level.bombplantedby );
+            maps\mp\gametypes\_gamescore::_setteamscore( level.bombplantedby, 1 );
+            maps\mp\gametypes\_gamescore::updateteamscore( level.bombplantedby );
             thread maps\mp\gametypes\_gamelogic::endgame( level.bombplantedby, game["end_reason"][level.bombplantedby + "_mission_accomplished"] );
         }
         else
@@ -676,15 +676,15 @@ ondeadevent( var_0 )
         }
 
         level.finalkillcam_winner = level.bombplantedby;
-        maps\mp\gametypes\_gamescores::_setteamscore( level.bombplantedby, 1 );
-        maps\mp\gametypes\_gamescores::updateteamscore( level.bombplantedby );
+        maps\mp\gametypes\_gamescore::_setteamscore( level.bombplantedby, 1 );
+        maps\mp\gametypes\_gamescore::updateteamscore( level.bombplantedby );
         thread maps\mp\gametypes\_gamelogic::endgame( level.bombplantedby, game["end_reason"][level.otherteam[level.bombplantedby] + "_eliminated"] );
     }
     else
     {
         level.finalkillcam_winner = level.otherteam[var_0];
-        maps\mp\gametypes\_gamescores::_setteamscore( level.otherteam[var_0], 1 );
-        maps\mp\gametypes\_gamescores::updateteamscore( level.otherteam[var_0] );
+        maps\mp\gametypes\_gamescore::_setteamscore( level.otherteam[var_0], 1 );
+        maps\mp\gametypes\_gamescore::updateteamscore( level.otherteam[var_0] );
         thread maps\mp\gametypes\_gamelogic::endgame( level.otherteam[var_0], game["end_reason"][var_0 + "_eliminated"] );
     }
 }
@@ -695,8 +695,8 @@ bombdefused( var_0, var_1, var_2 )
 
     if ( maps\mp\_utility::is_true( level.insuddendeath ) && isdefined( level.plantingteamdead ) )
     {
-        maps\mp\gametypes\_gamescores::_setteamscore( var_2, 1 );
-        maps\mp\gametypes\_gamescores::updateteamscore( var_2 );
+        maps\mp\gametypes\_gamescore::_setteamscore( var_2, 1 );
+        maps\mp\gametypes\_gamescore::updateteamscore( var_2 );
         level.finalkillcam_winner = var_2;
         thread maps\mp\gametypes\_gamelogic::endgame( var_2, game["end_reason"]["bomb_defused"] );
         return;

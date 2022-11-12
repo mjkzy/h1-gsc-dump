@@ -45,6 +45,7 @@ teamflashbangimmune()
     wait 5;
     self.teamflashbangimmunity = undefined;
 }
+
 #using_animtree("generic_human");
 
 dodoorgrenadethrow( var_0 )

@@ -8,6 +8,7 @@ main()
     else
         jump_through_window_human();
 }
+
 #using_animtree("generic_human");
 
 jump_through_window_human()

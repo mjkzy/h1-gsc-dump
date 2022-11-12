@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("vehicles");
 
 main( var_0, var_1, var_2 )
@@ -49,6 +50,7 @@ set_vehicle_anims( var_0 )
     var_0[1].vehicle_getinanim = %door_pickup_passenger_climb_in;
     return var_0;
 }
+
 #using_animtree("generic_human");
 
 setanims()

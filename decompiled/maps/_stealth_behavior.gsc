@@ -1621,6 +1621,7 @@ friendly_stance_handler_return_ai_sight( var_0, var_1 )
     else
         return self._stealth.behavior.stance_handler[var_5]["neutral"][var_1];
 }
+
 #using_animtree("generic_human");
 
 friendly_stance_handler_init()

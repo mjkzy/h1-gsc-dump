@@ -39,10 +39,10 @@ onnormaldeath( var_0, var_1, var_2 )
         var_1 thread maps\mp\_events::defendobjectiveevent( var_0, var_2 );
 
         if ( var_0.isplanting )
-            var_1 maps\mp\gametypes\_misions::processchallenge( "ch_" + level.gametype + "_interrupt" );
+            var_1 maps\mp\gametypes\_missions::processchallenge( "ch_" + level.gametype + "_interrupt" );
 
         if ( var_0.isdefusing )
-            var_1 maps\mp\gametypes\_misions::processchallenge( "ch_" + level.gametype + "_protector" );
+            var_1 maps\mp\gametypes\_missions::processchallenge( "ch_" + level.gametype + "_protector" );
     }
 
     if ( waseliminatedbyenemy( var_0, var_1 ) )
@@ -519,7 +519,7 @@ sd_endgame( var_0, var_1 )
             maps\mp\gametypes\_damage::erasefinalkillcam();
     }
 
-    maps\mp\gametypes\_gamescores::giveteamscoreforobjective( var_0, 1 );
+    maps\mp\gametypes\_gamescore::giveteamscoreforobjective( var_0, 1 );
     thread maps\mp\gametypes\_gamelogic::endgame( var_0, var_1 );
 }
 
@@ -595,7 +595,7 @@ givelastonteamwarning()
     level thread maps\mp\_utility::teamplayercardsplash( "callout_lastteammemberalive", self, self.pers["team"] );
     level thread maps\mp\_utility::teamplayercardsplash( "callout_lastenemyalive", self, var_0 );
     level notify( "last_alive", self );
-    maps\mp\gametypes\_misions::lastmansd();
+    maps\mp\gametypes\_missions::lastmansd();
 }
 
 onreset()

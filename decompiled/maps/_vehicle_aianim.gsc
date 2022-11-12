@@ -1176,6 +1176,7 @@ setanimrestart_once( var_0, var_1 )
     if ( var_1 && ( !isdefined( self.dont_clear_vehicle_anim ) || !self.dont_clear_vehicle_anim ) )
         var_3 clearanim( var_0, 0 );
 }
+
 #using_animtree("generic_human");
 
 getout_rigspawn( var_0, var_1, var_2 )

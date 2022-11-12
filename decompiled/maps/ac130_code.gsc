@@ -567,6 +567,7 @@ do_hijack_others( var_0 )
 {
     var_0 notify( "others_hijack_start" );
 }
+
 #using_animtree("vehicles");
 
 do_hijack_vehicle_anim( var_0 )

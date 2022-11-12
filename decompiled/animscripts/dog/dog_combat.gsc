@@ -59,6 +59,7 @@ killplayer()
     setdvar( "ui_deadquote", "" );
     thread dog_death_hud( self.meleeingplayer, var_1 );
 }
+
 #using_animtree("dog");
 
 knock_down_player_coop( var_0, var_1 )
@@ -1034,6 +1035,7 @@ set_melee_early( var_0 )
     if ( level.gameskill > 1 && !isdefined( self.dogmeleeearly ) )
         self.dogmeleeearly = 1;
 }
+
 #using_animtree("generic_human");
 
 meleestrugglevsdog()
@@ -1157,6 +1159,7 @@ meleestrugglevsdog_end()
     setnextdogattackallowtime( 1000 );
     self notify( "end_melee_all" );
 }
+
 #using_animtree("player");
 
 playerview_spawn( var_0 )

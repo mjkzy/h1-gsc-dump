@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("generic_human");
 
 main()
@@ -138,6 +139,7 @@ main()
     setup_exploder_anims();
     script_models();
 }
+
 #using_animtree("ac");
 
 saw_ac_unit()
@@ -145,6 +147,7 @@ saw_ac_unit()
     level.scr_anim["ac"]["setup"] = %bog_a_ac_falldown;
     level.scr_animtree["ac"] = #animtree;
 }
+
 #using_animtree("animated_props");
 
 animated_model_setup()
@@ -176,6 +179,7 @@ animated_model_setup()
     level.anim_prop_models["h1_foliage_backlot_palm_tree_03_hero"]["strong"] = %h1_foliage_backlot_palm_tree_03_hero_sway;
     level.anim_prop_models["h1_foliage_backlot_palm_tree_03_hero"]["heli"] = %h1_foliage_backlot_palm_tree_03_hero_heliwash;
 }
+
 #using_animtree("door");
 
 door_setup()
@@ -191,6 +195,7 @@ setup_exploder_anims()
     level.exploder_animtrees = [];
     level.exploder_animtrees[0] = "exploder_script_model";
 }
+
 #using_animtree("script_model");
 
 script_models()

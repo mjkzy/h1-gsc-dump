@@ -181,6 +181,7 @@ mainloopstart()
 
     return gettime() - var_0 > 0;
 }
+
 #using_animtree("generic_human");
 
 hasonekneeup()

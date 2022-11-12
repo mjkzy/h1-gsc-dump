@@ -169,7 +169,7 @@ default_ontimelimit()
     }
     else
     {
-        var_0 = maps\mp\gametypes\_gamescores::gethighestscoringplayer();
+        var_0 = maps\mp\gametypes\_gamescore::gethighestscoringplayer();
 
         if ( isdefined( var_0 ) )
             logstring( "time limit, win: " + var_0.name );
@@ -216,7 +216,7 @@ forceend()
     }
     else
     {
-        var_0 = maps\mp\gametypes\_gamescores::gethighestscoringplayer();
+        var_0 = maps\mp\gametypes\_gamescore::gethighestscoringplayer();
 
         if ( isdefined( var_0 ) )
             logstring( "host ended game, win: " + var_0.name );
@@ -244,7 +244,7 @@ onscorelimit()
 
     if ( level.multiteambased )
     {
-        var_1 = maps\mp\gametypes\_gamescores::getwinningteam();
+        var_1 = maps\mp\gametypes\_gamescore::getwinningteam();
 
         if ( var_1 == "none" )
             var_1 = "tie";
@@ -268,7 +268,7 @@ onscorelimit()
     }
     else
     {
-        var_1 = maps\mp\gametypes\_gamescores::gethighestscoringplayer();
+        var_1 = maps\mp\gametypes\_gamescore::gethighestscoringplayer();
 
         if ( isdefined( var_1 ) )
             logstring( "scorelimit, win: " + var_1.name );
@@ -592,16 +592,16 @@ updatewinstats( var_0 )
 
     var_0 maps\mp\gametypes\_persistence::statsetchild( "round", "win", 1 );
     var_0 maps\mp\gametypes\_persistence::statsetchild( "round", "loss", 0 );
-    var_0 maps\mp\gametypes\_misions::processchallenge( "ch_" + level.gametype + "_wins" );
+    var_0 maps\mp\gametypes\_missions::processchallenge( "ch_" + level.gametype + "_wins" );
     var_0.combatrecordwin = 1;
     var_2 = maps\mp\_utility::getmapname();
 
     if ( var_2 == "mp_crash_snow" )
-        var_0 maps\mp\gametypes\_misions::processchallenge( "ch_wc_wins" );
+        var_0 maps\mp\gametypes\_missions::processchallenge( "ch_wc_wins" );
     else if ( var_2 == "mp_farm_spring" )
-        var_0 maps\mp\gametypes\_misions::processchallenge( "ch_stpatty_wins" );
+        var_0 maps\mp\gametypes\_missions::processchallenge( "ch_stpatty_wins" );
     else if ( var_2 == "mp_bog_summer" )
-        var_0 maps\mp\gametypes\_misions::processchallenge( "ch_summer_wins" );
+        var_0 maps\mp\gametypes\_missions::processchallenge( "ch_summer_wins" );
 
     if ( level.players.size > 5 )
     {
@@ -611,7 +611,7 @@ updatewinstats( var_0 )
         {
             case "war":
                 if ( game["teamScores"][var_0.team] >= game["teamScores"][maps\mp\_utility::getotherteam( var_0.team )] + 20 )
-                    var_0 maps\mp\gametypes\_misions::processchallenge( "ch_war_crushing" );
+                    var_0 maps\mp\gametypes\_missions::processchallenge( "ch_war_crushing" );
 
                 break;
             case "hp":
@@ -670,7 +670,7 @@ updatewinstats( var_0 )
                         }
 
                         if ( var_4 >= 7 )
-                            var_0 maps\mp\gametypes\_misions::processchallenge( "ch_dm_crushing" );
+                            var_0 maps\mp\gametypes\_missions::processchallenge( "ch_dm_crushing" );
                     }
                 }
 
@@ -713,7 +713,7 @@ superstarchallenge( var_0 )
     }
 
     if ( var_0.kills >= var_1 && var_0.deaths <= var_2 && var_0.kills > 0 && !isai( var_0 ) )
-        var_0 maps\mp\gametypes\_misions::processchallenge( "ch_superstar" );
+        var_0 maps\mp\gametypes\_missions::processchallenge( "ch_superstar" );
 }
 
 checkgameendchallenges()
@@ -735,13 +735,13 @@ checkgameendchallenges()
                 switch ( var_1.label )
                 {
                     case "_a":
-                        var_4 maps\mp\gametypes\_misions::processchallenge( "ch_dom_alphalock" );
+                        var_4 maps\mp\gametypes\_missions::processchallenge( "ch_dom_alphalock" );
                         continue;
                     case "_b":
-                        var_4 maps\mp\gametypes\_misions::processchallenge( "ch_dom_bravolock" );
+                        var_4 maps\mp\gametypes\_missions::processchallenge( "ch_dom_bravolock" );
                         continue;
                     case "_c":
-                        var_4 maps\mp\gametypes\_misions::processchallenge( "ch_dom_charlielock" );
+                        var_4 maps\mp\gametypes\_missions::processchallenge( "ch_dom_charlielock" );
                         continue;
                 }
             }
@@ -811,7 +811,7 @@ updatewinlossstats( var_0 )
         var_4[0] = var_0;
 
         if ( level.players.size > 5 )
-            var_4 = maps\mp\gametypes\_gamescores::gethighestscoringplayersarray( 3 );
+            var_4 = maps\mp\gametypes\_gamescore::gethighestscoringplayersarray( 3 );
 
         foreach ( var_2 in level.players )
         {
@@ -865,14 +865,14 @@ updatewinlossstats( var_0 )
 
     if ( level.players.size > 5 )
     {
-        var_4 = maps\mp\gametypes\_gamescores::gethighestscoringplayersarray( 3 );
+        var_4 = maps\mp\gametypes\_gamescore::gethighestscoringplayersarray( 3 );
 
         for ( var_9 = 0; var_9 < var_4.size; var_9++ )
         {
             if ( var_9 == 0 )
-                var_4[var_9] maps\mp\gametypes\_misions::processchallenge( "ch_mvp" );
+                var_4[var_9] maps\mp\gametypes\_missions::processchallenge( "ch_mvp" );
 
-            var_4[var_9] maps\mp\gametypes\_misions::processchallenge( "ch_superior" );
+            var_4[var_9] maps\mp\gametypes\_missions::processchallenge( "ch_superior" );
         }
     }
 }
@@ -2020,17 +2020,17 @@ callback_startgametype()
 
     if ( level.teambased )
     {
-        maps\mp\gametypes\_gamescores::updateteamscore( "axis" );
-        maps\mp\gametypes\_gamescores::updateteamscore( "allies" );
+        maps\mp\gametypes\_gamescore::updateteamscore( "axis" );
+        maps\mp\gametypes\_gamescore::updateteamscore( "allies" );
 
         if ( level.multiteambased )
         {
             for ( var_3 = 0; var_3 < level.teamnamelist.size; var_3++ )
-                maps\mp\gametypes\_gamescores::updateteamscore( level.teamnamelist[var_3] );
+                maps\mp\gametypes\_gamescore::updateteamscore( level.teamnamelist[var_3] );
         }
     }
     else
-        thread maps\mp\gametypes\_gamescores::initialdmscoreupdate();
+        thread maps\mp\gametypes\_gamescore::initialdmscoreupdate();
 
     thread updateuiscorelimit();
     level notify( "update_scorelimit" );
@@ -2241,7 +2241,7 @@ startgame()
     updatetimerpausedness();
     thread timelimitclock();
     thread graceperiod();
-    thread maps\mp\gametypes\_misions::roundbegin();
+    thread maps\mp\gametypes\_missions::roundbegin();
     thread maps\mp\_matchdata::matchstarted();
     var_0 = isdefined( level.ishorde ) && level.ishorde;
     var_1 = isdefined( level.iszombiegame ) && level.iszombiegame;
@@ -2838,13 +2838,13 @@ endgame( var_0, var_1, var_2 )
         if ( ( var_0 == "axis" || var_0 == "allies" ) && level.gametype != "ctf" )
             game["roundsWon"][var_0]++;
 
-        maps\mp\gametypes\_gamescores::updateteamscore( "axis" );
-        maps\mp\gametypes\_gamescores::updateteamscore( "allies" );
+        maps\mp\gametypes\_gamescore::updateteamscore( "axis" );
+        maps\mp\gametypes\_gamescore::updateteamscore( "allies" );
     }
     else if ( isdefined( var_0 ) && isplayer( var_0 ) )
         game["roundsWon"][var_0.guid]++;
 
-    maps\mp\gametypes\_gamescores::updateplacement();
+    maps\mp\gametypes\_gamescore::updateplacement();
     rankedmatchupdates( var_0 );
     handlekillstreaksonroundswitch( 1 );
 
@@ -2900,7 +2900,7 @@ endgame( var_0, var_1, var_2 )
         setclientmatchdatadef( game["clientMatchDataDef"] );
     }
 
-    maps\mp\gametypes\_misions::roundend( var_0 );
+    maps\mp\gametypes\_missions::roundend( var_0 );
     var_0 = getgamewinner( var_0, 1 );
 
     if ( level.teambased )

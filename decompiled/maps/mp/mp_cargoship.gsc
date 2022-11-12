@@ -84,6 +84,7 @@ animated_boats_precache()
     var_0 = getentarray( "animated_boat", "targetname" );
     common_scripts\utility::array_thread( var_0, ::animated_boats );
 }
+
 #using_animtree("animated_props_dlc");
 
 animated_boats()

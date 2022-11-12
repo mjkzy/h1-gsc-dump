@@ -549,7 +549,7 @@ awardhqpoints( var_0 )
 
     while ( !level.gameended )
     {
-        maps\mp\gametypes\_gamescores::giveteamscoreforobjective( var_0, var_4 );
+        maps\mp\gametypes\_gamescore::giveteamscoreforobjective( var_0, var_4 );
         var_6++;
         wait(var_5);
         maps\mp\gametypes\_hostmigration::waittillhostmigrationdone();

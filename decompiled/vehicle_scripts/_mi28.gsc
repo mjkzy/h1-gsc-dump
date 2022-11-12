@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("vehicles");
 
 main( var_0, var_1, var_2 )
@@ -76,6 +77,7 @@ monitor_death_stop_sounds()
     self waittill( "death" );
     vehicle_scripts\_mi28_aud::snd_stop_mi28( 1.0 );
 }
+
 #using_animtree("generic_human");
 
 setanims()

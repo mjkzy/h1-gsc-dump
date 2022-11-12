@@ -3059,6 +3059,7 @@ addnotetrack_set_omnvar( var_0, var_1, var_2, var_3, var_4 )
     var_6["value"] = var_3;
     level.scr_notetrack[var_0][var_4][var_1][var_5] = var_6;
 }
+
 #using_animtree("generic_human");
 
 disabledefaultfacialanims( var_0 )

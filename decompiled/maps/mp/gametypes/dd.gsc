@@ -355,10 +355,10 @@ onnormaldeath( var_0, var_1, var_2 )
         var_1 thread maps\mp\_events::defendobjectiveevent( var_0, var_2 );
 
         if ( var_0.isplanting )
-            var_1 maps\mp\gametypes\_misions::processchallenge( "ch_" + level.gametype + "_interrupt" );
+            var_1 maps\mp\gametypes\_missions::processchallenge( "ch_" + level.gametype + "_interrupt" );
 
         if ( var_0.isdefusing )
-            var_1 maps\mp\gametypes\_misions::processchallenge( "ch_" + level.gametype + "_protector" );
+            var_1 maps\mp\gametypes\_missions::processchallenge( "ch_" + level.gametype + "_protector" );
     }
 }
 

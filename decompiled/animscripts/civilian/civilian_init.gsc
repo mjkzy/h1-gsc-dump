@@ -6,6 +6,7 @@ main()
     animscripts\init::main();
     civilian_init();
 }
+
 #using_animtree("generic_human");
 
 civilian_init()

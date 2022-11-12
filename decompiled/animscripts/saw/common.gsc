@@ -192,6 +192,7 @@ preplacedpostscriptfunc( var_0 )
 {
     animscripts\shared::placeweaponon( self.weapon, "right" );
 }
+
 #using_animtree("generic_human");
 
 doshoot( var_0 )
@@ -220,6 +221,7 @@ turretdoshoot( var_0 )
         wait 0.1;
     }
 }
+
 #using_animtree("mg42");
 
 turretdoshootanims()

@@ -163,6 +163,7 @@ waittill_trigger_array( var_0 )
 
     var_0[0] waittill( "trigger" );
 }
+
 #using_animtree("zpu");
 
 load_zpu_anims()
@@ -173,6 +174,7 @@ load_zpu_anims()
     maps\_anim::addnotetrack_customfunction( "zpu_gun", "fire_1", ::zpu_shoot1 );
     maps\_anim::addnotetrack_customfunction( "zpu_gun", "fire_2", ::zpu_shoot2 );
 }
+
 #using_animtree("generic_human");
 
 load_zpugunner_anims()

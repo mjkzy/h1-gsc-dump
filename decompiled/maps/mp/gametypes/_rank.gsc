@@ -27,7 +27,7 @@ init()
 
     level.maxxp = int( level.ranktable[level.maxrank][7] );
     level.maxxponext = int( level.ranktable[level.maxrank][3] );
-    maps\mp\gametypes\_misions::buildchallegeinfo();
+    maps\mp\gametypes\_missions::buildchallegeinfo();
     level thread onplayerconnect();
 }
 
@@ -111,7 +111,7 @@ onplayerconnect()
         if ( getdvar( "virtualLobbyActive" ) != "1" )
         {
             var_0 setclientdvar( "ui_opensummary", 0 );
-            var_0 thread maps\mp\gametypes\_misions::updatechallenges();
+            var_0 thread maps\mp\gametypes\_missions::updatechallenges();
         }
 
         var_0 thread onplayerspawned();
@@ -257,7 +257,7 @@ awardgameevent( var_0, var_1, var_2, var_3, var_4 )
     var_1 giverankxp( var_0, undefined, var_2, var_4, undefined, var_3 );
 
     if ( allowplayerscore( var_0 ) )
-        var_1 maps\mp\gametypes\_gamescores::giveplayerscore( var_0, var_1, var_3 );
+        var_1 maps\mp\gametypes\_gamescore::giveplayerscore( var_0, var_1, var_3 );
 }
 
 giverankxp( var_0, var_1, var_2, var_3, var_4, var_5 )
@@ -346,7 +346,7 @@ giverankxp( var_0, var_1, var_2, var_3, var_4, var_5 )
 
     syncxpstat();
     syncxpomnvars();
-    var_10 = maps\mp\gametypes\_misions::isweaponchallenge( var_4 );
+    var_10 = maps\mp\gametypes\_missions::isweaponchallenge( var_4 );
 
     if ( var_10 )
         var_2 = self getcurrentweapon();
@@ -412,7 +412,7 @@ updaterankannouncehud()
     if ( ( var_1 + 1 ) % 50 == 0 )
     {
         var_3 = var_1 + 1;
-        maps\mp\gametypes\_misions::processchallenge( "ch_" + var_3 + "_paragon" );
+        maps\mp\gametypes\_missions::processchallenge( "ch_" + var_3 + "_paragon" );
     }
 
     thread maps\mp\gametypes\_hud_message::rankupsplashnotify( "ranked_up", var_1, var_2 );

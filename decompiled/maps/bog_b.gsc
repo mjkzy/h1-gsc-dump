@@ -560,6 +560,7 @@ rpg_tank_shooter()
     if ( isdefined( self ) )
         self clearenemy();
 }
+
 #using_animtree("generic_human");
 
 roof_guy_fall_on_death()

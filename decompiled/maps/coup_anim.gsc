@@ -14,6 +14,7 @@ main()
     anim_dogs();
     maps\_props::add_smoking_notetracks( "human" );
 }
+
 #using_animtree("player");
 
 anim_playerview()
@@ -37,6 +38,7 @@ anim_playerview()
     maps\_anim::addnotetrack_customfunction( "playerview", "pulled_from_car", ::playerpulledfromcar, "carexit" );
     maps\_anim::addnotetrack_customfunction( "playerview", "kick", ::playerkicked, "carexit" );
 }
+
 #using_animtree("generic_human");
 
 anim_human()
@@ -260,6 +262,7 @@ play_soz_ringtone( var_0, var_1 )
 {
     level.car.passenger.phone thread maps\_utility::play_sound_on_entity( var_1 );
 }
+
 #using_animtree("vehicles");
 
 anim_vehicles()
@@ -336,6 +339,7 @@ car_event( var_0, var_1 )
             break;
     }
 }
+
 #using_animtree("door");
 
 anim_door()
@@ -344,6 +348,7 @@ anim_door()
     level.scr_anim["door"]["doorkick"] = %shotgunbreach_door_immediate;
     level.scr_model["door"] = "com_door_01_handleright";
 }
+
 #using_animtree("trash_can");
 
 anim_trashcan()
@@ -351,6 +356,7 @@ anim_trashcan()
     level.scr_animtree["trashcan_rig"] = #animtree;
     level.scr_model["trashcan_rig"] = "prop_rig";
 }
+
 #using_animtree("script_model");
 
 anim_dumpster()
@@ -358,6 +364,7 @@ anim_dumpster()
     level.scr_animtree["dumpster"] = #animtree;
     level.scr_anim["dumpster"]["dumpster_open"] = %coup_dumpster_lid;
 }
+
 #using_animtree("animated_props");
 
 anim_props()
@@ -398,6 +405,7 @@ anim_props()
     level.scr_anim["rope_hands"]["car_idle_fullbody_ropehands"] = %h1_coup_president_rope;
     level.scr_anim["rope_hands"]["carexit_ropehands"] = %h1_coup_president_rope_ending;
 }
+
 #using_animtree("animals");
 
 anim_chickens()
@@ -407,6 +415,7 @@ anim_chickens()
     level.scr_anim["chicken"]["walk_basic"] = %chicken_walk_basic;
     level.scr_anim["chicken"]["cage_freakout"] = %chicken_cage_freakout;
 }
+
 #using_animtree("dog");
 
 anim_dogs()

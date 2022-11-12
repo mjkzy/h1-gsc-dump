@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("generic_human");
 
 anim_main()
@@ -87,6 +88,7 @@ guy_snipe( var_0, var_1 )
 
     thread maps\_vehicle_aianim::guy_idle( var_0, var_1 );
 }
+
 #using_animtree("animated_props");
 
 animated_model_setup()
@@ -112,6 +114,7 @@ animated_model_setup()
     level.anim_prop_models["foliage_afr_tree_fanpalm_01a_v2"]["still"] = %afr_tree_fanpalm_still;
     level.anim_prop_models["foliage_afr_tree_fanpalm_01a_v2"]["strong"] = %afr_tree_fanpalm_sway;
 }
+
 #using_animtree("vehicles");
 
 anim_blackhawk()
@@ -151,6 +154,7 @@ player_heli_ropeanimoverride_idle( var_0, var_1, var_2 )
     for (;;)
         maps\_vehicle_aianim::animontag( var_0, var_1, var_2 );
 }
+
 #using_animtree("animated_props");
 
 anim_props()

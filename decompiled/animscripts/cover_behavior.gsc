@@ -109,6 +109,7 @@ main( var_0 )
             return;
     }
 }
+
 #using_animtree("generic_human");
 
 end_script( var_0 )

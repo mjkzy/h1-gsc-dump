@@ -607,6 +607,7 @@ intro_sneakup_tableguys()
     self.goalradius = level.macmillan_exposed_cqb_radius;
     level maps\_utility::function_stack( maps\_utility::radio_dialogue, "scoutsniper_mcm_donteven" );
 }
+
 #using_animtree("generic_human");
 
 stand2run180r()
@@ -4814,6 +4815,7 @@ monitor_macmellon()
         level waittill( "melonhead_mode_updated" );
     }
 }
+
 #using_animtree("vehicles");
 
 graveyard_hind_detect_damage()

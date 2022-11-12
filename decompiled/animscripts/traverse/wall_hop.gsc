@@ -8,6 +8,7 @@ main()
     else
         wall_hop_human();
 }
+
 #using_animtree("generic_human");
 
 wall_hop_human()

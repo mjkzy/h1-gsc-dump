@@ -19,6 +19,7 @@ init_local()
 {
 
 }
+
 #using_animtree("vehicles");
 
 set_vehicle_anims( var_0 )
@@ -33,6 +34,7 @@ set_vehicle_anims( var_0 )
     var_0[3].vehicle_getinanim = %uaz_passenger2_enter_from_huntedrun_door;
     return var_0;
 }
+
 #using_animtree("generic_human");
 
 setanims()

@@ -135,6 +135,7 @@ dialogue()
     level.scr_radio["cargoship_grg_targetneutralized"] = "cargoship_grg_targetneutralized";
     level.scr_radio["cargoship_grg_tangodown"] = "cargoship_grg_tangodown";
 }
+
 #using_animtree("generic_human");
 
 anim_gen_human()
@@ -312,6 +313,7 @@ anim_gen_human()
     level.scr_anim["escape"]["price_escape_4"] = %h1_cargoship_priceescape04;
     level.scr_anim["escape"]["price_escape_5"] = %h1_cargoship_priceescape05;
 }
+
 #using_animtree("player");
 
 anim_player()
@@ -338,6 +340,7 @@ anim_player()
     maps\_anim::addnotetrack_animsound( "fastrope_intro", "opening", "scn_cgo_intro_player_fastrope", "scn_cgo_intro_player_fastrope" );
     maps\_anim::addnotetrack_animsound( "player_viewbody", "player_explosion", "scn_cargo_explosion_foley", "scn_cargo_explosion_foley" );
 }
+
 #using_animtree("vehicles");
 
 anim_seaknight()
@@ -354,6 +357,7 @@ anim_blackhawk()
     level.scr_animtree["blackhawk"] = #animtree;
     level.scr_anim["blackhawk"]["interiorwires"][0] = %h1_blackhawk_interiorwires;
 }
+
 #using_animtree("door");
 
 anim_door()
@@ -363,6 +367,7 @@ anim_door()
     level.scr_model["door"] = "cs_cargoship_door_PUSH";
     precachemodel( level.scr_model["door"] );
 }
+
 #using_animtree("chair");
 
 anim_chair()
@@ -371,6 +376,7 @@ anim_chair()
     level.scr_anim["chair"]["fall"] = %cargoship_stunned_coffee_death_chair;
     level.scr_anim["chair"]["end"][0] = %cargoship_stunned_coffee_death_chair_endidle;
 }
+
 #using_animtree("script_model");
 
 anim_sea()

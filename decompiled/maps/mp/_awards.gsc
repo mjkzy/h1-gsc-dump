@@ -38,7 +38,7 @@ checkforlevelprogressionchallenges()
             var_5 = self.challengedata[var_4];
 
             if ( isdefined( var_5 ) && var_5 == 1 )
-                maps\mp\gametypes\_misions::processchallenge( var_4 );
+                maps\mp\gametypes\_missions::processchallenge( var_4 );
         }
     }
 }

@@ -176,12 +176,14 @@ assign_drone_tree()
             assign_generic_human_tree();
     }
 }
+
 #using_animtree("generic_human");
 
 assign_generic_human_tree()
 {
     self useanimtree( #animtree );
 }
+
 #using_animtree("animals");
 
 assign_animals_tree()

@@ -5,6 +5,7 @@ armed( var_0, var_1 )
 {
     return issubstr( var_0, "armed" ) || issubstr( var_1, "armed" );
 }
+
 #using_animtree("vehicles");
 
 main( var_0, var_1, var_2 )
@@ -117,6 +118,7 @@ set_vehicle_anims( var_0 )
 {
     return var_0;
 }
+
 #using_animtree("generic_human");
 
 setanims()

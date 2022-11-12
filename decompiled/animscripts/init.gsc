@@ -45,6 +45,7 @@ everusessecondaryweapon()
 
     return 0;
 }
+
 #using_animtree("generic_human");
 
 main()

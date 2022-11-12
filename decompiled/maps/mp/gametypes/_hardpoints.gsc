@@ -743,7 +743,7 @@ killstreakearned( var_0 )
     else if ( isdefined( self.firstkillstreakearned ) && var_0 == "helicopter_mp" )
     {
         if ( gettime() - self.firstkillstreakearned < 20000 )
-            thread maps\mp\gametypes\_misions::genericchallenge( "wargasm" );
+            thread maps\mp\gametypes\_missions::genericchallenge( "wargasm" );
     }
 }
 
@@ -830,7 +830,7 @@ hardpointitemwaiter()
                 if ( triggerhardpoint( var_1 ) )
                 {
                     logstring( "hardpoint: " + var_1 );
-                    thread maps\mp\gametypes\_misions::usehardpoint( self.pers["hardPointItem"] );
+                    thread maps\mp\gametypes\_missions::usehardpoint( self.pers["hardPointItem"] );
                     self thread [[ level.onxpevent ]]( "hardpoint" );
                     thread playertakehardpointweapon( var_0, var_1 );
                     self setactionslot( 4, "" );

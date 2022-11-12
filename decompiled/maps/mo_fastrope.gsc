@@ -210,6 +210,7 @@ fastrope_wait_que( var_0 )
     if ( var_0.ai.side == "left" )
         wait 0.5;
 }
+
 #using_animtree("generic_human");
 
 fastrope_ropethink( var_0 )
@@ -690,6 +691,7 @@ fastrope_player_unload_lock()
         level.player.ropecamera = undefined;
     }
 }
+
 #using_animtree("fastrope");
 
 fastrope_player_attach()
@@ -732,6 +734,7 @@ fastrope_player_quake()
         earthquake( 0.2, 0.1, self.origin, 256 );
     }
 }
+
 #using_animtree("vehicles");
 
 fastrope_heli_fly()
@@ -1143,6 +1146,7 @@ fastrope_ropeanimload( var_0, var_1, var_2, var_3 )
     level.scr_anim[self.targetname]["ropeidle" + var_2][0] = var_0;
     level.scr_anim[self.targetname]["ropedrop" + var_2] = var_1;
 }
+
 #using_animtree("generic_human");
 
 fastrope_animload( var_0 )
@@ -1300,6 +1304,7 @@ fastrope_getside( var_0, var_1 )
 
     return var_2[var_1];
 }
+
 #using_animtree("fastrope");
 
 fastrope_animload_player( var_0 )
@@ -1315,6 +1320,7 @@ fastrope_animload_player( var_0 )
             break;
     }
 }
+
 #using_animtree("vehicles");
 
 fastrope_animload_heli( var_0 )

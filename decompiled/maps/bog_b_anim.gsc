@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("generic_human");
 
 main()
@@ -55,6 +56,7 @@ main()
     tank_explode_anims();
     dialog();
 }
+
 #using_animtree("script_model");
 
 dumpster_anims()
@@ -65,6 +67,7 @@ dumpster_anims()
     level.scr_anim["dumpster"]["dumpster_idle2"][0] = %bog_b_dumpster_guy1_push_idle_dumpster;
     level.scr_anim["dumpster"]["dumpster_push"] = %bog_b_dumpster_guy1_push_dumpster;
 }
+
 #using_animtree("vehicles");
 
 tank_crush_anims()
@@ -146,6 +149,7 @@ dialog()
     level.scr_sound["saknight"]["getonboard"] = "bog_mhp_getonboard";
     level.scr_sound["price"]["fixonposition"] = "bog_pri_fixonposition";
 }
+
 #using_animtree("animated_props");
 
 animated_model_setup()
@@ -183,6 +187,7 @@ setup_exploder_anims()
     level.exploder_animtrees = [];
     level.exploder_animtrees[0] = "exploder_script_model";
 }
+
 #using_animtree("script_model");
 
 exploder_script_model_anims()
@@ -205,6 +210,7 @@ exploder_script_model_anims()
     level.scr_anim["exploder_script_model"]["h1_bogb_wallshot_c3_anim"] = %h1_bogb_wallshot_c3_anim;
     level.scr_anim["exploder_script_model"]["h1_bogb_wallshot_c4_anim"] = %h1_bogb_wallshot_c4_anim;
 }
+
 #using_animtree("vehicles");
 
 shoot_m1a1_anim()

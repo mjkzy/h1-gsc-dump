@@ -333,6 +333,7 @@ initflags()
     common_scripts\utility::flag_init( "final_sun_direction" );
     common_scripts\utility::flag_init( "deck_light_shadow" );
 }
+
 #using_animtree("generic_human");
 
 initial_setup()
@@ -491,6 +492,7 @@ intro_movie_hack()
     level waittill( "intro_movie_done" );
     level.heroes5["seat6"].name = "Pvt. Griffen";
 }
+
 #using_animtree("vehicles");
 
 initial_setup_vehicle_override()
@@ -777,6 +779,7 @@ bridge_standoff_damage()
 
     common_scripts\utility::flag_set( "bridgefight" );
 }
+
 #using_animtree("chair");
 
 bridge_standoff_chair( var_0 )
@@ -959,6 +962,7 @@ quarters_sleeping_player()
     wait 1;
     common_scripts\utility::flag_set( "deck" );
 }
+
 #using_animtree("generic_human");
 
 quarters_sleeping_death( var_0 )
@@ -3872,6 +3876,7 @@ escape_heroes_rescuing_order()
     wait 0.1;
     common_scripts\utility::flag_set( "escape_price_start_rescue" );
 }
+
 #using_animtree("vehicles");
 
 escape_seaknight()

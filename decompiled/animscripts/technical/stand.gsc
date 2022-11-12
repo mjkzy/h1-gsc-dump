@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("generic_human");
 
 main()
@@ -22,6 +23,7 @@ technical_pain()
     self setflaggedanimknoballrestart( "painanim", %technical_turret_pain, %body, 1, 0.1, 1 );
     animscripts\shared::donotetracks( "painanim" );
 }
+
 #using_animtree("mg42");
 
 turretinit( var_0 )

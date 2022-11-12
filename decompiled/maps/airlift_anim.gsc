@@ -7,6 +7,7 @@ main()
     dialogue();
     setup_exploder_anims();
 }
+
 #using_animtree("generic_human");
 
 anims()
@@ -192,6 +193,7 @@ dialogue()
     scaffold_collapse_anims();
     bmp_airlift_anims();
 }
+
 #using_animtree("player");
 
 player_anims()
@@ -213,6 +215,7 @@ player_anims()
     level.scr_anim["player_viewhands"]["turret_idle_anim"] = [ %h1_ch46_turret_player_idle ];
     level.scr_anim["player_viewhands"]["turret_fire_anim"] = %h1_ch46_turret_player_fire;
 }
+
 #using_animtree("vehicles");
 
 tank_crush_anims()
@@ -285,6 +288,7 @@ seaknight_close_doors()
     self playsound( "seaknight_door_close" );
     self setanimknobrestart( %ch46_doors_close, 1, 0, 1 );
 }
+
 #using_animtree("animated_props");
 
 statue_anims()
@@ -311,6 +315,7 @@ animated_palm_trees_setup()
     level.anim_prop_models["h1_mwr_foliage_tree_palm_tall_2_heliwash"]["strong"] = %h1_foliage_backlot_palm_tree_02_hero_sway;
     level.anim_prop_models["h1_mwr_foliage_tree_palm_tall_2_heliwash"]["heli"] = %h1_foliage_backlot_palm_tree_02_hero_heliwash;
 }
+
 #using_animtree("script_model");
 
 statue_shattering_anim()
@@ -318,6 +323,7 @@ statue_shattering_anim()
     level.scr_animtree["exploder_script_model"] = #animtree;
     level.scr_anim["exploder_script_model"]["h1_statue_shattering_anim"] = %h1_statue_shattering_anim;
 }
+
 #using_animtree("animated_props");
 
 crane_anims()
@@ -326,6 +332,7 @@ crane_anims()
     level.scr_anim["crane"]["crane_idle"][0] = %h1_dam_chinese_crane_idle;
     level.scr_anim["crane"]["crane_fall"] = %h1_dam_chinese_crane_fall;
 }
+
 #using_animtree("script_model");
 
 scaffold_collapse_anims()

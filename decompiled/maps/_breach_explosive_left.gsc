@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("generic_human");
 
 main()
@@ -51,6 +52,7 @@ audio_stop_mix( var_0 )
 {
     soundscripts\_audio_mix_manager::mm_clear_submix( "explosive_breach_left_mix" );
 }
+
 #using_animtree("door");
 
 setup_door_animation()

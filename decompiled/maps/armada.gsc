@@ -482,6 +482,7 @@ news_room_clear()
     var_2 = getent( "move_up_trigger", "targetname" );
     var_2 notify( "trigger" );
 }
+
 #using_animtree("generic_human");
 
 ride_in_sniper_think()
@@ -915,6 +916,7 @@ draw_hud_on_death()
     level waittill( "missionfailed" );
     setsaveddvar( "hud_drawhud", "1" );
 }
+
 #using_animtree("player");
 
 loadplayer( var_0, var_1 )
@@ -1748,6 +1750,7 @@ get_tv_breacher()
     level.tv_breacher = maps\_utility::get_closest_ai_exclude( level.player.origin, "allies", var_4 );
     level.tv_breacher thread maps\_utility::magic_bullet_shield();
 }
+
 #using_animtree("generic_human");
 
 tv_breach()

@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("generic_human");
 
 main()
@@ -344,6 +345,7 @@ setup_exploder_anims()
     level.exploder_animtrees = [];
     level.exploder_animtrees[0] = "exploder_script_model";
 }
+
 #using_animtree("player");
 
 player_rappel()
@@ -383,6 +385,7 @@ player_rappel()
         level.scr_anim["wounded_carry"]["wounded_seaknight_putdown"] = %h1_sniperescape_player_putdown;
     }
 }
+
 #using_animtree("dog");
 
 dog_anims()
@@ -394,6 +397,7 @@ dog_anims()
     level.scr_sound["generic"]["dog_food_w_sound"][0] = "anml_dog_eating_body";
     maps\_anim::addnotetrack_sound( "dog", "fence", "fence_attack", "fence_smash" );
 }
+
 #using_animtree("vehicles");
 
 seaknight_anims()
@@ -410,6 +414,7 @@ seaknight_anims()
     level.scr_anim["mi28"]["idle"][0] = %sniper_escape_crash_mi28_idle;
     level.scr_anim["mi28"]["crash"] = %sniper_escape_crash_mi28_crash;
 }
+
 #using_animtree("script_model");
 
 script_models()
@@ -488,6 +493,7 @@ script_models()
     level.scr_anim["generic"]["dead_gunner"] = %sniper_escape_crash_mi28_copilot;
     level.scr_animtree["dead_heli_pilot"] = #animtree;
 }
+
 #using_animtree("generic_human");
 
 uaz_anims()
@@ -506,6 +512,7 @@ uaz_anims()
     var_0[3].panic = %technical_passenger_duck;
     return var_0;
 }
+
 #using_animtree("vehicles");
 
 uaz_vehicle_anims( var_0 )

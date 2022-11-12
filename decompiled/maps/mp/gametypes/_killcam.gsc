@@ -313,7 +313,7 @@ killcam( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, var_9, v
     if ( level.showingfinalkillcam )
     {
         if ( self == var_13 )
-            var_13 maps\mp\gametypes\_misions::processchallenge( "ch_moviestar" );
+            var_13 maps\mp\gametypes\_missions::processchallenge( "ch_moviestar" );
 
         thread maps\mp\gametypes\_playerlogic::spawnendofgame();
         return;

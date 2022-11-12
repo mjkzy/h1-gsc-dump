@@ -1,5 +1,6 @@
 // H1 GSC SOURCE
 // Decompiled by https://github.com/xensik/gsc-tool
+
 #using_animtree("generic_human");
 
 main()
@@ -54,6 +55,7 @@ main()
     animated_model_setup();
     dialog();
 }
+
 #using_animtree("script_model");
 
 script_model_anims()
@@ -98,6 +100,7 @@ script_model_anims()
         level.scr_model["handrope"] = "h1_alasad_rope";
     }
 }
+
 #using_animtree("animated_props");
 
 animated_model_setup()

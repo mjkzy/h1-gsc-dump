@@ -433,7 +433,7 @@ onzonecapture( var_0 )
             if ( var_0.pers["team"] == var_1 )
             {
                 if ( isdefined( var_0.lastkilldefendertime ) && var_0.lastkilldefendertime + 500 > gettime() )
-                    var_0 maps\mp\gametypes\_misions::processchallenge( "ch_hp_killedLastContester" );
+                    var_0 maps\mp\gametypes\_missions::processchallenge( "ch_hp_killedLastContester" );
             }
         }
     }
@@ -457,10 +457,10 @@ give_capture_credit( var_0, var_1, var_2, var_3 )
 
         if ( !isscoreboosting( var_6 ) )
         {
-            var_6 maps\mp\gametypes\_misions::processchallenge( "ch_hpcaptures" );
+            var_6 maps\mp\gametypes\_missions::processchallenge( "ch_hpcaptures" );
 
             if ( level.hpstarttime + 500 > var_1 )
-                var_6 maps\mp\gametypes\_misions::processchallenge( "ch_hp_immediateCapture" );
+                var_6 maps\mp\gametypes\_missions::processchallenge( "ch_hp_immediateCapture" );
 
             var_6 thread maps\mp\_events::securehardpointevent();
         }
@@ -645,7 +645,7 @@ movezoneaftertime( var_0 )
             foreach ( var_3 in level.players )
             {
                 if ( var_3.pers["team"] == var_1 )
-                    var_3 maps\mp\gametypes\_misions::processchallenge( "ch_hp_controlZoneEntirely" );
+                    var_3 maps\mp\gametypes\_missions::processchallenge( "ch_hp_controlZoneEntirely" );
             }
         }
     }
@@ -688,7 +688,7 @@ awardcapturepoints( var_0, var_1 )
                 var_7 thread maps\mp\_events::holdhardpointevent();
             }
 
-            maps\mp\gametypes\_gamescores::giveteamscoreforobjective( var_0, var_3 );
+            maps\mp\gametypes\_gamescore::giveteamscoreforobjective( var_0, var_3 );
         }
     }
 }
@@ -966,7 +966,7 @@ onplayerkilled( var_0, var_1, var_2, var_3, var_4, var_5, var_6, var_7, var_8, v
             var_1 thread maps\mp\_events::assaultobjectiveevent( self, var_9 );
         else
         {
-            var_1 maps\mp\gametypes\_misions::processchallenge( "ch_hp_zoneDefense" );
+            var_1 maps\mp\gametypes\_missions::processchallenge( "ch_hp_zoneDefense" );
             var_1 thread maps\mp\_events::defendobjectiveevent( self, var_9 );
             var_1 maps\mp\_utility::setextrascore1( var_1.pers["defends"] );
         }

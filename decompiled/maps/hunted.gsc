@@ -527,6 +527,7 @@ fake_tag_destroy( var_0 )
     self waittill( "death" );
     var_0 delete();
 }
+
 #using_animtree("generic_human");
 
 blackhawk_overrides()
@@ -736,6 +737,7 @@ crash_wakeup()
     level.player allowcrouch( 1 );
     common_scripts\utility::flag_set( "wakeup_done" );
 }
+
 #using_animtree("player");
 
 crash_wakeup_preh1()
@@ -2109,6 +2111,7 @@ door_pusher()
     wait 2;
     var_0 delete();
 }
+
 #using_animtree("door");
 
 field_basement_door()
@@ -4423,6 +4426,7 @@ deactivate_heli_guy()
 
     self.heli_guy = undefined;
 }
+
 #using_animtree("generic_human");
 
 heli_guy()
@@ -4497,6 +4501,7 @@ delete_dude()
     wait 10;
     self delete();
 }
+
 #using_animtree("vehicles");
 
 helicopter_open_door()

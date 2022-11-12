@@ -115,6 +115,7 @@ anim_main()
     level.scr_sound["price"]["gogogo"] = "icbm_pri_gogogo";
     level.scr_sound["price"]["cutloose"] = "icbm_pri_cutloose";
 }
+
 #using_animtree("generic_human");
 
 patrol()
@@ -262,6 +263,7 @@ anims()
         maps\_anim::addnotetrack_dialogue( "gm5", "dialog", "icbm_end_sniper", "icbm_gm5_whatthe" );
     }
 }
+
 #using_animtree("player");
 
 player_anims()
@@ -271,6 +273,7 @@ player_anims()
     level.scr_anim["player_rescue_griggs_model"]["grigsby_rescue_player"] = %h1_grigsby_rescue_player;
     maps\_anim::addnotetrack_animsound( "player_rescue_griggs_model", "grigsby_rescue_player", "start", "scn_icbm_rescue_griggs_cut" );
 }
+
 #using_animtree("icbm");
 
 tower_explode_anims()
@@ -332,6 +335,7 @@ tower_explode_anims()
     else
         level.scr_anim["fence"]["model_cut"] = %h1_icbm_fence_cutting_guy1_fence;
 }
+
 #using_animtree("generic_human");
 
 uaz_overrides()
@@ -353,6 +357,7 @@ uaz_overrides()
     var_0[3].getout_ik = 1;
     return var_0;
 }
+
 #using_animtree("vehicles");
 
 uaz_vehicle_overrides( var_0 )
@@ -366,6 +371,7 @@ uaz_vehicle_overrides( var_0 )
     var_0[1].vehicle_getoutsound = "h1_icbm_jeep_door2";
     return var_0;
 }
+
 #using_animtree("script_model");
 
 script_models()

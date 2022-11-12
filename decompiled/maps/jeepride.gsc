@@ -1515,6 +1515,7 @@ attack_origin_with_targetname( var_0 )
     self waittill( "turret_on_target" );
     maps\jeepride_code::vehicle_fire_main_cannon( 24 );
 }
+
 #using_animtree("generic_human");
 
 force_position( var_0, var_1 )

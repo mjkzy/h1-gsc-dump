@@ -1060,8 +1060,8 @@ teamoutcomenotify( var_0, var_1, var_2, var_3 )
     }
     else if ( !maps\mp\_utility::isroundbased() || !maps\mp\_utility::isobjectivebased() )
     {
-        self setclientomnvar( "ui_round_end_friendly_score", maps\mp\gametypes\_gamescores::_getteamscore( var_4 ) );
-        self setclientomnvar( "ui_round_end_enemy_score", maps\mp\gametypes\_gamescores::_getteamscore( level.otherteam[var_4] ) );
+        self setclientomnvar( "ui_round_end_friendly_score", maps\mp\gametypes\_gamescore::_getteamscore( var_4 ) );
+        self setclientomnvar( "ui_round_end_enemy_score", maps\mp\gametypes\_gamescore::_getteamscore( level.otherteam[var_4] ) );
     }
     else
     {

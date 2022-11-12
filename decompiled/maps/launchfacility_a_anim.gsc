@@ -10,6 +10,7 @@ main()
     script_models();
     animated_model_setup();
 }
+
 #using_animtree("generic_human");
 
 anims()
@@ -165,6 +166,7 @@ setup_exploder_anims()
     level.exploder_animtrees = [];
     level.exploder_animtrees[0] = "exploder_script_model";
 }
+
 #using_animtree("player");
 
 player_rappel()
@@ -174,6 +176,7 @@ player_rappel()
     level.scr_model["player_rappel"] = "worldbody_h1_sas_woodland";
     maps\_anim::addnotetrack_animsound( "player_rappel", "rappel", "start", "rappel_liftrope_clipin_npc" );
 }
+
 #using_animtree("script_model");
 
 script_models()
@@ -200,6 +203,7 @@ script_models()
     level.scr_anim["exploder_script_model"]["h1_wall_breach_truck2_anim"] = %h1_wall_breach_truck2_anim;
     level.scr_anim["exploder_script_model"]["h1_launchfacility_a_gate_broken_anim"] = %h1_launchfacility_a_gate_broken_anim;
 }
+
 #using_animtree("animated_props");
 
 animated_model_setup()

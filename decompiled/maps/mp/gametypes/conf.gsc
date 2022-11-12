@@ -289,7 +289,7 @@ onuse( var_0 )
         if ( isplayer( var_0 ) )
             var_0 maps\mp\_utility::leaderdialogonplayer( "kill_confirmed" );
 
-        var_0 maps\mp\gametypes\_gamescores::giveteamscoreforobjective( var_1, 1 );
+        var_0 maps\mp\gametypes\_gamescore::giveteamscoreforobjective( var_1, 1 );
 
         if ( level.killstreak_tag_enemy )
             maps\mp\gametypes\_damage::incrementkillstreak( var_0 );

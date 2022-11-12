@@ -350,6 +350,7 @@ donodeexitanimation( var_0, var_1 )
 
     donodeexitanimation_impl( var_2 );
 }
+
 #using_animtree("generic_human");
 
 donodeexitcleanupfunc()
